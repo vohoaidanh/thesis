@@ -1,0 +1,42 @@
+
+\begin{table}[H]
+	\centering
+	\caption{Test Dataset}
+	\label{table_test_dataset}
+	\begin{adjustbox}{max width=\textwidth}
+		\setlength{\tabcolsep}{12pt} % Tăng khoảng cách giữa các cột cho bảng này
+		\renewcommand{\arraystretch}{1.1} % Điều chỉnh chỉ cho bảng này
+		\begin{tabular}{l m{4cm} m{4cm} c}
+			\toprule
+			\multirow{1}{*}{Dataset Name} &
+			\multirow{1}{*}{Real Image} &
+			\multirow{1}{*}{Generator} &
+			\multirow{1}{*}{Image Count} \\ \hline
+			{ForenSynths~\cite{Wang2019CNNGeneratedIA}} & {LSUN, ImageNet, CelebA, CelebA-HQ, COCO, \newline FaceForensics++} & {ProGAN, StyleGAN, StyleGAN2, BigGAN, CycleGAN, StarGAN, GauGAN, Deepfake} & 90k \\ \hdashline
+			%
+			{Self-Synthesis 9~GANs~\cite{Tan2023RethinkingTU}} & {LSUN, ImageNet, CelebA, CelebA-HQ, COCO, \newline FaceForensics++} & {AttGAN, BEGAN, CramerGAN, InfoMaxGAN, MMDGAN, RelGAN, S3GAN, SNGAN, STGAN} & 36k \\ \hdashline
+			%
+			{DiffusionForensics~\cite{Wang2023DIREFD}} & {LSUN, ImageNet} & {ADM, DDPM, IDDPM, LDM, PNDM,Vqdiffusion, Stable Diffusion
+				v1, Stable Diffusion v2} & 40k \\ \hdashline
+			%
+			{Test set of Ojha~\cite{Ojha2023TowardsUF}} & {LAION, ImageNet} & {ADM, Glide, DALL-E-Mini, LDM	} & 16k \\
+			
+			
+			
+			\bottomrule
+
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+
+%\begin{tabular}{|c|c|c|c|}
+%	\hline
+%	\multirow{2}{*}{Col\_1} & \multicolumn{3}{c|}{Cols 2, 3, and 4} \\
+%	\cline{2-4}
+%	& Col 2 & Col 3 & Col 4 \\
+%	\hline
+%	Row 1                   & Data 1 & Data 2 & Data 3 \\
+%	Row 2                   & Data 4 & Data 5 & Data 6 \\
+%	\hline
+%\end{tabular}
+

@@ -1,0 +1,20 @@
+% Nội dung của table1.tex
+\begin{center}
+\begin{table}[htbp]
+	\centering
+	\begin{tabular}{p{3cm}|p{3cm}|p{2.5cm}|p{2cm}|p{2cm}}
+		\hline
+		\multirow{2}{*}{Input} & \multirow{2}{*}{Human vs. CNNs} & {StyleGAN vs. CelebA-HQ} & {StyleGAN vs. FFHQ} & {PGGAN vs. CelebA-HQ} \\ 
+		\hline
+		{Full image} & {Human Beings} & 75.15\% & 63.90\% & 79.13\% \\ 
+		{Full image} & {ResNet} & 99.99\% & 99.96\% & 99.99\% \\ 
+		\hdashline
+		{Original (skin)} & {ResNet} & 99.93\% & 99.61\% & 99.96\% \\ 
+		{Gray-scale (skin)} & {ResNet} & 99.76\% & 99.47\% & 99.94\% \\ 
+		{L0-filtered (skin)} & {ResNet} & 78.64\% & 76.84\% & 72.02\% \\ 
+		\hline
+	\end{tabular}
+	\caption{Bảng so sánh kết quả huấn luyện bộ phân loại ứng với từng kĩ thuật tiền xử lý (\textit{dòng 3-5}), và hiệu suất của của con người (\textit{dòng 1}) so với mạng học sâu. \textit{Nguồn:\cite{9157447}}}
+	\label{tab:human_vs_cnns_1}
+\end{table}
+\end{center}

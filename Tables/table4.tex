@@ -1,0 +1,41 @@
+\begin{table}[ht!]%[htbp]
+	\caption{Kết quả đánh giá trên tập Ojha~\cite{Ojha2023TowardsUF}.}
+	\label{tab:table4}
+	\centering
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{l cc cc cc cc cc cc cc cc|cc}
+			\hline
+			\multirow{2}{*}{{\textbf{Method}}} & \multicolumn{2}{c}{\textbf{DALLE}} & \multicolumn{2}{c}{$\mathbf{{Glide_{(100\_10)}}}$} & \multicolumn{2}{c}{$\mathbf{{Glide_{(100\_27)}}}$} & \multicolumn{2}{c}{$\mathbf{{Glide_{(50\_27)}}}$} & \multicolumn{2}{c}{\textbf{ADM}} & \multicolumn{2}{c}{$\mathbf{{LDM_{(100)}}}$} & \multicolumn{2}{c}{$\mathbf{{LDM_{(200)}}}$} & \multicolumn{2}{c|}{$\mathbf{{LDM_{(200\_cfg)}}}$} & \multicolumn{2}{c}{\textbf{Mean}} \\
+			\cline{2-19}
+			& {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} \\
+			
+			\hline
+			CNNDetection~\cite{Wang2019CNNGeneratedIA}  & 51.8 & 61.3 & 53.3 & 72.9 & 53.0 & 71.3 & 54.2 & 76.0 & 54.9 & 66.6 & 51.9 & 63.7 & 52.0 & 64.5 & 51.6 & 63.1 & 52.8 & 67.4 \\
+			Frank~\cite{Frank2020LeveragingFA}   & 57.0 & 62.5 & 53.6 & 44.3 & 50.4 & 40.8 & 52.0 & 42.3 & 53.4 & 52.5 & 56.6 & 51.3 & 56.4 & 50.9 & 56.5 & 52.1 & 54.5 & 49.6 \\
+			Durall~\cite{Durall2020WatchYU}  & 55.9 & 58.0 & 54.9 & 52.3 & 48.9 & 46.9 & 51.7 & 49.9 & 40.6 & 42.3 & 62.0 & 62.6 & 61.7 & 61.7 & 58.4 & 58.5 & 54.3 & 54.0 \\
+			Patchfor~\cite{Chai2020WhatMF}   & 79.8 & {99.1} & 87.3 & 99.7 & 82.8 & 99.1 & 84.9 & 98.8 & 74.2 & 81.4 & 95.8 & 99.8 & 95.6 & 99.9 & 94.0 & 99.8 & 86.8 & 97.2 \\
+			F3Net~\cite{Qian2020ThinkingIF}  & 71.6 & 79.9 & 88.3 & 95.4 & 87.0 & 94.5 & 88.5 & 95.4 & 69.2 & 70.8 & 74.1 & 84.0 & 73.4 & 83.3 & 80.7 & 89.1 & 79.1 & 86.5 \\
+			SelfBland~\cite{Shiohara2022DetectingDW}    & 52.4 & 51.6 & 58.8 & 63.2 & 59.4 & 64.1 & 64.2 & 68.3 & 58.3 & 63.4 & 53.0 & 54.0 & 52.6 & 51.9 & 51.9 & 52.6 & 56.3 & 58.7 \\
+			GANDetection~\cite{Mandelli2022DetectingGI}  & 67.2 & 83.0 & 51.2 & 52.6 & 51.1 & 51.9 & 51.7 & 53.5 & 49.6 & 49.0 & 54.7 & 65.8 & 54.9 & 65.9 & 53.8 & 58.9 & 54.3 & 60.1 \\
+			LGrad~\cite{Tan2023LearningOG}    & 88.5 & 97.3 & 89.4 & 94.9 & 87.4 & 93.2 & 90.7 & 95.1 & \textbf{86.6} & \textbf{100.0} & 94.8 & 99.2 & 94.2 & 99.1 & 95.9 & 99.2 & 90.9 & 97.2 \\
+			Ojha~\cite{Ojha2023TowardsUF}   & 89.5 & 96.8 & 90.1 & 97.0 & 90.7 & 97.2 & 91.1 & 97.4 & 75.7 & 85.1 & 90.5 & 97.0 & 90.2 & 97.1 & 77.3 & 88.6 & 86.9 & 94.5 \\
+			NPR~\cite{Tan2023RethinkingTU}   & {94.5} & \textbf{99.5} & 98.2 & 99.8 & 97.8 & 99.7 & 98.2 & 99.8 & 75.8 & 81.0 & \textbf{99.3} & 99.9 & \textbf{99.1} & 99.9 & \textbf{99.0} & 99.8 & \textbf{95.2} & 97.4 \\
+			%PatchCraft & 83.3 & 93.0 & 80.1 & 92.0  & 83.4 & 93.9  & 77.6 & 88.7 & 80.9 & 90.5  & 88.9 & 97.7  & 89.3 & 97.9  & 88.1 & 96.9 & 84.0 & 93.8 \\
+			RINE~\cite{koutlis2024leveraging}   & \textbf{95.0} & 99.5 & 90.7 & 99.2 & 88.9 & 99.1 & 92.6 & 99.5 & 76.1 & 96.6 & {98.7} & 99.9 & {98.3} & 99.9 & 88.2 & 98.7 & {91.1} & 99.0 \\
+			\rowcolor{lightgray}{\textbf{ADOF(ours)}} & 92.1 & 98.3 & \textbf{98.6} & \textbf{100.0} & \textbf{98.7} & \textbf{100.0} & \textbf{98.4} & \textbf{99.9} & 75.9 & 87.6 & 98.8 & \textbf{100.0} & 98.6 & \textbf{99.9} & 98.5 & \textbf{99.9} & 94.9 & \textbf{98.2} \\
+			
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+
+%RINE Ojha 4-class
+%dalle: 95.0 / 99.5
+%glide_100_10: 90.7 / 99.2
+%glide_100_27: 88.9 / 99.1
+%glide_50_27: 92.6 / 99.5
+%guided: 76.1 / 96.6
+%ldm_100: 98.7 / 99.9
+%ldm_200: 98.3 / 99.9
+%ldm_200_cfg: 88.2 / 98.7
+%Mean: 91.1 / 99.0

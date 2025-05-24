@@ -1,0 +1,153 @@
+% Template luận văn cho SV trường ĐHKHTN
+% Liên hệ: nqminh@fit.hcmus.edu.vn
+% Last update: 11/08/2015
+
+% LƯU Ý: Để phần tài liệu tham khảo hiển thị đúng, cần phải build clean (xoá các file build cũ), sau khi build file BIB cần build lại file TEX 2 lần.
+% Phần in tài liệu tham khảo: phải gán lại resetnumbers=số tài liệu tham khảo tiếng Việt + 1 (dòng 101 file này)
+
+%\documentclass[oneside,a4paper,13pt]{extreport}
+\documentclass[oneside,a4paper,13pt]{extreport}
+%
+\usepackage{titlesec}
+\usepackage[absolute,overlay]{textpos}
+
+% Định dạng tiêu đề \chapter
+\titleformat{\chapter}[hang]{\normalfont\Large\bfseries}{Chương \thechapter.}{2pc}{}
+% Định dạng tiêu đề \section
+%\titleformat{\section}[hang]{\normalfont\Large\bfseries}{\thesection}{1em}{}
+% Định dạng tiêu đề \subsection
+%\titleformat{\subsection}[hang]{\normalfont\large\bfseries}{\thesubsection}{1em}{
+
+% Font tiếng Việt
+\usepackage[T5]{fontenc}
+\usepackage[utf8]{inputenc}
+\DeclareTextSymbolDefault{\DH}{T1} % Ký tự mã \DH == Đ
+%To remove warning Font shape OT1/cmr/m/n' in size <13> not available(Font) size <12> substituted
+\usepackage{lmodern} 
+
+%\usepackage[vietnamese]{babel} % Tự động thay đổi Chapter -> Chương...
+% Màu chữ
+\usepackage{xcolor}
+%Comments (Cần dùng chung với gói xcolor)
+\newcommand\comment[1]{{\color{blue}\textit{#1}}}
+
+
+
+% Tài liệu tham khảo
+\usepackage[
+	sorting=nty,
+	backend=biber,
+	defernumbers=true]{biblatex}
+%
+\usepackage{setspace}
+\usepackage[unicode]{hyperref} % Bookmark tiếng Việt
+\addbibresource{References/references.bib}
+%glossaries
+%\usepackage[automake]{glossaries}
+\usepackage[style=altlist]{glossaries}  % Đặt lệnh này trong preamble
+
+
+\makeglossaries
+
+\input{Glossary/glossary} % Nhập các định nghĩa từ glossary.tex
+% Công thức
+\usepackage{amssymb}
+% Chèn hình, các hình trong luận văn được để trong thư mục Images/
+\usepackage{graphicx}
+\graphicspath{{Images/}}
+\usepackage{caption}
+%\usepackage{subfig}
+
+%Bảng
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{arydshln}
+% Chèn mã nguồn
+\usepackage{listings}
+
+% Bảng biểu
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage{tabularray}
+
+% Đổi tên mặc định
+\renewcommand{\chaptername}{Chương}
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
+\renewcommand{\contentsname}{Mục lục}
+\renewcommand{\listfigurename}{Danh sách hình}
+\renewcommand{\listtablename}{Danh sách bảng}
+\renewcommand{\appendixname}{Phụ lục}
+\renewcommand{\glossaryname}{Danh sách thuật ngữ}
+% Dãn dòng 1.5
+\usepackage{setspace}
+\onehalfspacing
+
+% Canh lề
+\usepackage[
+  top=35mm,
+  bottom=30mm,
+  left=35mm,
+  right=20mm,
+  includefoot]{geometry}
+  
+% Trang bìa
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\newcommand\HRule{\rule{\textwidth}{1pt}}
+
+\begin{document}
+
+\input{Title/title.tex}
+
+\pagenumbering{roman} % Đánh số i, ii, iii, ...
+
+\addcontentsline{toc}{chapter}{Lời cam đoan}
+\include{Appendix/reassurances}
+
+\addcontentsline{toc}{chapter}{Lời cảm ơn}
+\include{Appendix/thanks}
+% Mục lục, danh sách hình, danh sách bảng
+\addcontentsline{toc}{chapter}{Mục lục}
+\tableofcontents
+\listoffigures
+\listoftables
+%Glossaries
+\printglossaries
+
+\pagenumbering{arabic} % Đánh số 1, 2, 3, ...
+
+% Các chương nội dung
+%\include{Chapter1/chapter1}
+
+%\include{Chapter2/chapter2}
+
+\include{Chapter3/chapter3}
+
+\include{Chapter4/chapter4}
+
+%\include{Chapter5/chapter5}
+
+% Công trình của tác giả
+%\addcontentsline{toc}{chapter}{Danh mục công trình của tác giả}
+\include{Appendix/publish}
+
+% In tài liệu tham khảo
+\addcontentsline{toc}{chapter}{Tài liệu tham khảo}
+\printbibheading[title={Tài liệu tham khảo}]
+
+%\printbibliography[heading=subbibliography, title={Tiếng Việt}, keyword=Viet, resetnumbers=true]
+
+%\DeclareNameAlias{sortname}{family-given}
+%\DeclareNameAlias{default}{family-given}
+
+%\printbibliography[heading=subbibliography, title={Tiếng Anh}, notkeyword=Viet, resetnumbers=1] 
+% Chú ý: phải gán lại resetnumbers=số tài liệu tham khảo tiếng Việt + 1
+
+% Phần phụ lục
+\include{Appendix/appendix1}
+\include{Appendix/appendix2}
+\include{Appendix/tables_appendix}
+
+\input{Appendix/tables_appendix.tex}
+\end{document} 

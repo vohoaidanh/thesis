@@ -1,0 +1,121 @@
+\chapter{THỰC NGHIỆM VÀ ĐÁNH GIÁ KẾT QUẢ}
+\label{Chapter4}
+\section{Chuẩn bị dữ liệu}
+Nhằm thuận lợi trong so sánh, đánh giá hiệu quả của phương pháp, nghiên cứu sử dụng bộ dữ liệu \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA} cho quá trình huấn luyện. Các hình ảnh thật được trích từ bộ dữ liệu LSUN~\cite{Yu2015ConstructionOA}, trong khi các hình ảnh giả mạo được tạo ra từ nhiều mô hình sinh ảnh khác nhau. Đây là bộ dữ liệu được nhiều nghiên cứu sử dụng cho nhiệm vụ phát hiện ảnh tạo sinh.
+
+Quá trình đánh giá được thực hiện trên các bộ dữ liệu khác nhau, giúp xác định tính khái quát của mô hình sau huấn luyện:
+\begin{itemize}
+	\item \textbf{9 GANs dataset}~\cite{Yu2015ConstructionOA}
+	\item \textbf{DiffusionForensics}~\cite{Wang2023DIREFD}
+	\item \textbf{UniversalFakeDetect}~\cite{Ojha2023TowardsUF}
+\end{itemize}
+
+\subsection{Tập dữ liệu dùng cho quá trình huấn luyện mô hình}
+\textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA} là tập dữ liệu được đông đảo các nhà nghiên cứu sử dụng trong bài toán phát hiện ảnh tạo sinh \cite{Wang2019CNNGeneratedIA,Tan2023RethinkingTU,Ojha2023TowardsUF,zhong2024patchcraftexploringtexturepatch}.
+%
+Các hình ảnh thật được trích từ 20 danh mục của tập dữ liệu LSUN~\cite{Yu2015LSUNCO} và các hình ảnh giả mạo được sinh ra bởi mô hình GAN khác nhau~\cite{Goodfellow2014GenerativeAN}, mỗi danh mục đối tượng bao gồm 18.000 hình ảnh tạo sinh và 18.000 ảnh thật. Chi tiết về bộ dữ liệu được thống kê trong Bảng~\ref{tab:forensynths-dataset}.
+
+\input{Tables/table-forensynths-dataset.tex}
+
+\subsection{Tập dữ liệu dùng cho quá trình đánh giá mô hình}
+Luận văn sử dụng 3 tập dữ liệu để đánh giá và so sánh (thông tin chi tiết xem Phụ lục~\ref{app:tables})
+\begin{itemize}
+	\item Tập dữ liệu \textbf{Self-Synthesis 9 GANs}~\cite{Tan2023RethinkingTU}, các hình ảnh giả mạo được thu thập từ 9 mô hình GAN~\cite{Goodfellow2014GenerativeAN} khác nhau. Tổng cộng gồm 36,000 hình ảnh, số lượng hình ảnh thật và giả mạo trong tập dữ liệu là ngang nhau.
+	\item Tập dữ liệu \textbf{DiffusionForensics}~\cite{Wang2023DIREFD}, tác giả sử dụng 8 mô hình Diffusion~\cite{Ho2020DenoisingDP} khác nhau để sinh hình ảnh. Những mô hình này được huấn luyện trên tập ảnh LSUN-Bedroom~\cite{Yu2015LSUNCO} và ImageNet~\cite{5206848}, hình ảnh thật cũng được trích từ hai tập dữ liệu này. Tổng số lượng hình ảnh là 464,000, trong đó 50\% là hình ảnh thật (xem Bảng~\ref{tab:diffusionforensics_dataset}).
+	%
+	\item Tập dữ liệu \textbf{Ojha}~\cite{Ojha2023TowardsUF}, bao gồm 16,000 hình ảnh, trong đó các hình ảnh thật được trích xuất từ tập dữ liệu LAION~\cite{abs-2111-02114}, các hình ảnh giả được tạo từ nhiều mô hình Diffusion~\cite{Ho2020DenoisingDP} khác nhau, quá trình sinh ảnh sử dụng các câu mô tả hình ảnh thật tương ứng để cung cấp thông tin cho mô hình.
+	%\item Tập kiểm tra 4
+\end{itemize}
+
+\textcolor{red}{Chi tiết của từng tập dữ liệu có thể xem ở phần phụ lục}
+
+\section{Cài đặt huấn luyện và môi trường thực nghiệm}
+
+\subsection{Thiết lập môi trường}
+
+\textbf{Dữ liệu}: Hình ảnh dùng cho huấn luyện thuộc 4 lớp đối tượng \textit{car, cat, chair, horse}, mô hình sinh là ProGAN~\cite{karras2018progressive} thuộc tập Forensynths~\cite{Wang2019CNNGeneratedIA}. Lý do chọn:
+\begin{itemize}
+	\item Thuận lợi khi so sánh giữa các phương pháp vì đây là tập huấn luyện được nhiều nghiên cứu sử dụng như: Wang~\cite{Wang2019CNNGeneratedIA}, NPR~\cite{Tan2023RethinkingTU}, LGrad~\cite{Tan2023LearningOG}, Ojha~\cite{Ojha2023TowardsUF}. 
+	%
+	\item Việc chọn hình ảnh giả mạo chỉ từ một mô hình tạo sinh giúp đánh giá tính khái quát và hiệu quả của phương pháp chính xác hơn. Ngoài ra, cách làm này mô phỏng lại tình huống thực tế, khi các mô hình sinh ảnh mới liên tục xuất hiện, trong khi dữ liệu huấn luyện là từ các nguồn cũ và thường cập nhật chậm hơn hoặc không cập nhật.
+\end{itemize}
+
+\textbf{Thông số cài đặt:} Được thiết lập tương tự như các phương pháp \cite{Wang2019CNNGeneratedIA, Tan2023RethinkingTU,Tan2023LearningOG} để giảm tác động của các yếu tố ngẫu nhiên đến kết quả cuối cùng, làm mất tính khách quan khi so sánh, đánh giá giữa nhiều phương pháp. Giá trị thiết lập các tham số bao gồm:
+	\begin{itemize}
+		\item Optimizer: Adam
+		\item Learning Rate $2 \times 10^{-4}$
+		\item Batch Size: 32
+		\item Framework: Các thử nghiệm được xây dựng bằng thư viện PyTorch.
+		\item GPU: NVIDIA GeForce RTX 3070 8GB
+	\end{itemize}
+
+\subsection{Kết quả quá trình huấn luyện}
+
+\comment{Bảng này cần sửa lại, nên để thông tin quá trình train qua các epoch, và model performance, acc, TPR, FPR...}
+\input{Tables/table1.tex}
+
+\section{Đánh giá mô hình}
+%
+Nội dung đánh giá bao gồm hai phần chính: Thứ nhất, so sánh và đánh giá độ chính xác của nghiên cứu so với các phương pháp tiên tiến hiện nay (Bảng~\ref{tab:table2},\ref{tab:table3},\ref{tab:table4}). Thứ hai, phân tích sâu về hiệu quả sử dụng tài nguyên tính toán và hiệu năng của một số hướng tiếp cận tiêu biểu (xem Bảng ~\ref{tab:model_performance}).
+%
+%
+%
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Images/tease.png}
+	%    \fbox{\rule{0pt}{3in} \rule{3in}{0pt}} % Khung ảnh trống
+	\caption{Tổng quan hiệu năng và độ chính xác của một số hướng tiếp cận, trên tập dữ liệu Ojha~\cite{Ojha2023TowardsUF}.}
+	\label{fig:teaser}
+\end{figure}
+\subsection{So sánh và đánh giá về độ chính xác}
+%\comment{Nhớ thêm chú thích thuật ngữ 'State-of-the-Art'}\\
+%
+Luận văn thực hiện so sánh độ chính xác của phương pháp đề xuất với 10 phương pháp tiên tiến, bao gồm: 
+CNNDetection~\cite{Wang2019CNNGeneratedIA}, 
+Frank~\cite{Frank2020LeveragingFA}, 
+Durall~\cite{Durall2020WatchYU}, 
+Patchfor~\cite{Chai2020WhatMF}, 
+F3Net~\cite{Qian2020ThinkingIF}, 
+SelfBland~\cite{Shiohara2022DetectingDW}, 
+GANDetection~\cite{Mandelli2022DetectingGI}, 
+LGrad~\cite{Tan2023LearningOG}, 
+Ojha~\cite{Ojha2023TowardsUF}, 
+NPR~\cite{Tan2023RethinkingTU}. 
+Kết quả thí nghiệm trong các Bảng~\ref{tab:table2}, \ref{tab:table3}, và \ref{tab:table4} cho thấy phương pháp đề xuất vượt trội hơn so với các phương pháp hiện có. 
+
+Trên bộ dữ liệu 9-GAN, ADOF đạt độ chính xác cao nhất là 94.2\%, vượt qua Ojha~\cite{Ojha2023TowardsUF} với chỉ 77.6\% \ref{tab:table2}, và NPR~\cite{Tan2023RethinkingTU} đạt 93.2\% (xem Bảng~\ref{tab:table2}).
+
+Độ chính xác đạt 98.3\% trên tập dữ liệu DiffusionForensics~\cite{Wang2023DIREFD}, cao nhất trong 10 phương pháp, trong khi đó NPR~\cite{Tan2023RethinkingTU} giữ vị trí thứ hai với 95.3\% (xem Bảng~\ref{tab:table3}). Kết quả này cao hơn DIRE~\cite{Wang2023DIREFD} với 97.9\% ngay trên bộ dữ liệu của chính họ, mặc dù mô hình đề xuất trong luận văn được huấn luyện trên Forensynths~\cite{Krizhevsky2012ImageNetCW}, trong khi DIRE được huấn luyện trên DiffusionForensics.
+
+Ngoài ra, độ chính xác cũng trội hơn RINE~\cite{koutlis2024leveraging} và Ojha~\cite{Ojha2023TowardsUF}(91.1\%) (xem Bảng~\ref{tab:table4}). Đáng chú ý, cả hai phương pháp này đều sử dụng mô hình CLIP~\cite{abs-2103-00020} có số lượng tham số rất lớn, yêu cầu nhiều tài nguyên tính toán.
+
+\input{Tables/table2.tex}
+
+\input{Tables/table3.tex}
+
+\input{Tables/table4.tex}
+\subsection{So sánh và đánh giá về hiệu năng}
+%
+%
+Để so sánh về hiệu năng, luận văn thực hiện đo lường các tiêu chí về độ phức tạp của mô hình cũng như số lượng phép toán cần thiết cho mỗi dự đoán (chi tiết xem Bảng~\ref{tab:model_performance}). Tất cả được thực hiện trên máy tính có CPU AMD Ryzen 5 5600X 6-Core, GPU NVIDIA RTX A4000, 16 GB bộ nhớ RAM. Hình ảnh đầu vào có kích thước $256 \times 256 \times 3$. Các tiêu chí đánh giá bao gồm:
+%
+\begin{figure}[ht!]
+	\includegraphics[width=\textwidth]{Images/figure_pine_line_1.png}
+	\caption{Quy trình cơ bản phân của mô hình phát hiện ảnh tạo sinh}	
+	\label{figure_pine_line_1}
+\end{figure}
+%
+%
+\begin{itemize}
+	\item \textbf{Number of Parameters:} Số lượng tham số của mô hình, thể hiện độ phức tạp trong kiến trúc.
+	\item \textbf{Input Processing Time:} Đo lường thời gian cần thiết để xử lý hình ảnh trước khi đưa vào mô hình dự đoán, các bước xử lý này thay đổi theo hướng tiếp cận cụ thể (xem Hình.~\ref{figure_pine_line_1}).
+	\item \textbf{Inference Time:} Thời gian cần sử dụng cho một dự đoán.
+	\item \textbf{FLOPs:} Số lượng phép tính dấu chấm động trong 1 giây, luận văn sử dụng thư viện \texttt{fvcore} để ước tính khối lượng tính toán mà mỗi mô hình cần thực hiện cho một dự đoán.
+\end{itemize}
+%
+%
+\input{Tables/table7.tex}
+
+
+
+

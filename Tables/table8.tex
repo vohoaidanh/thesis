@@ -1,0 +1,64 @@
+%\begin{table}[H]
+%\centering
+%\caption{ADOF performance with different backbones}
+%\label{table_backbones}
+%\begin{adjustbox}{max width=\textwidth}
+%\setlength{\tabcolsep}{12pt} % Tăng khoảng cách giữa các cột cho bảng này
+%\renewcommand{\arraystretch}{1.1} % Điều chỉnh chỉ cho bảng này
+%\begin{tabular}{l|c|c|c|c|c}
+%\hline
+%\multirow{2}{*}{Backbone} &
+%\multirow{2}{*}{Parameters} &
+%\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}ForenSynths\end{tabular}} &
+%\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}9 GANs \\from NPR\end{tabular}} &
+%\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}DiffusionForensics\end{tabular}} &
+%\multirow{2}{*}{\begin{tabular}[c]{@{}c@{}}Diffusions \\from Ojha\end{tabular}} \\ 
+%&   &   &   &   &    \\ \hline
+%VGG19 & {$139.59 \times 10^6$} & {87.6/92.8} & {89.3/95.8} & {96.9/99.8} & {91.9/95.8} \\ %\hline
+%EfficientFormer-L7 & {$80.66 \times 10^6$} & {87.0/94.0} & {83.6/96.2} & {95.5/99.7} & {90.1/95.8}  \\ %\hline
+%R50+ViT-B-16 & {$97.74 \times 10^6$} & {--} & {--} & {--} & {--}  \\ %\hline
+%Our & {$1.44 \times 10^6$} & -- & \textbf{--} & {--} & {--}  \\ \hline
+%\end{tabular}
+%\end{adjustbox}
+%\end{table}
+
+
+\begin{table}[H]
+	\centering
+	\caption{ADOF performance with different backbones}
+	\label{table_backbones}
+	\begin{adjustbox}{max width=\textwidth}
+		\setlength{\tabcolsep}{12pt} % Tăng khoảng cách giữa các cột cho bảng này
+		\renewcommand{\arraystretch}{1.1} % Điều chỉnh chỉ cho bảng này
+		\begin{tabular}{l ccccc}
+			\toprule
+			\multirow{2}{*}{Backbone} &
+			\multirow{2}{*}{Parameters} &
+			\multicolumn{4}{c}{Test datasets} \\ \cline{3-6}
+			& &
+			\multirow{1}{*}{\begin{tabular}[c]{@{}c@{}}ForenSynths\end{tabular}} &
+			\multirow{1}{*}{\begin{tabular}[c]{@{}c@{}}9 GANs from NPR\end{tabular}} &
+			\multirow{1}{*}{\begin{tabular}[c]{@{}c@{}}DiffusionForensics\end{tabular}} &
+			\multirow{1}{*}{\begin{tabular}[c]{@{}c@{}}Diffusions from Ojha\end{tabular}} \\ 
+				\hline
+			VGG19~\cite{Simonyan2014VeryDC} & {$139.59 \times 10^6$} & {87.6/92.8} & {89.3/95.8} & {96.9/99.8} & {91.9/95.8} \\ %\hline
+			EfficientFormer-L7~\cite{NEURIPS2022_5452ad8e} & {$80.66 \times 10^6$} & {87.0/94.0} & {83.6/96.2} & {95.5/99.7} & {90.1/95.8}  \\ %\hline
+			R50+ViT-B-16~\cite{dosovitskiy2020image} & {$97.74 \times 10^6$} & {88.7/93.6} & {68.0/95.8} & {86.4/98.7}  & {87.8/97.4}  \\ %\hline
+			FastViT~\cite{vasu2023fastvit} & {$3.25 \times 10^6$} & {85.1/91.5} & {87.7/94.1} & {94.2/99.5}  & {81.3/97.1}  \\ %\hline
+			%Our & {$1.44 \times 10^6$} & -- & \textbf{--} & {--}  \\ 
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+%FastViT
+%\begin{tabular}{|c|c|c|c|}
+%	\hline
+%	\multirow{2}{*}{Col\_1} & \multicolumn{3}{c|}{Cols 2, 3, and 4} \\
+%	\cline{2-4}
+%	& Col 2 & Col 3 & Col 4 \\
+%	\hline
+%	Row 1                   & Data 1 & Data 2 & Data 3 \\
+%	Row 2                   & Data 4 & Data 5 & Data 6 \\
+%	\hline
+%\end{tabular}
+

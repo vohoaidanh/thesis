@@ -1,0 +1,28 @@
+\begin{table}[ht!]%[htbp]
+	\centering
+	\caption{Kết quả đánh giá trên tập Self-Synthesis 9~GANs~\cite{Tan2023RethinkingTU}.}
+	\label{tab:table2}
+	\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{l cc cc cc cc cc cc cc cc cc|cc}
+			\toprule
+			\vspace{1ex}
+			\multirow{2}{*}{{\textbf{Method}}} & \multicolumn{2}{c}{\textbf{AttGAN}} & \multicolumn{2}{c}{\textbf{BEGAN}} & \multicolumn{2}{c}{\textbf{CramerGAN}} & \multicolumn{2}{c}{\textbf{InfoMaxGAN}} & \multicolumn{2}{c}{\textbf{MMDGAN}} & \multicolumn{2}{c}{\textbf{RelGAN}} & \multicolumn{2}{c}{\textbf{S3GAN}} & \multicolumn{2}{c}{\textbf{SNGAN}} & \multicolumn{2}{c|}{\textbf{STGAN}} & \multicolumn{2}{c}{\textbf{Mean}} \\
+			\cline{2-21}
+			& {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {\textbf{A.P.}} & {\textbf{Acc.}} & {A.P.} & {\textbf{Acc.}} & {\textbf{A.P.}} \\
+			\hline
+			CNNDetection~\cite{Wang2019CNNGeneratedIA}  & 51.1 & 83.7 & 50.2 & 44.9 & 81.5 & 97.5 & 71.1 & 94.7  & 72.9 & 94.4 & 53.3 & 82.1 & 55.2 & 66.1 & 62.7 & 90.4 & 63.0 & 92.7 & 62.3 & 82.9 \\
+			Frank~\cite{Frank2020LeveragingFA} & 65.0 & 74.4 & 39.4 & 39.9 & 31.0 & 36.0 & 41.1 & 41.0 & 38.4 & 40.5 & 69.2 & 96.2 & 69.7 & 81.9 & 48.4 & 47.9 & 25.4 & 34.0 & 47.5 & 54.7 \\
+			Durall~\cite{Durall2020WatchYU} & 39.9 & 38.2 & 48.2 & 30.9 & 60.9 & 67.2 & 50.1 & 51.7 & 59.5 & 65.5 & 80.0 & 88.2 & \textbf{87.3} & 97.0 & 54.8 & 58.9 & 62.1 & 72.5 & 60.3 & 63.3 \\
+			Patchfor~\cite{Chai2020WhatMF}  & 68.0 & 92.9 & 97.1 & 100.0 & 97.8 & \textbf{99.9} & 93.6 & 98.2 & 97.9 & \textbf{100.0} & 99.6 & 100.0 & 66.8 & 68.1 & \textbf{97.6} & \textbf{99.8} & 92.7 & 99.8 & 90.1 & 95.4 \\
+			F3Net & 85.2 & 94.8 & 87.1 & 97.5 & 89.5 & 99.8 & 67.1 & 83.1 & 73.7 & 99.6 & 98.8 & 100.0 & 65.4 & 70.0 & 51.6 & 93.6 & 60.3 & 99.9 & 75.4 & 93.1 \\
+			SelfBland~\cite{Shiohara2022DetectingDW}  & 63.1 & 66.1 & 56.4 & 59.0 & 75.1 & 82.4 & 79.0 & 82.5 & 68.6 & 74.0 & 73.6 & 77.8 & 53.2 & 53.9 & 61.6 & 65.0 & 61.2 & 66.7 & 65.8 & 69.7 \\
+			GANDetection~\cite{Mandelli2022DetectingGI} & 57.4 & 75.1 & 67.9 & 100.0 & 67.8 & 99.7 & 67.6 & 92.4 & 67.7 & 99.3 & 60.9 & 86.2 & 69.6 & 83.5 & 66.7 & 90.6 & 69.6 & 97.2 & 66.1 & 91.6 \\
+			LGrad~\cite{Tan2023LearningOG}  & 68.6 & 93.8 & 69.9 & 89.2 & 50.3 & 54.0 & 71.1 & 82.0 & 57.5 & 67.3 & 89.1 & 99.1 & 78.5 & 86.0 & 78.0 & 87.4 & 54.8 & 68.0 & 68.6 & 80.8\\
+			Ojha~\cite{Ojha2023TowardsUF} & 78.5 & 98.3 & 72.0 & 98.9 & 77.6 & 99.8 & 77.6 & 98.9 & 77.6 & 99.7 & 78.2 & 98.7 & 85.2 & \textbf{98.1} & 77.6 & 98.7 & 74.2 & 97.8 & 77.6 & \textbf{98.8}\\
+			NPR~\cite{Tan2023RethinkingTU} &  83.0 & 96.2 & \textbf{99.0} & 99.8 & \textbf{98.7} & 99.0 & \textbf{94.5} & 98.3 & \textbf{98.6} & 99.0 & 99.6 & 100.0 & 79.0 & 80.0 & 88.8 & 97.4 & \textbf{98.0} & \textbf{100.0} & 93.2 & 96.6 \\
+			%PatchCraft & 99.7 & 99.99 & 61.1 & 86.0  & 72.4 & 78.4  & 87.5 & 93.3  & 79.8 & 84.3  & 99.5 & 99.9   & 94.0 & 97.9  & 85.1 & 93.2  & 68.6 & 91.3  & 83.1 & 91.6 \\
+			\rowcolor{lightgray} {\textbf{ADOF(ours)}} & \textbf{99.5} & \textbf{100.0} & 92.2 & \textbf{100.0} & 96.0 & 99.6 & 94.1 & \textbf{99.1} & 96.0 & 99.7 & \textbf{100.0} & \textbf{100.0} & 77.5 & 86.7 & 94.8 & 99.3 & 97.8 & 99.7 & \textbf{94.2} & 98.2 \\
+			\hline
+		\end{tabular}
+	\end{adjustbox}
+\end{table}

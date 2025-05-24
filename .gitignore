@@ -1,0 +1,30 @@
+# Các tệp đầu ra của LaTeX
+*.aux
+*.bbl
+*.blg
+*.log
+*.dvi
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.pdf
+*.ps
+
+# Các tệp tạm thời do LaTeX tạo ra
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.acn
+*.gls
+*.glg
+*.glo
+*.ist
+*.bcf
+
+# Các thư mục tạm thời
+_build/

@@ -1,0 +1,39 @@
+\appendix
+
+\chapter{Các Bảng Dữ Liệu Mở Rộng}
+\label{app:tables}
+
+\begin{table}[ht]
+	\centering
+	\caption{Cấu trúc tập dữ liệu DiffusionForensics~\cite{Wang2023DIREFD}.}
+	\label{tab:diffusionforensics_dataset}
+	\begin{adjustbox}{max width=\textwidth}
+	%\resizebox{1.0\linewidth}{!}{
+		\begin{tabular}{lclc}
+			\hline
+			\multirow{2}{*}{\textbf{Image Source}} & \textbf{Denoising} & \multirow{2}{*}{\textbf{Generator}} & \textbf{\# of images} \\ 
+			& \textbf{Condition} & & \textbf{(real/generated)} \\ 
+			\hline
+			& \multirow{4}{*}{Unconditional} &ADM~\cite{dhariwal2021diffusion} & 42k/42k \\
+			& & DDPM~\cite{Ho2020DenoisingDP} & 42k/42k \\
+			& & iDDPM~\cite{Nichol2021ImprovedDD} & 42k/42k \\
+			LSUN& & PNDM~\cite{Liu2022PseudoNM} & 42k/42k \\ 
+			\cline{2-4}
+			-Bedroom~\cite{Yu2015LSUNCO} & \multirow{4}{*}{Text2Image} &LDM~\cite{Rombach2021HighResolutionIS} & 1k/1k \\
+			& & SD-v1~\cite{Rombach2021HighResolutionIS} & 1k/1k \\
+			& & SD-v2~\cite{Rombach2021HighResolutionIS} & 1k/1k \\
+			& & VQ-Diffusion~\cite{Gu2021VectorQD} & 1k/1k \\ \hline
+			\multirow{2}{*}{ImageNet~\cite{5206848}} & Conditional & ADM~\cite{dhariwal2021diffusion} & 50k/50k \\  \cline{2-4}
+			& Text2Image & SD-v1~\cite{Rombach2021HighResolutionIS} & 10k/10k \\
+			\hline
+		\end{tabular}
+	%}
+	\end{adjustbox}
+	%\vspace{-.5em}
+	%\vspace{-1em}
+\end{table}
+%
+%
+%
+%
+
