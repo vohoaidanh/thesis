@@ -15,9 +15,9 @@
 	\end{minipage}
 \end{figure}
 %
-Trong Hình~\ref{fig:restyle-encoder-1}, tôi sử dụng ảnh thật (1) lấy từ tập dữ liệu FFHQ và tạo ảnh giả tương ứng (2) bằng phương pháp ReStyle~\cite{alaluf2021restyle}. 
+Trong Hình~\ref{fig:restyle-encoder-1}, ta sử dụng ảnh thật (1) lấy từ tập dữ liệu FFHQ và tạo ảnh giả tương ứng (2) bằng phương pháp ReStyle~\cite{alaluf2021restyle}. 
 %
-Việc sử dụng cặp ảnh thật–giả có cùng đặc điểm khuôn mặt giúp tôi khảo sát trực quan độ khó của nhiệm vụ phân biệt hình ảnh tạo sinh. Kết quả cho thấy hai ảnh có mức độ tương đồng cao về hình dáng và chi tiết, gây khó khăn cho việc phân biệt bằng mắt thường.
+Việc sử dụng cặp ảnh thật–giả có cùng đặc điểm khuôn mặt giúp ta khảo sát trực quan độ khó của nhiệm vụ phân biệt hình ảnh tạo sinh. Kết quả cho thấy hai ảnh có mức độ tương đồng cao về hình dáng và chi tiết, gây khó khăn cho việc phân biệt bằng mắt thường.
 %
 Điều này có thể lý giải bởi thực tế rằng thị giác con người chủ yếu nhận biết thông tin ở các vùng ảnh có kích thước lớn và có độ tương phản cao, trong khi các khác biệt đặc trưng để phân biệt ảnh thật và ảnh tạo sinh rất có thể tồn tại ở mức độ điểm ảnh.
 %
@@ -29,11 +29,11 @@ Các nghiên cứu trước đây \textcolor{red}{trích dẫn} cũng chỉ ra r
 
 \subsection{Thử nghiệm 2}
 
-Bước tiếp theo của quá trình phân tích, ta thực hiện huấn luyện hai bộ phân loại dựa trên kiến trúc ResNet và sử dụng cùng bộ dữ liệu \textcolor{red}{[Tên tập dữ liệu]}.
+Bước tiếp theo của quá trình phân tích, ta thực hiện huấn luyện hai bộ phân loại dựa trên kiến trúc ResNet~\cite{He2015DeepRL} và sử dụng cùng bộ dữ liệu \textcolor{red}{[Tên tập dữ liệu]}.
 
 \textbf{Bộ phân loại số 1:} (Original RGB ) ảnh đầu vào là ảnh màu RGB gốc, giữ nguyên toàn bộ thông tin tần số.  
 
-\textbf{Bộ phân loại số 2:} (Highpass 50\%) Được huấn luyện trên cùng kiến trúc với Mô hình 1, nhưng ảnh đầu vào đã được xử lý bằng bộ lọc thông cao, loại bỏ 50\% thành phần tần số thấp bằng cách sử dụng biến đổi Fourier. Kết quả huấn luyện được trình bày trong hình~\ref{fig:Experiment_Highpass50_percent}
+\textbf{Bộ phân loại số 2:} (Highpass 50\%) Mô hình này sử dụng cùng kiến trúc với Bộ phân loại số 1, tuy nhiên ảnh đầu vào đã được xử lý bằng bộ lọc thông cao, trong đó 50\% thành phần tần số thấp đã bị loại bỏ thông qua biến đổi Fourier. Kết quả huấn luyện được trình bày trong Hình~\ref{fig:Experiment_Highpass50_percent}
 
 %
 \begin{figure}[ht!]
@@ -46,7 +46,7 @@ Bước tiếp theo của quá trình phân tích, ta thực hiện huấn luy�
 \end{figure}
 
 %
-Kết quả thể hiện các thành phần tần số cao đóng vai trò quan trọng trong quá trình phân loại ảnh thật – giả. Cụ thể, mô hình được huấn luyện trên ảnh đã qua bộ lọc thông cao (Highpass 50\%) đạt độ chính xác cao hơn so với mô hình sử dụng ảnh RGB gốc. Điều này gợi ý rằng thông tin tần số cao chứa các đặc trưng quan trọng giúp phân biệt ảnh giả mạo, trong khi các thành phần tần số thấp có thể chứa nhiều thông tin nền không hữu ích cho quá trình nhận diện.  
+Thử nghiệm đã cho thấy các thành phần tần số cao đóng vai trò quan trọng trong quá trình phân loại ảnh thật – giả. Cụ thể, mô hình được huấn luyện trên ảnh đã qua bộ lọc thông cao (Highpass 50\%) đạt độ chính xác cao hơn so với mô hình sử dụng ảnh RGB gốc. Điều này gợi ý rằng thông tin tần số cao chứa các đặc trưng quan trọng giúp phân biệt ảnh giả mạo, trong khi các thành phần tần số thấp có thể chứa nhiều thông tin nền không hữu ích cho quá trình nhận diện.  
 
 \subsection*{Mở rộng thử nghiệm với các mức lọc tần số cao khác nhau}
 
@@ -262,11 +262,11 @@ Dựa trên phân tích tại mục \ref{sec:cua_so_loc_thong_cao}, ta chọn đ
 
 \section{Mô hình đề xuất}
 
-Trong đề tài này, mục tiêu hướng đến là xây dựng một phương pháp có cấu trúc đơn giản, tối ưu về tốc độ xử lý, và phù hợp với các hệ thống có tài nguyên hạn chế trong nhiệm vụ phát hiện hình ảnh tạo sinh. Để đạt được mục tiêu này, kiến trúc ResNet được lựa chọn làm nền tảng cho mô hình phân loại.
+Trong đề tài này, mục tiêu hướng đến là xây dựng một phương pháp có cấu trúc đơn giản, tối ưu về tốc độ xử lý, và phù hợp với các hệ thống có tài nguyên hạn chế trong nhiệm vụ phát hiện hình ảnh tạo sinh. Để đạt được mục tiêu này, kiến trúc ResNet~\cite{He2015DeepRL} được lựa chọn làm nền tảng cho mô hình phân loại.
 
-ResNet~\cite{He2015DeepRL} là một trong những kiến trúc CNN hiệu quả nhất được đề xuất bởi He et al. (2015), nổi bật nhờ cơ chế \textcolor{red}{skip connection}, cơ chế này cho phép huấn luyện các mô hình có chiều sâu lớn hơn mà vẫn duy trì hiệu quả hội tụ, đồng thời hạn chế hiện tượng mất mát thông tin trong quá trình lan truyền ngược.
+ResNet~\cite{He2015DeepRL} là một trong những kiến trúc \textcolor{red}{CNN} hiệu quả nhất được đề xuất bởi He et al. (2015), nổi bật nhờ cơ chế \textcolor{red}{skip connection}, cơ chế này cho phép huấn luyện các mô hình có chiều sâu lớn hơn mà vẫn duy trì hiệu quả hội tụ, đồng thời hạn chế hiện tượng mất mát thông tin trong quá trình lan truyền ngược.
 
-So với các kiến trúc phức tạp hơn như EfficientNet, Vision Transformer hay các mô hình kết hợp đa nhánh, ResNet có ưu điểm là dễ triển khai, ít tham số hơn, và có thể tùy chỉnh dễ dàng số lượng tầng để phù hợp với yêu cầu tính toán của hệ thống. Trong phạm vi nghiên cứu này, một phiên bản rút gọn từ ResNet-50~\cite{He2015DeepRL} được sử dụng nhằm đảm bảo cân bằng giữa độ chính xác và chi phí tính toán.
+So với các kiến trúc phức tạp hơn như EfficientNet~\cite{zhong2024patchcraftexploringtexturepatch}, Vision Transformer~\cite{dosovitskiy2020image}, ResNet có ưu điểm là dễ triển khai, ít tham số hơn, và có thể tùy chỉnh dễ dàng số lượng tầng để phù hợp với yêu cầu tính toán của hệ thống. Trong phạm vi nghiên cứu này, một phiên bản rút gọn từ ResNet-50~\cite{He2015DeepRL} được sử dụng nhằm đảm bảo cân bằng giữa độ chính xác và chi phí tính toán.
 
 Bên cạnh đó, ResNet~\cite{He2015DeepRL} cũng cho thấy khả năng trích xuất đặc trưng tốt ở các tác vụ phân biệt hình ảnh có sai khác nhỏ, chẳng hạn như sự khác biệt vi mô giữa ảnh thật và ảnh tạo sinh – điều này đặc biệt quan trọng trong bối cảnh deepfake ngày càng tinh vi.
 
@@ -374,6 +374,18 @@ Trong mô hình Student, ta chỉ giữ lại một khối \texttt{Bottleneck} t
 %
 Việc lựa chọn số lượng \texttt{Layer} được giữ lại trong mô hình Student là kết quả của quá trình thử nghiệm thực tế, với tiêu chí cân bằng giữa độ chính xác và độ phức tạp của mô hình.
 
+\subsection{Quy trình huấn luyện và sử dụng}
+%offline-training-process-distillation.png
+%
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=1.0\linewidth]{Images/offline-training-process-distillation.png}
+	\begin{minipage}{1.0\linewidth}
+		\caption{Quy trình huấn luyện mô hình áp dụng kỹ thuật Knowledge-Distillation}
+		\label{fig:offline-training-process-distillation}
+	\end{minipage}
+\end{figure}
+%
 
 
 
