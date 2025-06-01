@@ -12,11 +12,11 @@
 \usepackage[absolute,overlay]{textpos}
 
 % Định dạng tiêu đề \chapter
-\titleformat{\chapter}[hang]{\normalfont\Large\bfseries}{Chương \thechapter.}{2pc}{}
+\titleformat{\chapter}[hang]{\normalfont\Large\bfseries}{CHƯƠNG \thechapter.}{2pc}{}
 % Định dạng tiêu đề \section
-%\titleformat{\section}[hang]{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\section}[hang]{\normalfont\Large\bfseries}{\thesection}{1em}{}
 % Định dạng tiêu đề \subsection
-%\titleformat{\subsection}[hang]{\normalfont\large\bfseries}{\thesubsection}{1em}{
+\titleformat{\subsection}[hang]{\normalfont\large\bfseries}{\thesubsection}{1em}{}
 
 % Font tiếng Việt
 \usepackage[T5]{fontenc}
@@ -124,7 +124,7 @@
 
 \include{Chapter3/chapter3}
 
-%\include{Chapter4/chapter4}
+\include{Chapter4/chapter4}
 
 %\include{Chapter5/chapter5}
 
@@ -141,7 +141,7 @@
 %\DeclareNameAlias{sortname}{family-given}
 %\DeclareNameAlias{default}{family-given}
 
-%\printbibliography[heading=subbibliography, title={Tiếng Anh}, notkeyword=Viet, resetnumbers=1] 
+\printbibliography[heading=subbibliography, title={Tiếng Anh}, notkeyword=Viet, resetnumbers=1] 
 % Chú ý: phải gán lại resetnumbers=số tài liệu tham khảo tiếng Việt + 1
 
 % Phần phụ lục

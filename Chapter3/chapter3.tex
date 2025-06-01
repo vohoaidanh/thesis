@@ -23,12 +23,10 @@ Việc sử dụng cặp ảnh thật–giả có cùng đặc điểm khuôn m�
 %
 %
 
-Các nghiên cứu trước đây \textcolor{red}{trích dẫn} cũng chỉ ra rằng các đặc trưng nhân tạo có xu hướng tập trung ở vùng tần số cao. Một số phương pháp đã tận dụng điều này để phát triển bộ phân loại dựa trên đặc trưng tần số \textcolor{red}{trích dẫn}. Ta tiến hành một thử nghiệm nhỏ nhằm đánh giá sự ảnh hưởng của đặc trưng tần số đến hiệu xuất bộ phân loại ảnh thật, giả.
-
-
+Các nghiên cứu trước đây \textcolor{red}{trích dẫn} cũng chỉ ra rằng các đặc trưng nhân tạo có xu hướng tập trung ở vùng tần số cao. Một số phương pháp đã tận dụng điều này để phát triển bộ phân loại dựa trên đặc trưng tần số \textcolor{red}{trích dẫn}.Phần~\ref{ssec:thu_nghiem_2}, ta tiến hành thử nghiệm nhằm đánh giá sự ảnh hưởng của đặc trưng tần số đến hiệu xuất bộ phân loại ảnh thật, giả.
 
 \subsection{Thử nghiệm 2}
-
+\label{ssec:thu_nghiem_2}
 Bước tiếp theo của quá trình phân tích, ta thực hiện huấn luyện hai bộ phân loại dựa trên kiến trúc ResNet~\cite{He2015DeepRL} và sử dụng cùng bộ dữ liệu \textcolor{red}{[Tên tập dữ liệu]}.
 
 \textbf{Bộ phân loại số 1:} (Original RGB ) ảnh đầu vào là ảnh màu RGB gốc, giữ nguyên toàn bộ thông tin tần số.  
@@ -278,6 +276,7 @@ Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_archi
 	\centering
 	\includegraphics[width=1.0\linewidth]{Images/figure_model_architecture.png}
 	\begin{minipage}{1.0\linewidth}
+		\vspace{5mm}
 		\caption{Kiến trúc mạng Resnet-50 rút gọn}
 		\label{fig:figure_model_architecture}
 	\end{minipage}
@@ -331,12 +330,15 @@ Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_archi
 
 \subsection{Quy trình huấn luyện và sử dụng}
 %
+\label{ssec:quy_trinh_huan_luyen}
+%
 Quá trình huấn luyện được mô tả trong Hình~\ref{fig:offline-training-process}, ảnh đầu vào sẽ được chuẩn hóa và tiền xử lý nhằm đồng nhất kích thước, tăng tính đa dạng qua các kỹ thuật tăng cường dữ liệu xoay và lật ảnh. Sau bước này, ảnh được đưa qua khối \textcolor{red}{ADOF} – có chức năng lọc lấy những tín hiệu ở tần số cao trong ảnh, nơi mà các mô hình tạo sinh thường để lại dấu vết.
 %
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=1.0\linewidth]{Images/offline-training-process.png}
 	\begin{minipage}{1.0\linewidth}
+		\vspace{3mm}
 		\caption{Quy trình huấn luyện}
 		\label{fig:offline-training-process}
 	\end{minipage}
@@ -351,6 +353,7 @@ Quá trình huấn luyện được tổ chức thành nhiều bước cập nh�
 	\centering
 	\includegraphics[width=1.0\linewidth]{Images/online-serving.png}
 	\begin{minipage}{1.0\linewidth}
+		\vspace{3mm}
 		\caption{Quy trình sử dụng}
 		\label{fig:online-serving}
 	\end{minipage}
@@ -362,7 +365,7 @@ Sau khi quá trình huấn luyện hoàn tất, mô hình đã sẵn sàng cho v
 
 \section{Tối giản mô hình với kỹ thuật Feature-Based Knowledge Distillation}
 
-Nhằm tối ưu khả năng triển khai thực tế trên các thiết bị có tài nguyên hạn chế, sau khi hoàn tất huấn luyện mô hình ở phần~\ref{sec:kien_truc_mo_hinh_rut_gon_tu_resnet_50}, ta tiếp tục áp dụng kỹ thuật Feature-Based Knowledge Distillation để rút gọn mô hình.
+Nhằm tối ưu khả năng triển khai thực tế trên các thiết bị có tài nguyên hạn chế, sau khi hoàn tất huấn luyện mô hình với kiến trúc trình bày ở phần~\ref{sec:kien_truc_mo_hinh_rut_gon_tu_resnet_50}, ta tiếp tục áp dụng kỹ thuật \textcolor{red}{Feature-Based Knowledge Distillation} để rút gọn mô hình.
 
 Cụ thể, mô hình đã huấn luyện sẽ đóng vai trò là mô hình Teacher, từ đó truyền đạt kiến thức cho một mô hình Student nhỏ gọn hơn. Thay vì chỉ dựa vào đầu ra cuối cùng, mô hình Student được hướng dẫn học theo các đặc trưng trung gian từ Teacher, giúp duy trì hiệu suất nhận dạng trong khi giảm đáng kể kích thước và chi phí suy luận của mô hình.
 
@@ -381,12 +384,26 @@ Việc lựa chọn số lượng \texttt{Layer} được giữ lại trong mô 
 	\centering
 	\includegraphics[width=1.0\linewidth]{Images/offline-training-process-distillation.png}
 	\begin{minipage}{1.0\linewidth}
+		\vspace{5mm}
 		\caption{Quy trình huấn luyện mô hình áp dụng kỹ thuật Knowledge-Distillation}
 		\label{fig:offline-training-process-distillation}
 	\end{minipage}
 \end{figure}
 %
+%
+Quy trình huấn luyện trải qua các bước tương tự với như phần~\ref{ssec:quy_trinh_huan_luyen}.
+%
+Điểm khác biệt nằm ở quá trình lan truyền thuận, hàm mất mát và việc cập nhật bộ trọng số cho mô hình.
+%
+\begin{itemize}
+	\item Lan truyền thuận: Hình ảnh từ đầu vào sẽ được đi qua cả hai mô hình Teacher và Student. Sau đó ta trích xuất véc-tơ đặc trưng ở đầu ra của \texttt{Layer2} trong mỗi mô hình và đưa vào hàm mất mát.
+	
+	\item  Hàm mất mát: Là sự kết hợp của 2 thành phần \textcolor{red}{Distillation} và \textcolor{red}{Binary Cross Entropy}, chi tiết được trình bày tại \textcolor{red}{tham chiều tới..}
+	
+	\item Cập nhật trọng số: Trong suốt quá trình huấn luyện, mô hình Teacher chỉ sử dụng duy nhất một bộ trọng số đã được huấn luyện trước. Việc cập nhật bộ trọng số chỉ được áp dụng cho mô hình Student.
+\end{itemize}
 
+Sau khi quá trình huấn luyện hoàn tất, mô hình Student đã sẵn sàng cho việc dự đoán trên dữ liệu mới (chi tiết xem trên Hình~\ref{fig:online-serving}). 
 
 
 

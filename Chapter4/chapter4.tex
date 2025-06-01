@@ -1,24 +1,29 @@
 \chapter{THỰC NGHIỆM VÀ ĐÁNH GIÁ KẾT QUẢ}
 \label{Chapter4}
 \section{Chuẩn bị dữ liệu}
-Nhằm thuận lợi trong so sánh, đánh giá hiệu quả của phương pháp, nghiên cứu sử dụng bộ dữ liệu \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA} cho quá trình huấn luyện. Các hình ảnh thật được trích từ bộ dữ liệu LSUN~\cite{Yu2015ConstructionOA}, trong khi các hình ảnh giả mạo được tạo ra từ nhiều mô hình sinh ảnh khác nhau. Đây là bộ dữ liệu được nhiều nghiên cứu sử dụng cho nhiệm vụ phát hiện ảnh tạo sinh.
+Luận văn sử dụng bộ dữ liệu \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA} trong quá trình nghiên cứu và huấn luyện. Các hình ảnh thật được trích từ bộ dữ liệu LSUN~\cite{Yu2015ConstructionOA}, trong khi các hình ảnh giả mạo được tạo ra từ nhiều mô hình sinh ảnh khác nhau (ProGAN~\cite{karras2018progressive}, StyleGAN~\cite{karras2019style}, BigGAN~\cite{brock2018large}, CycleGAN~\cite{zhu2017unpaired}...). Chi tiết về bộ dữ liệu được thống kê trong Bảng~\ref{tab:forensynths-dataset}. Đây là bộ dữ liệu được nhiều nghiên cứu sử dụng cho nhiệm vụ phát hiện ảnh tạo sinh.
 
-Quá trình đánh giá được thực hiện trên các bộ dữ liệu khác nhau, giúp xác định tính khái quát của mô hình sau huấn luyện:
-\begin{itemize}
-	\item \textbf{9 GANs dataset}~\cite{Yu2015ConstructionOA}
-	\item \textbf{DiffusionForensics}~\cite{Wang2023DIREFD}
-	\item \textbf{UniversalFakeDetect}~\cite{Ojha2023TowardsUF}
-\end{itemize}
+Ngoài bộ dữ liệu \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA}, quá trình đánh giá mô hình được thực hiện trên các bộ dữ liệu khác nhau, giúp xác định tính khái quát của mô hình sau huấn luyện.
 
 \subsection{Tập dữ liệu dùng cho quá trình huấn luyện mô hình}
-\textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA} là tập dữ liệu được đông đảo các nhà nghiên cứu sử dụng trong bài toán phát hiện ảnh tạo sinh \cite{Wang2019CNNGeneratedIA,Tan2023RethinkingTU,Ojha2023TowardsUF,zhong2024patchcraftexploringtexturepatch}.
+Tập dữ liệu \textbf{ProGAN} thuộc bộ dữ liệu \textbf{ForenSynths}\cite{Wang2019CNNGeneratedIA} được sử dụng để huấn luyện mô hình. 
+Cụ thể, tập dữ liệu có 20 danh mục đối tượng, trong đó có 18.000 hình ảnh thật được trích từ bộ dữ liệu LSUN~\cite{Yu2015LSUNCO}, 18.000 hình ảnh tạo sinh bằng mô hình \textbf{ProGAN}~\cite{karras2018progressive}. Trong luận văn này, bốn trong hai mươi danh mục đối tượng được lựa chọn để huấn luyện gồm: \textit{car}, \textit{cat}, \textit{chair}, và \textit{horse}. Việc lựa chọn các lớp này nhằm mục đích đảm bảo tính tương đồng với các nghiên cứu trước đây~\cite{trich_dan_bon_lop}, từ đó giúp thuận tiện hơn trong việc so sánh kết quả.
 %
-Các hình ảnh thật được trích từ 20 danh mục của tập dữ liệu LSUN~\cite{Yu2015LSUNCO} và các hình ảnh giả mạo được sinh ra bởi mô hình GAN khác nhau~\cite{Goodfellow2014GenerativeAN}, mỗi danh mục đối tượng bao gồm 18.000 hình ảnh tạo sinh và 18.000 ảnh thật. Chi tiết về bộ dữ liệu được thống kê trong Bảng~\ref{tab:forensynths-dataset}.
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=1.0\linewidth]{Images/dataset_progan_samples.png}
+	\begin{minipage}{1.0\linewidth}
+		\vspace{5mm}
+		\caption{Một vài hình ảnh trong tập dữ liệu huấn luyện (các hình ảnh thật ở hàng trên).}
+		\label{fig:dataset_progan_samples}
+	\end{minipage}
+\end{figure}
+%
 
 \input{Tables/table-forensynths-dataset.tex}
 
 \subsection{Tập dữ liệu dùng cho quá trình đánh giá mô hình}
-Luận văn sử dụng 3 tập dữ liệu để đánh giá và so sánh (thông tin chi tiết xem Phụ lục~\ref{app:tables})
+Luận văn sử dụng các hình ảnh thật và hình ảnh giả mạo đến từ nhiều mô hình tạo sinh khác nhau nhằm đánh giá được tính khái quát của mô hình  (thông tin chi tiết xem Phụ lục~\ref{app:tables})
 \begin{itemize}
 	\item Tập dữ liệu \textbf{Self-Synthesis 9 GANs}~\cite{Tan2023RethinkingTU}, các hình ảnh giả mạo được thu thập từ 9 mô hình GAN~\cite{Goodfellow2014GenerativeAN} khác nhau. Tổng cộng gồm 36,000 hình ảnh, số lượng hình ảnh thật và giả mạo trong tập dữ liệu là ngang nhau.
 	\item Tập dữ liệu \textbf{DiffusionForensics}~\cite{Wang2023DIREFD}, tác giả sử dụng 8 mô hình Diffusion~\cite{Ho2020DenoisingDP} khác nhau để sinh hình ảnh. Những mô hình này được huấn luyện trên tập ảnh LSUN-Bedroom~\cite{Yu2015LSUNCO} và ImageNet~\cite{5206848}, hình ảnh thật cũng được trích từ hai tập dữ liệu này. Tổng số lượng hình ảnh là 464,000, trong đó 50\% là hình ảnh thật (xem Bảng~\ref{tab:diffusionforensics_dataset}).
@@ -101,7 +106,7 @@ Ngoài ra, độ chính xác cũng trội hơn RINE~\cite{koutlis2024leveraging}
 %
 \begin{figure}[ht!]
 	\includegraphics[width=\textwidth]{Images/figure_pine_line_1.png}
-	\caption{Quy trình cơ bản phân của mô hình phát hiện ảnh tạo sinh}	
+	\caption{Quy trình cơ bản của mô hình phát hiện ảnh tạo sinh}	
 	\label{figure_pine_line_1}
 \end{figure}
 %
