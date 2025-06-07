@@ -1,13 +1,18 @@
 \chapter{THỰC NGHIỆM VÀ ĐÁNH GIÁ KẾT QUẢ}
 \label{Chapter4}
 \section{Chuẩn bị dữ liệu}
-Luận văn sử dụng bộ dữ liệu \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA} trong quá trình nghiên cứu và huấn luyện. Các hình ảnh thật được trích từ bộ dữ liệu LSUN~\cite{Yu2015ConstructionOA}, trong khi các hình ảnh giả mạo được tạo ra từ các mô hình GAN khác nhau (ProGAN~\cite{karras2018progressive}, StyleGAN~\cite{karras2019style},  CycleGAN~\cite{zhu2017unpaired}, GauGAN~\cite{park2019SPADE}, Deepfakes~\cite{CaliforniaDeepfakes} và nhiều mô hình khác, chi tiết về bộ dữ liệu được thống kê trong Bảng~\ref{tab:forensynths-dataset}. Đây là bộ dữ liệu được nhiều nghiên cứu sử dụng cho nhiệm vụ phát hiện ảnh tạo sinh.
+Bộ dữ liệu \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA} được sử trong quá trình nghiên cứu và huấn luyện. Các hình ảnh thật chủ yếu được trích từ bộ dữ liệu LSUN~\cite{Yu2015ConstructionOA}, ImageNet~\cite{5206848}, trong khi các hình ảnh giả mạo được tạo ra từ các mô hình GAN~\cite{Goodfellow2014GenerativeAN} khác nhau (ProGAN~\cite{karras2018progressive}, StyleGAN~\cite{karras2019style},  CycleGAN~\cite{zhu2017unpaired}, GauGAN~\cite{park2019SPADE}, Deepfakes~\cite{CaliforniaDeepfakes} và nhiều mô hình khác) chi tiết về bộ dữ liệu được thống kê trong Bảng~\ref{tab:forensynths-dataset}. Đây là bộ dữ liệu được nhiều nghiên cứu sử dụng cho nhiệm vụ phát hiện ảnh tạo sinh.
 
 Ngoài bộ dữ liệu \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA}, quá trình đánh giá mô hình được thực hiện trên các bộ dữ liệu khác nhau, giúp xác định tính khái quát của mô hình sau huấn luyện.
 
-\subsection{Tập dữ liệu dùng cho quá trình huấn luyện mô hình}
-Tập dữ liệu \textbf{ProGAN} thuộc bộ dữ liệu \textbf{ForenSynths}\cite{Wang2019CNNGeneratedIA} được sử dụng để huấn luyện mô hình. 
-Cụ thể, tập dữ liệu có 20 danh mục đối tượng, trong đó có 18.000 hình ảnh thật được trích từ bộ dữ liệu LSUN~\cite{Yu2015LSUNCO}, 18.000 hình ảnh tạo sinh bằng mô hình \textbf{ProGAN}~\cite{karras2018progressive}. Trong luận văn này, bốn trong hai mươi danh mục đối tượng được lựa chọn để huấn luyện gồm: \textit{car}, \textit{cat}, \textit{chair}, và \textit{horse}. Việc lựa chọn các lớp này là tương tự với các nghiên cứu trước đây~\cite{Tan2023RethinkingTU}, \cite{Jeong2022FrePGANRD}, \cite{Jeong2021BiHPFBH}, với mục đích thuận tiện hơn trong việc so sánh kết quả.
+\subsection{Dữ liệu dùng cho quá trình huấn luyện mô hình}
+Các hình ảnh sinh bởi mô hình ProGAN~\cite{karras2018progressive} trong tập \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA} được sử dụng cho quá trình huấn luyện của luận văn. 
+%
+Cụ thể, tập dữ liệu này bao gồm 20 lớp đối tượng (\textit{airplane, bicycle, bird, boat, bottle, bus, car, cat, chair, cow, dining table, dog, horse, motorbike, person, potted plant, sheep, sofa, train, tv-monitor}), trong đó mỗi lớp có 18.000 hình ảnh thật được trích từ bộ dữ liệu LSUN~\cite{Yu2015LSUNCO}, 18.000 hình ảnh tạo sinh bằng mô hình ProGAN~\cite{karras2018progressive}.
+%
+Tuy nhiên, chỉ bốn trong hai mươi danh mục đối tượng được lựa chọn để huấn luyện gồm: \textit{car}, \textit{cat}, \textit{chair}, và \textit{horse}. Việc lựa chọn các lớp này tương tự với các nghiên cứu~\cite{Tan2023RethinkingTU}, \cite{Jeong2022FrePGANRD}, \cite{Jeong2021BiHPFBH}, với mục đích thuận tiện hơn trong việc so sánh kết quả.
+%
+
 %
 \begin{figure}[ht!]
 	\centering
