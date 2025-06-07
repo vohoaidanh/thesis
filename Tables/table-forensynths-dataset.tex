@@ -1,23 +1,79 @@
-\begin{table}[h]%[htbp]
-	\scriptsize 
-	\renewcommand{\arraystretch}{1.2} % Tăng chiều cao các hàng lên 1.5 lần
+%
+%\renewcommand{\arraystretch}{1.3}
+%\begin{table}[htbp]
+%	\centering
+%	\caption{Mô tả các tập dữ liệu sử dụng trong thí nghiệm}
+%	\scriptsize
+%	\begin{tabular}{|c|l|l|p{6cm}|}
+%		\hline
+%		\textbf{STT} & \textbf{Mô hình} & \textbf{Dataset gốc} & \textbf{Mô tả} \\
+%		\hline
+%		1 & ProGAN & LSUN & Các hình ảnh được sinh bởi 20 mô hình ProGAN khác nhau tướng ứng cho 20 lớp đối tượng.\\
+%		\hline
+%		2 & StyleGAN & LSUN & Các lớp: bedroom, cat, car. Ảnh sinh (truncation 0.5), ảnh thật resize theo kích thước gốc. \\
+%		\hline
+%		3 & StyleGAN2 & LSUN & Các lớp: church, cat, horse, car. Kích thước 256×256 hoặc 512×384, ảnh sinh truncation 0.5. \\
+%		\hline
+%		4 & BigGAN-deep & ImageNet & 1000 lớp, ảnh sinh 256×256 với truncation 0.4, ảnh thật crop giữa và resize. \\
+%		\hline
+%		5 & CycleGAN & Image translation & 6 cặp miền: apple2orange, ..., winter2summer. Sinh ảnh thật–giả từ code gốc. \\
+%		\hline
+%		6 & StarGAN & CelebA & Chuyển đổi biểu cảm khuôn mặt. Ảnh thật và giả sinh từ mã nguồn chính thức. \\
+%		\hline
+%		7 & GauGAN & COCO & Sinh ảnh từ segmentation maps, dùng model pretrained. \\
+%		\hline
+%		8 & CRN & GTA & Sinh ảnh từ segmentation maps. Dữ liệu thật và map tải từ repo IMLE. \\
+%		\hline
+%		9 & IMLE & GTA & Tương tự CRN. Sinh ảnh từ segmentation maps đã xử lý. \\
+%		\hline
+%		10 & SITD & Sony, Fuji & Tăng chất lượng ảnh từ ảnh RAW. Dữ liệu sinh từ mã nguồn. \\
+%		\hline
+%		11 & SAN & Set5, Set14,... & Ảnh super-resolution (4×). Dữ liệu benchmark chuẩn. \\
+%		\hline
+%		12 & DeepFake & Deepfakes & Trích frame video, cắt mặt bằng Faced. Gồm ảnh thật và giả. \\
+%		\hline
+%	\end{tabular}
+%\end{table}
+
+\begin{table}[ht!]
 	\centering
-	\caption{Tập dữ liệu Forensynths}
-	\label{tab:forensynths-dataset}
-	\begin{tabular}{|l|c|c|c|c|c|c|}
-		\hline
-		\textbf{Mô hình} & \textbf{Số lượng} & \textbf{Số danh mục} & \textbf{Tổng cộng} \\ \hline
-		ProGAN & 18.000 & 20 & 360.000 \\ 
-		StyleGAN  & 18.000 & 20 & 360.000 \\ 
-		Stylegan2 & 18.000 & 20 & 360.000 \\  
-		BigGAN & 18.000 & 20 & 360.000 \\  
-		CycleGAN & 18.000 & 20 & 360.000 \\  
-		StarGAN & 18.000 & 20 & 360.000 \\  
-		GauGAN & 18.000 & 20 & 360.000 \\  
-		Deepfake & 18.000 & 20 & 360.000 \\ 
-		\hline
-	\end{tabular}
+	\caption{Mô tả các mô hình và tập dữ liệu được sử dụng trong quá trình tạo ảnh tổng hợp.}
+	\label{tab:synthetic_dataset_summary}
+	\begin{adjustbox}{max width=\textwidth}
+		\renewcommand{\arraystretch}{1.5}
+		\setlength{\tabcolsep}{10pt}
+		\begin{tabular}{c p{2cm} p{3cm} p{8.5cm}}
+			\toprule
+			\textbf{STT} & \textbf{Mô hình} & \textbf{Dataset gốc} & \textbf{Mô tả} \\
+			\midrule
+			1 & ProGAN~\cite{karras2018progressive} & LSUN~\cite{Yu2015LSUNCO} & Các hình ảnh được sinh bởi 20 mô hình ProGAN khác nhau, tướng ứng với 20 lớp đối tượng, mỗi hình ảnh có kích thước  $256 \times 256$. \\
+			\hdashline
+			2 & StyleGAN~\cite{karras2019style} & LSUN~\cite{Yu2015LSUNCO} & Gồm ba lớp đối tượng: bedroom, cat, car; ảnh sinh có truncation 0.5; ảnh thật được thay đổi về kích thước tương ứng: $256 \times 256$ hoặc $512 \times 384$ theo đúng kích thước của ảnh sinh. \\
+			\hdashline
+			3 & StyleGAN2\cite{Karras2019AnalyzingAI} & LSUN~\cite{Yu2015LSUNCO} & Gồm bốn lớp đối tượng: church, cat, horse, car; ảnh sinh có truncation 0.5; ảnh thật được thay đổi về kích thước tương ứng. \\
+			\hdashline
+			4 & BigGAN~\cite{brock2018large} & ImageNet~\cite{5206848} & Các lớp đối tượng trích theo phân phối đều; ảnh sinh có truncation 0.4; ảnh thực được cắt theo vùng vuông ở trung tâm, kích thước cạnh bằng cạnh ngắn của ảnh gốc, sau đó được thay đổi kích thước về $256 \times 256$. \\
+			\hdashline
+			5 & CycleGAN~\cite{zhu2017unpaired} & Cityscapes~\cite{Cordts2016Cityscapes}, CMP~Facade~\cite{Tylecek13}, UT~Zappos50K~\cite{6909426}, ImageNet~\cite{5206848}, Internet & Gồm sáu lớp đối tượng: apple, orange, horse, zebra, summer, winter\\
+			\hdashline
+			6 & StarGAN~\cite{choi2018stargan} & CelebA~\cite{liu2015faceattributes} & Các ảnh sinh là khuôn mặt dựa trên dữ liệu khuôn mặt của nhiều người nổi tiếng trong tập CelebA.\\
+			\hdashline
+			7 & GauGAN~\cite{park2019SPADE} & COCO~\cite{lin2014microsoft} & Các ảnh sinh là những đối tượng thường gặp (Có tất cả 80 lớp đối tượng). \\
+			\hdashline
+			8 & CRN~\cite{chen2017photographic} & GTA~\cite{barua2025gta} & Các hình ảnh được trích xuất từ trò chơi Grand Theft Auto, gồm nhiều đối tượng và khung cảnh. \\
+			\hdashline
+			9 & IMLE~\cite{li2019diverse} & GTA~\cite{barua2025gta} & Các hình ảnh được trích xuất từ trò chơi Grand Theft Auto, gồm nhiều đối tượng và khung cảnh. \\
+			\hdashline
+			10 & SITD~\cite{sitd} & SITD~\cite{sitd} & Ảnh sinh từ mô hình SITD được huấn luyện trên dữ liệu hình ảnh chụp bằng máy ảnh Sony và Fuji. \\
+			\hdashline
+			11 & SAN~\cite{8954252} & DIV2K~\cite{Agustsson_2017_CVPR_Workshops} & Đối tượng chủ yếu gồm các ảnh tự nhiên đa dạng như cảnh thiên nhiên, kiến trúc, vật thể hàng ngày, con người, cây cối. \\
+			\hdashline
+			12 & DeepFake~\cite{rossler2019faceforensics++} & FaceForensics++~\cite{faceforensicslearningdetectmanipulated} & Hình ảnh thật gồm các ảnh khuôn mặt đã được cắt từ các video gốc trong tập dữ liệu.\\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
 \end{table}
+
 
 %\vspace{-0.1cm} % Điều chỉnh khoảng cách nếu cần
 %\textit{Tất cả hình ảnh trong {Bảng}~\ref{tab:forensynths-dataset} được định dạng (*.png), kích thước} (\( \mathit{256 \times 256 \times 3} \)).
