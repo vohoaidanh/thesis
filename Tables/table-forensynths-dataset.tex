@@ -44,7 +44,7 @@
 		\setlength{\tabcolsep}{10pt}
 		\begin{tabular}{c p{2cm} p{3cm} p{8.5cm}}
 			\toprule
-			\textbf{STT} & \textbf{Mô hình} & \textbf{Dataset gốc} & \textbf{Mô tả} \\
+			\textbf{STT} & \textbf{Mô hình} & \textbf{Dữ liệu ảnh thật} & \textbf{Mô tả} \\
 			\midrule
 			1 & ProGAN~\cite{karras2018progressive} & LSUN~\cite{Yu2015LSUNCO} & Các hình ảnh được sinh bởi 20 mô hình ProGAN khác nhau, tướng ứng với 20 lớp đối tượng, mỗi hình ảnh có kích thước  $256 \times 256$. \\
 			\hdashline
@@ -53,21 +53,21 @@
 			3 & StyleGAN2\cite{Karras2019AnalyzingAI} & LSUN~\cite{Yu2015LSUNCO} & Gồm bốn lớp đối tượng: church, cat, horse, car; ảnh sinh có truncation 0.5; ảnh thật được thay đổi về kích thước tương ứng. \\
 			\hdashline
 			4 & BigGAN~\cite{brock2018large} & ImageNet~\cite{5206848} & Các lớp đối tượng trích theo phân phối đều; ảnh sinh có truncation 0.4; ảnh thực được cắt theo vùng vuông ở trung tâm, kích thước cạnh bằng cạnh ngắn của ảnh gốc, sau đó được thay đổi kích thước về $256 \times 256$. \\
-			\hdashline
+			\midrule
 			5 & CycleGAN~\cite{zhu2017unpaired} & Cityscapes~\cite{Cordts2016Cityscapes}, CMP~Facade~\cite{Tylecek13}, UT~Zappos50K~\cite{6909426}, ImageNet~\cite{5206848}, Internet & Gồm sáu lớp đối tượng: apple, orange, horse, zebra, summer, winter\\
 			\hdashline
 			6 & StarGAN~\cite{choi2018stargan} & CelebA~\cite{liu2015faceattributes} & Các ảnh sinh là khuôn mặt dựa trên dữ liệu khuôn mặt của nhiều người nổi tiếng trong tập CelebA.\\
 			\hdashline
 			7 & GauGAN~\cite{park2019SPADE} & COCO~\cite{lin2014microsoft} & Các ảnh sinh là những đối tượng thường gặp (Có tất cả 80 lớp đối tượng). \\
-			\hdashline
+			\midrule
 			8 & CRN~\cite{chen2017photographic} & GTA~\cite{barua2025gta} & Các hình ảnh được trích xuất từ trò chơi Grand Theft Auto, gồm nhiều đối tượng và khung cảnh. \\
 			\hdashline
 			9 & IMLE~\cite{li2019diverse} & GTA~\cite{barua2025gta} & Các hình ảnh được trích xuất từ trò chơi Grand Theft Auto, gồm nhiều đối tượng và khung cảnh. \\
-			\hdashline
+			\midrule
 			10 & SITD~\cite{sitd} & SITD~\cite{sitd} & Ảnh sinh từ mô hình SITD được huấn luyện trên dữ liệu hình ảnh chụp bằng máy ảnh Sony và Fuji. \\
 			\hdashline
 			11 & SAN~\cite{8954252} & DIV2K~\cite{Agustsson_2017_CVPR_Workshops} & Đối tượng chủ yếu gồm các ảnh tự nhiên đa dạng như cảnh thiên nhiên, kiến trúc, vật thể hàng ngày, con người, cây cối. \\
-			\hdashline
+			\midrule
 			12 & DeepFake~\cite{rossler2019faceforensics++} & FaceForensics++~\cite{faceforensicslearningdetectmanipulated} & Hình ảnh thật gồm các ảnh khuôn mặt đã được cắt từ các video gốc trong tập dữ liệu.\\
 			\bottomrule
 		\end{tabular}
