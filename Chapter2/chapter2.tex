@@ -10,7 +10,7 @@ Hiện nay, các mô hình tạo sinh ảnh chủ yếu dựa trên 3 phương p
  \subsection{Mô hình GAN}
  %
  Là một kiến trúc mạng học sâu có khả năng sinh ra dữ liệu mới chủ yếu được dùng để sinh hình ảnh và âm thanh, đặc trưng của GAN~\cite{Goodfellow2014GenerativeAN} là cách huấn luyện đối kháng giữa hai nhánh mạng với mục đích cuối cùng là sinh ra dữ liệu giống với mẫu huấn luyện.\\
- -\textbf{Kiến trúc của GAN~\cite{Goodfellow2014GenerativeAN}:} gồm có hai phần \texttt{generator} và \texttt{discriminator} (Hình ~\ref{fig:model-gan-1}).
+ \textbf{Kiến trúc của GAN~\cite{Goodfellow2014GenerativeAN}:} gồm có hai phần \texttt{generator} và \texttt{discriminator} (Hình ~\ref{fig:model-gan-1}).
  %
  %
  \begin{figure}[htp]
@@ -33,7 +33,7 @@ Trong quá trình huấn luyện mạng, bộ \texttt{Generator} được khuy�
 
 Quá trình cạnh tranh giữa hai phần này làm cho chất lượng hình ảnh được sinh bởi \texttt{Generator} ngày càng cao, đồng thời khả năng phân loại hình ảnh của bộ \texttt{Discriminator} được cải thiện liên tục.\\
 %
- -\textbf{Hàm mục tiêu:}\\
+ \textbf{Hàm mục tiêu:}
 %
 Mạng GAN~\cite{Goodfellow2014GenerativeAN} bao gồm hai nhánh mạng với mục tiêu huấn luyện đối ngược nhau và quá trình huấn luyện mạng diễn ra xen kẽ giữa \texttt{Generator} và \texttt{Discriminator}.\\
 \[
@@ -59,7 +59,7 @@ Giải thích ý nghĩa hàm mục tiêu: \texttt{Generator} sẽ cố gắn t�
 %
 \subsection{Mô hình Diffusion}
 %
-Là mô hình sinh ảnh chất lượng cao, được công bố trong nghiên cứu của Jonathan Ho năm 2020 với tên đầy đủ là \textit{"Mô hình xác suất khuếch tán khử nhiễu (DDPMs)~\cite{Ho2020DenoisingDP}"}, kiến trúc mô hình trong thực tế là sự kết hợp của kỹ thuật học sâu và nguyên lý của quá trình khuếch tán trong nhiệt động lực học~\cite{pmlr-v37-sohl-dickstein15}. Nguyên lý của mô hình bao gồm hai quá trình chính (Hình \ref{fig:model-diffusion-1}): quá trình khuếch tán thuận và quá trình đảo nghịch. Trong đó tạo sinh ảnh là quá trình nghịch, mô hình học cách khôi phục hình ảnh từ nhiễu.\\
+Là mô hình sinh ảnh chất lượng cao, được công bố trong nghiên cứu của Jonathan Ho năm 2020 với tên đầy đủ là \textit{"Mô hình xác suất khuếch tán khử nhiễu (DDPMs)~\cite{Ho2020DenoisingDP}"}, kiến trúc mô hình trong thực tế là sự kết hợp của kỹ thuật học sâu và nguyên lý của quá trình khuếch tán trong nhiệt động lực học~\cite{pmlr-v37-sohl-dickstein15}. Nguyên lý của mô hình bao gồm hai quá trình chính (Hình \ref{fig:model-diffusion-1}): quá trình khuếch tán thuận và quá trình đảo nghịch. Trong đó tạo sinh ảnh là quá trình nghịch, mô hình học cách khôi phục hình ảnh từ nhiễu.
 %
 \begin{figure}[htp]
 	\centering
@@ -68,9 +68,9 @@ Là mô hình sinh ảnh chất lượng cao, được công bố trong nghiên 
 		Đồ thị có hướng mô tả hai quá trình của mô hình Diffusion. \textit{Nguồn: \cite{Ho2020DenoisingDP}}
 	}
 	\label{fig:model-diffusion-1}
-\end{figure}
+\end{figure}\\
 %
--\textbf{Quá trình khuếch tán thuận:}
+\textbf{Quá trình khuếch tán thuận:}\\
 %
 Trong mô hình DDPMs~\cite{Ho2020DenoisingDP}, quá trình này mô phỏng lại hiện tượng khuếch tán trong tự nhiên bằng cách lặp lại nhiều lần việc thêm nhiễu Gaussian vào hình ảnh gốc cho đến khi ảnh trở thành nhiễu hoàn toàn (Hình~\ref{fig:model-forward-diffusion}).
 %
@@ -112,7 +112,7 @@ Trong đó:
 %
 Mục đích chính của quá trình này là tạo dữ liệu cho quá trình huấn luyện mô hình DDPMs. Với đầu vào là \(x_t\) và đầu ra mong muốn là \({x}_0\) thuộc phân phối mong muốn (tức loại hình ảnh cần tạo sinh)\\
 %
--\textbf{Quá trình đảo nghịch:}
+\textbf{Quá trình đảo nghịch:}\\
 %
 Quá trình khuếch tán thuận đã tạo ra một phân phối Gaussian đơn giản từ hình ảnh có phân phối rất phức tạp. Quá trình đảo nghịch (Phương trình \ref{eq:reverd_process}) sẽ thực hiện khử nhiễu để thu được phân phối dữ liệu mong muốn từ một phân phối Gaussian.
 %
@@ -124,7 +124,7 @@ Quá trình khuếch tán thuận đã tạo ra một phân phối Gaussian đơ
 
 Trong thực tế, người ta dùng một mạng nơ-ron để dự đoán nhiễu đã được thêm vào của từng bước thời gian chứ không trực tiếp hình ảnh ở bước thời gian trước đó.\\
 %
--\textbf{Thuật toán huấn luyện mô hình:}\\
+\textbf{Thuật toán huấn luyện mô hình:}\\
 %
 Quá trình được mô tả chi tiết trong hình ~\ref{fig:model-diffusion-training-1}, và được diễn giải như sau:
 \begin{itemize}
@@ -150,7 +150,7 @@ Quá trình được mô tả chi tiết trong hình ~\ref{fig:model-diffusion-t
 	\label{fig:model-diffusion-training-1}
 \end{figure}
 %
--\textbf{Thuật toán sinh ảnh của mô hình Diffusion:}\\
+\textbf{Thuật toán sinh ảnh của mô hình Diffusion:}\\
 %
 Sau khi đã huấn luyện xong mô hình Diffusion, quá trình sinh ra ảnh mới từ một điểm dữ liệu trong phân phối chuẩn diễn ra như sau.
 %
@@ -177,7 +177,7 @@ Sau khi đã huấn luyện xong mô hình Diffusion, quá trình sinh ra ảnh 
 %
 \section{Phát hiện hình ảnh tạo sinh}
 %
-Luận văn tập trung ta nghiên cứu và tiếp cận nhóm phương pháp phát hiện hình ảnh tạo sinh dựa trên phân tích, rút trích đặc trưng trên \textit{miền không gian} và \textit{miền tần số} của hình ảnh.\\
+Luận văn tập trung ta nghiên cứu và tiếp cận nhóm phương pháp phát hiện hình ảnh tạo sinh dựa trên phân tích, rút trích đặc trưng trên \textit{miền không gian} và \textit{miền tần số} của hình ảnh.
 %
 %
 \subsection{Nhóm phương pháp tiếp cận trên miền không gian}
@@ -254,12 +254,12 @@ Trong nghiên cứu này Yan-Ju và cộng sự thiết kế mô hình (Hình \r
 		\caption{Kiến trúc mô hình Fusing \textit{Nguồn: \cite{9897820}}}
 		\label{fig:model-fusing-architecture-1}
 	\end{minipage}
-\end{figure}\\
+\end{figure}
 %
 
 -Nhánh mô hình \textit{Global Branch:} 
 %
-Dùng \gls{backbone} ResNet50~\cite{He2015DeepRL} để trích xuất đặc trưng toàn cục. Cụ thể đầu vào là hình ảnh màu $\mathbb{I} \in \mathbb{R}^{3 \times w \times h}$, bản đồ đặc trưng toàn cục $\mathbb{F} \in \mathbb{R}^{C \times W_f \times H_f}$ thu được từ lớp tích chập cuối cùng của ResNet50.
+Dùng \gls{backbone} ResNet50~\cite{He2015DeepRL} để trích xuất đặc trưng toàn cục. Cụ thể đầu vào là hình ảnh màu $\mathbb{I} \in \mathbb{R}^{3 \times w \times h}$, bản đồ đặc trưng toàn cục $\mathbb{F} \in \mathbb{R}^{C \times W_f \times H_f}$ thu được từ lớp tích chập cuối cùng của ResNet500~\cite{He2015DeepRL}.
 
 -Nhánh mô hình \textit{Local Branch:} Có nhiệm vụ trích xuất thông tin từ một số mảnh vá mang nhiều thông tin nhất.
 
@@ -303,7 +303,7 @@ Khó khăn khi lựa chọn kích thước \textit{patch} phù hợp, vì mỗi 
 %
 \subsection{Nhóm phương pháp tiếp cận miền tần số}
 Nhóm phương pháp này thực hiện chuyển đổi hình ảnh từ miền không gian sang miền tần số bằng các phép biến đổi như Biến đổi Fourier nhanh \cite{Arunachalam2013TheFF} hoặc Biến đổi Cosine rời rạc \cite{1672377}.
-Bằng cách tập trung vào các đặc điểm tần số, các phương pháp này có thể nắm bắt các dấu vết giả tạo tốt hơn so với miền không gian.\\\\
+Bằng cách tập trung vào các đặc điểm tần số, các phương pháp này có thể nắm bắt các dấu vết giả tạo tốt hơn so với miền không gian.\\
 %
 \textbf{Unmasking DeepFakes with simple Features}~\cite{durall2019unmasking} (2019) của Durall.
 Bước đầu hình ảnh được chuyển thành phổ công suất bằng phép biến đổi Fourier rời rạc, sau đó áp dụng phương pháp trung bình theo phương vị (azimuthal averaging) để chuyển phổ công suất từ 2 chiều về 1 chiều nhằm mục đích phù hợp cho quá trình huấn luyện bộ phân loại (Hình ~\ref{fig:model-unmasking-deepfakes-1}).

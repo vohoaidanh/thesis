@@ -67,7 +67,7 @@ Trong quá trình thử nghiệm, ta đã sử dụng phép biến đổi Fourie
 
 Để khắc phục các hạn chế của FFT trong việc lọc tần số cao, một hướng tiếp cận thay thế là xây dựng bộ lọc thông cao trực tiếp trong miền không gian ảnh, cho phép loại bỏ thành phần tần số thấp mà không cần thực hiện biến đổi FFT và biến đổi FFT ngược.
 %
-Làm như vậy không chỉ giúp giảm độ phức tạp tính toán mà còn phù hợp hơn cho các hệ thống yêu cầu xử lý nhanh, có tài nguyên hạn chế hoặc dễ dàng tính toán song song nếu hệ thống hổ trợ GPU.
+Cách làm này không chỉ giúp giảm độ phức tạp tính toán mà còn phù hợp hơn cho các hệ thống yêu cầu xử lý nhanh, có tài nguyên hạn chế hoặc dễ dàng tính toán song song nếu hệ thống hổ trợ GPU.
 
 Trong phần này, tôi sẽ trình bày cơ sở lý thuyết của phương pháp xây dựng bộ lọc thông cao dựa trên việc biến đổi từ một bộ lọc thông thấp đơn giản – cụ thể là bộ lọc trung bình. 
 %
@@ -311,12 +311,12 @@ Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_archi
 		\item Một lớp Max Pooling với kernel \(3 \times 3\), stride = 2 nhằm giảm kích thước đầu vào.
 	\end{itemize}
 	
-	\item \textbf{Khối Layer1 (Residual Block 1)}:
+	\item \textbf{Khối Layer1}:
 	\begin{itemize}
 		\item Gồm 3 block dạng Bottleneck, sử dụng \textcolor{red}{\texttt{Skip connection}} để học các đặc trưng cơ bản như cạnh, vùng chuyển tiếp và kết cấu ảnh.
 	\end{itemize}
 	
-	\item \textbf{Khối Layer2 (Residual Block 2)}:
+	\item \textbf{Khối Layer2}:
 	\begin{itemize}
 		\item Gồm 4 khối \texttt{Bottleneck}, tiếp tục trích xuất đặc trưng ở mức trừu tượng cao hơn, giúp mô hình phân biệt được các khác biệt tinh vi giữa ảnh thật và ảnh tạo sinh.
 	\end{itemize}

@@ -30,7 +30,7 @@ Phát triển phương pháp phân biệt ảnh tạo sinh đạt được hai m
 Trong khuôn khổ của đề tài, ta định nghĩa và phân biệt hai loại hình ảnh (2 lớp đối tượng) của bài toán:
 \begin{itemize}  
 
-    \item \textbf{Ảnh Tạo Sinh}: Là những hình ảnh được tạo ra bởi mô hình GANs~\cite{Goodfellow2014GenerativeAN}, mô hình Diffusion \cite{Ho2020DenoisingDP}, hoặc bất kỳ mô hình tạo sinh khác. Nôi dung của hình ảnh tạo sinh là mô phỏng theo các đối tượng từ thế giới thật hoặc có thể là một đối tượng mới không có thật. Trong luận văn này, thuật ngữ \textit{"ảnh giả mạo"} sẽ được sử dụng đồng nghĩa với \textit{"ảnh tạo sinh"}.
+    \item \textbf{Ảnh Tạo Sinh (ảnh giả mạo)}: Là những hình ảnh được tạo ra bởi mô hình GANs~\cite{Goodfellow2014GenerativeAN}, mô hình Diffusion \cite{Ho2020DenoisingDP}, hoặc bất kỳ mô hình tạo sinh khác. Nôi dung của hình ảnh tạo sinh là mô phỏng theo các đối tượng từ thế giới thật hoặc có thể là một đối tượng mới không có thật.
     
     \item \textbf{Ảnh Thật}: Là những hình ảnh được chụp từ thực tế bằng máy ảnh hoặc các thiết bị thu hình khác. Những hình ảnh này phản ảnh chân thực các đối tượng của thế giới thực, bao gồm cả ảnh chụp các tác phẩm nghệ thuật, hoặc ảnh chụp lại một hình ảnh tạo sinh.
 
@@ -38,9 +38,9 @@ Trong khuôn khổ của đề tài, ta định nghĩa và phân biệt hai lo�
 %
 \subsection{Phát biểu hình thức}
 %
-Phát hiện hình ảnh tạo sinh là bài toán xác định một hình ảnh là \textit{ảnh thật} được tạo ra bằng thiết bị thu hình như máy ảnh, máy quay phim... hay là \textit{ảnh tạo sinh} được tạo ra bằng cách sử dụng các mô hình tạo sinh như GANs~\cite{Goodfellow2014GenerativeAN} hoặc Diffusion models~\cite{Ho2020DenoisingDP}. Trong luận văn này, bài toán phát hiện hình ảnh tạo sinh được định hình như một bài toán phân loại trong lĩnh vực thị giác máy tính và được mô tả cụ thể như sau:\\\\
+Phát hiện hình ảnh tạo sinh là bài toán xác định một hình ảnh là \textit{ảnh thật} được tạo ra bằng thiết bị thu hình như máy ảnh, máy quay phim, hay \textit{ảnh tạo sinh} được tạo ra bằng cách sử dụng các mô hình tạo sinh như GANs~\cite{Goodfellow2014GenerativeAN} hoặc Diffusion~\cite{Ho2020DenoisingDP}. Trong luận văn này, bài toán phát hiện hình ảnh tạo sinh được định hình như một bài toán phân loại trong lĩnh vực thị giác máy tính và được mô tả cụ thể như sau:\\
 %
-\textbf{Đầu vào:} Ảnh đầu vào $I \in \mathbb{R}^{w \times h \times c}$, trong đó $w ,h, c$ tương ứng chiều rộng, chiều cao và số lượng kênh màu của hình ảnh.\\\\
+\textbf{Đầu vào:} Ảnh đầu vào $I \in \mathbb{R}^{w \times h \times c}$, trong đó $w ,h, c$ tương ứng chiều rộng, chiều cao và số lượng kênh màu của hình ảnh.\\
 %
 \textbf{Đầu ra: } Là kết quả dự đoán thể hiện ảnh đầu vào $I$ là ảnh thật hay ảnh giả mạo.
 \begin{equation}
@@ -53,7 +53,7 @@ Với  \( y \in \{0, 1\} \) là nhãn phân loại của ảnh \( I \), $f(.)$ l
 \end{itemize}
 %
 \subsection{Phương pháp giải bài toán}
-Sử dụng kỹ thuật học sâu để xây dựng được hàm $f(.)$ phân lớp giữa ảnh thật và ảnh giả mạo.\\
+Sử dụng kỹ thuật học sâu để xây dựng được hàm $f(.)$ có khả năng phân lớp giữa ảnh thật và ảnh giả mạo.\\
 %
 % Tập dữ liệu
 Cho tập dữ liệu \( X \) và nhãn \( Y \) được mô tả như sau:
@@ -66,14 +66,14 @@ f: \mathbb{R}^{H \times W \times C} \to \{0, 1\}
 %
 Trong đó, $\mathbf{x}_i$ là ảnh thứ $i$, $N$ là số lượng hình ảnh, $0$: ảnh thật, $1$: ảnh giả mạo. \\
 %
-Mục tiêu huấn luyện là tìm bộ tham số \(\theta\) để hàm mất mát cross-entropy~\cite{2023arXiv230407288M} \(\mathcal{L}(\theta)\) đạt giá trị nhỏ nhất.
+Mục tiêu huấn luyện là tìm bộ tham số \(\theta\) để hàm mất mát \(\mathcal{L}(\theta)\) đạt giá trị nhỏ nhất.
 \[
 \hat{\theta} = \arg \min_{\theta} \mathcal{L}(\theta)
 \]
 
 
 \begin{itemize}
-	\item \(\hat{\theta}\) là giá trị tối ưu của các tham số \(\theta\).
+	\item \(\hat{\theta}\) là giá trị tối ưu của bộ tham số \(\theta\).
 	\item Hàm mất mát cross-entropy~\cite{2023arXiv230407288M} sử dụng cho bài toán phân lớp nhị phân với nhãn $y$ và dự đoán $\hat{y} = f(\mathbf{x}_i) $.
 	
 	\[
@@ -128,9 +128,12 @@ Khó khăn trong việc trả lời câu hỏi \textit{"mô hình đã dựa và
 \section{Đóng góp của luận văn}
 Luận văn có những đóng góp cơ bản sau:
 \begin{itemize}
-	\item Luận văn đã đề xuất một bộ lọc mới làm tăng độ chính xác, tăng tốc độ hội tụ trong quá trình huấn luyện mô hình, đồng thời phương pháp này yêu cầu kiến trúc mạng đơn giản hơn nhiều phương pháp khác nhưng vẫn cho độ chính xác cao.
-	\item \textcolor{red}{Thực hiện 2 thử nghiệm mở rộng, cho thấy hiệu quả của phương pháp trên nhiều tập dữ liệu, nhiều mô hình tạo sinh khác nhau.}
-	\item \textcolor{red}{Phương pháp được đề xuất có tiềm năng ứng dụng rộng hơn cho bài toán phân tích hình ảnh pháp y (phát hiện thao tác sao chép, chỉnh sửa...).}
+	%
+	\item Đề xuất một bộ lọc mới làm tăng độ chính xác của mô hình, tăng tốc độ hội tụ trong quá trình huấn luyện mô hình, đồng thời phương pháp này yêu cầu số lượng phép tính nhỏ hơn nhiều phương pháp khác nhưng vẫn cho độ chính xác cao.
+	%
+	\item Xây dựng kiến trúc mô hình đơn giản nhưng có hiệu quả cao khi kết hợp với bộ lọc mà luận văn đề xuất. Bộ phân loại sau khi huấn luyện có khả năng hoạt động tốt trên nhiều tập dữ liệu được sinh bởi nhiều loại mô hình tạo sinh khác nhau.
+	%
+
 \end{itemize}
 
 
