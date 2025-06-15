@@ -28,3 +28,36 @@
 	 },
 	short={histogram},
 }
+
+%bilinear
+\newglossaryentry{bilinear}{
+	name=\texttt{bilinear},
+	description={Hay gọi đầy đủ là Bilinear interpolation  \cite{mastylo2013bilinear}- Nội suy song tuyến tính, là phương pháp được sử dụng phổ biến để phóng to hoặc thu nhỏ ảnh. Giá trị của điểm ảnh mới được tính toán dựa trên trung bình trọng số của 4 điểm ảnh lân cận theo cả trục ngang ($x$) và dọc ($y$).},
+	short={bilinear},
+}
+
+
+\newglossaryentry{epoch}{
+	name=\texttt{epoch},
+	description={Một vòng lặp hoàn chỉnh qua toàn bộ tập dữ liệu huấn luyện. Trong một epoch, mô hình được cập nhật nhiều lần, mỗi lần với một batch dữ liệu},
+	short={epoch}
+}
+
+\newglossaryentry{batch}{
+	name=\texttt{batch},
+	description={Là một tập con của dữ liệu huấn luyện được sử dụng trong một lần lan truyền tiến và lan truyền ngược trong quá trình huấn luyện. Việc chia dữ liệu thành các batch giúp tối ưu hóa bộ nhớ và tăng tốc quá trình huấn luyện thông qua tính toán song song},
+	short={batch},
+}
+
+\newglossaryentry{overfitting}{
+	name=\texttt{overfitting},
+	description={Là hiện tượng xảy ra khi mô hình học quá kỹ các chi tiết và nhiễu trong tập huấn luyện, dẫn đến hiệu suất kém khi áp dụng cho dữ liệu chưa từng thấy. Mô hình bị overfitting sẽ có sai số huấn luyện thấp nhưng sai số kiểm tra cao},
+	short={overfitting},
+}
+
+\newglossaryentry{adam}{
+	name=\texttt{Adam},
+	description={Thuật toán tối ưu phổ biến trong huấn luyện mạng nơ-ron, kết hợp giữa momentum và điều chỉnh tốc độ học theo từng tham số. Tên đầy đủ là Adaptive Moment Estimation},
+	short={adam},
+}
+
