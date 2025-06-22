@@ -6,7 +6,7 @@
 %
 \subsection{Thử nghiệm 1}
 %
-\begin{figure}[ht!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=1.0\linewidth]{Images/restyle-encoder-1.png}
 	\begin{minipage}{1.0\linewidth}
@@ -23,18 +23,18 @@ Việc sử dụng cặp ảnh thật–giả có cùng đặc điểm khuôn m�
 %
 %
 
-Các nghiên cứu trước đây \textcolor{red}{trích dẫn} cũng chỉ ra rằng các đặc trưng nhân tạo có xu hướng tập trung ở vùng tần số cao. Một số phương pháp đã tận dụng điều này để phát triển bộ phân loại dựa trên đặc trưng tần số \textcolor{red}{trích dẫn}.Phần~\ref{ssec:thu_nghiem_2}, ta tiến hành thử nghiệm nhằm đánh giá sự ảnh hưởng của đặc trưng tần số đến hiệu xuất bộ phân loại ảnh thật, giả.
+Các nghiên cứu trước đây \cite{Jeong2021BiHPFBH}, \cite{Frank2020LeveragingFA}, \cite{Jeong2022FrePGANRD} cũng chỉ ra rằng các đặc trưng nhân tạo có xu hướng tập trung ở vùng tần số cao và đã tận dụng điều này để phát triển bộ phân loại dựa trên đặc trưng tần số. Phần~\ref{ssec:thu_nghiem_2}, ta tiến hành thử nghiệm nhằm đánh giá sự ảnh hưởng của đặc trưng tần số đến hiệu xuất bộ phân loại ảnh thật, giả.
 
 \subsection{Thử nghiệm 2}
 \label{ssec:thu_nghiem_2}
-Bước tiếp theo của quá trình phân tích, ta thực hiện huấn luyện hai bộ phân loại dựa trên kiến trúc ResNet~\cite{He2015DeepRL} và sử dụng cùng bộ dữ liệu \textcolor{red}{[Tên tập dữ liệu]}.
+Bước tiếp theo của quá trình phân tích, ta thực hiện huấn luyện hai bộ phân loại dựa trên kiến trúc ResNet~\cite{He2015DeepRL} và sử dụng cùng bộ dữ liệu \cite{Krizhevsky2012ImageNetCW}.
 
 \textbf{Bộ phân loại số 1:} (Original RGB ) ảnh đầu vào là ảnh màu RGB gốc, giữ nguyên toàn bộ thông tin tần số.  
 
 \textbf{Bộ phân loại số 2:} (Highpass 50\%) Mô hình này sử dụng cùng kiến trúc với Bộ phân loại số 1, tuy nhiên ảnh đầu vào đã được xử lý bằng bộ lọc thông cao, trong đó 50\% thành phần tần số thấp đã bị loại bỏ thông qua biến đổi Fourier. Kết quả huấn luyện được trình bày trong Hình~\ref{fig:Experiment_Highpass50_percent}
 
 %
-\begin{figure}[ht!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=1.0\linewidth]{Images/Experiment_Highpass50_percent.png}
 	\begin{minipage}{1.0\linewidth}
@@ -54,26 +54,26 @@ Những quan sát từ thử nghiệm cho thấy rằng việc tăng cường kh
 
 \subsection{Các hạn chế khi dùng biến đổi Fourier}
 
-Trong quá trình thử nghiệm, ta đã sử dụng phép biến đổi Fourier nhanh (FFT) để phân tích tín hiệu trong miền tần số và thực hiện việc loại bỏ các thành phần tần số thấp nhằm tập trung khai thác đặc trưng tần số cao. Việc này giúp tăng hiệu quả phân loại ảnh thật và giả mạo. Tuy nhiên, mặc dù FFT có ưu điểm về tốc độ tính toán nhanh hơn nhiều so với biến đổi Fourier rời rạc (DFT), quá trình áp dụng FFT và cắt lọc tần số cũng tồn tại những hạn chế nhất định.
+Trong quá trình thử nghiệm, ta đã sử dụng phép biến đổi \gls{fft}~\cite{Arunachalam2013TheFF} để phân tích tín hiệu trong miền tần số và thực hiện việc loại bỏ các thành phần tần số thấp nhằm tập trung khai thác đặc trưng tần số cao. Việc này giúp tăng hiệu quả phân loại ảnh thật và giả mạo. Tuy nhiên, mặc dù \gls{fft} có ưu điểm về tốc độ tính toán nhanh hơn nhiều so với biến đổi \gls{dft}, quá trình áp dụng \gls{fft} và cắt lọc tần số cũng tồn tại những hạn chế nhất định.
 
 \begin{itemize}
-	\item Tuy độ phức tạp tính toán chỉ là $O(N\log{N})$ nhưng ta phải thêm bước biến đổi ngược (iFFT) về không gian ảnh ban đầu sau khi áp dụng mặt nạ lọc tần số.
-	\item Khó khăn trong việc tối ưu hoá tốc độ bằng tính toán song song tận dụng sức mạnh của GPU.
+	\item Tuy độ phức tạp tính toán chỉ là $O(N\log{N})$ nhưng ta phải thêm bước \gls{ifft} về không gian ảnh ban đầu sau khi áp dụng mặt nạ lọc tần số.
+	\item Khó khăn trong việc tối ưu hoá tốc độ bằng tính toán song song tận dụng sức mạnh của \gls{gpu}.
 	\item Tốn nhiều tài nguyên bộ nhớ do các biến đổi ở dạng số phức nên yêu cầu thêm bộ nhớ.
-	\item Hiệu ứng biên trong biến đổi FFT làm xuất hiện các tín hiệu nhiễu không mong muốn.
+	\item Hiệu ứng biên trong biến đổi \gls{fft} làm xuất hiện các tín hiệu nhiễu không mong muốn.
 \end{itemize}
 
 \section{Biến đổi sai phân như một phép lọc thông cao: Phân tích từ góc nhìn miền tần số}
 
-Để khắc phục các hạn chế của FFT trong việc lọc tần số cao, một hướng tiếp cận thay thế là xây dựng bộ lọc thông cao trực tiếp trong miền không gian ảnh, cho phép loại bỏ thành phần tần số thấp mà không cần thực hiện biến đổi FFT và biến đổi FFT ngược.
+Để khắc phục các hạn chế của \gls{fft} trong việc lọc tần số cao, một hướng tiếp cận thay thế là xây dựng bộ lọc thông cao trực tiếp trong miền không gian ảnh, cho phép loại bỏ thành phần tần số thấp mà không cần thực hiện biến đổi \gls{fft} và biến đổi \gls{fft} ngược.
 %
-Cách làm này không chỉ giúp giảm độ phức tạp tính toán mà còn phù hợp hơn cho các hệ thống yêu cầu xử lý nhanh, có tài nguyên hạn chế hoặc dễ dàng tính toán song song nếu hệ thống hổ trợ GPU.
+Cách làm này không chỉ giúp giảm độ phức tạp tính toán mà còn phù hợp hơn cho các hệ thống yêu cầu xử lý nhanh, có tài nguyên hạn chế hoặc dễ dàng tính toán song song nếu hệ thống hổ trợ \gls{gpu}.
 
 Trong phần này, tôi sẽ trình bày cơ sở lý thuyết của phương pháp xây dựng bộ lọc thông cao dựa trên việc biến đổi từ một bộ lọc thông thấp đơn giản – cụ thể là bộ lọc trung bình. 
 %
 Thông qua phân tích đáp ứng tần số, ta sẽ chứng minh rằng thao tác lấy sai phân (hiệu) giữa các điểm ảnh kề nhau có thể được xem như một phép lọc thông cao hiệu quả, với độ phức tạp rất thấp.
 
-\subsection{Bộ Lọc Trung Bình (Low-Pass Filter)}
+\subsection{Bộ Lọc Trung Bình}
 
 Bộ lọc trung bình rời rạc \( h_{\mathrm{LP}}[n] \) có thể được định nghĩa theo công thức:
 
@@ -133,7 +133,7 @@ Với biên độ đáp ứng tần số là:
 
 **Nhận xét** Để triệt tiêu hoàn toàn tần số cao, ta nên chọn \( M \) chẵn.
 
-\subsection*{Thiết Kế Bộ Lọc Thông Cao (High-Pass Filter)}
+\subsection*{Thiết Kế Bộ Lọc Thông Cao}
 
 Bộ lọc thông cao có thể được xây dựng từ bộ lọc thông thấp thông qua một quan hệ tuyến tính. Cụ thể, tín hiệu đầu ra của bộ lọc thông cao là:
 
@@ -262,17 +262,17 @@ Dựa trên phân tích tại mục \ref{sec:cua_so_loc_thong_cao}, ta chọn đ
 
 Trong đề tài này, mục tiêu hướng đến là xây dựng một phương pháp có cấu trúc đơn giản, tối ưu về tốc độ xử lý, và phù hợp với các hệ thống có tài nguyên hạn chế trong nhiệm vụ phát hiện hình ảnh tạo sinh. Để đạt được mục tiêu này, kiến trúc ResNet~\cite{He2015DeepRL} được lựa chọn làm nền tảng cho mô hình phân loại.
 
-ResNet~\cite{He2015DeepRL} là một trong những kiến trúc \textcolor{red}{CNN} hiệu quả nhất được đề xuất bởi He et al. (2015), nổi bật nhờ cơ chế \textcolor{red}{skip connection}, cơ chế này cho phép huấn luyện các mô hình có chiều sâu lớn hơn mà vẫn duy trì hiệu quả hội tụ, đồng thời hạn chế hiện tượng mất mát thông tin trong quá trình lan truyền ngược.
+ResNet~\cite{He2015DeepRL} là một trong những kiến trúc \gls{cnn} hiệu quả nhất được đề xuất bởi He et al. (2015), nổi bật nhờ cơ chế \gls{skipconnection}, cơ chế này cho phép huấn luyện các mô hình có chiều sâu lớn hơn mà vẫn duy trì hiệu quả hội tụ, đồng thời hạn chế hiện tượng mất mát thông tin trong quá trình lan truyền ngược.
 
 So với các kiến trúc phức tạp hơn như EfficientNet~\cite{zhong2024patchcraftexploringtexturepatch}, Vision Transformer~\cite{dosovitskiy2020image}, ResNet có ưu điểm là dễ triển khai, ít tham số hơn, và có thể tùy chỉnh dễ dàng số lượng tầng để phù hợp với yêu cầu tính toán của hệ thống. Trong phạm vi nghiên cứu này, một phiên bản rút gọn từ ResNet-50~\cite{He2015DeepRL} được sử dụng nhằm đảm bảo cân bằng giữa độ chính xác và chi phí tính toán.
 
-Bên cạnh đó, ResNet~\cite{He2015DeepRL} cũng cho thấy khả năng trích xuất đặc trưng tốt ở các tác vụ phân biệt hình ảnh có sai khác nhỏ, chẳng hạn như sự khác biệt vi mô giữa ảnh thật và ảnh tạo sinh – điều này đặc biệt quan trọng trong bối cảnh deepfake ngày càng tinh vi.
+Bên cạnh đó, ResNet~\cite{He2015DeepRL} cũng cho thấy khả năng trích xuất đặc trưng tốt ở các tác vụ phân biệt hình ảnh có sai khác nhỏ, chẳng hạn như sự khác biệt vi mô giữa ảnh thật và ảnh tạo sinh – điều này đặc biệt quan trọng trong bối cảnh \gls{deepfake} ngày càng tinh vi.
 
 \subsection{Kiến trúc mô hình rút gọn từ ResNet-50}
 \label{sec:kien_truc_mo_hinh_rut_gon_tu_resnet_50}
 Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_architecture}), trong đó chỉ sử dụng hai khối residual đầu tiên của kiến trúc ResNet-50 (tương ứng với \texttt{Layer1} và \texttt{Layer2}) để thực hiện trích xuất đặc trưng, kết hợp với một bộ phân loại nhị phân đơn giản ở đầu ra. Việc tinh giản này giúp giảm số lượng tham số từ khoảng 23 triệu (của ResNet-50 đầy đủ) xuống còn khoảng 1.4 triệu tham số. Mô hình bao gồm các thành phần chính như sau:
 %
-\begin{figure}[ht!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=1.0\linewidth]{Images/figure_model_architecture.png}
 	\begin{minipage}{1.0\linewidth}
@@ -307,13 +307,13 @@ Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_archi
 	\end{itemize}
 	\item \textbf{Tầng đầu vào (Stem Layer)}:
 	\begin{itemize}
-		\item Một lớp \texttt{convolution} với kernel \(3 \times 3\), stride = 1, padding = 1, tiếp theo là \texttt{Batch Normalization} và hàm kích hoạt \texttt{ReLU}.
-		\item Một lớp Max Pooling với kernel \(3 \times 3\), stride = 2 nhằm giảm kích thước đầu vào.
+		\item Một lớp \gls{convolution} với \gls{kernel} \(3 \times 3\), \gls{stride} = 1, \gls{padding} = 1, tiếp theo là \texttt{Batch Normalization} và hàm kích hoạt \gls{relu}.
+		\item Một lớp \gls{maxpooling} với \gls{kernel} \(3 \times 3\), \gls{stride} = 2 nhằm giảm kích thước đầu vào.
 	\end{itemize}
 	
 	\item \textbf{Khối Layer1}:
 	\begin{itemize}
-		\item Gồm 3 block dạng Bottleneck, sử dụng \textcolor{red}{\texttt{Skip connection}} để học các đặc trưng cơ bản như cạnh, vùng chuyển tiếp và kết cấu ảnh.
+		\item Gồm 3 khối Bottleneck, sử dụng \gls{skipconnection} để học các đặc trưng cơ bản như cạnh, vùng chuyển tiếp và kết cấu ảnh.
 	\end{itemize}
 	
 	\item \textbf{Khối Layer2}:
@@ -323,8 +323,8 @@ Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_archi
 	
 	\item \textbf{Bộ phân loại đầu ra}:
 	\begin{itemize}
-		\item Một lớp \texttt{Global Average Pooling} để chuyển đổi bản đồ đặc trưng thành vector đặc trưng cố định.
-		\item Một lớp \texttt{Fully Connected} với một ngõ ra duy nhất, sử dụng hàm kích hoạt \texttt{sigmoid} để phân loại ảnh đầu vào là thật hay tạo sinh.
+		\item Một lớp \gls{gap} để chuyển đổi bản đồ đặc trưng thành vec-tơ đặc trưng cố định.
+		\item Một \gls{fc} với một ngõ ra duy nhất, sử dụng hàm kích hoạt \gls{sigmoid} để phân loại ảnh đầu vào là thật hay tạo sinh.
 	\end{itemize}
 \end{itemize}
 
@@ -334,7 +334,7 @@ Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_archi
 %
 Quá trình huấn luyện được mô tả trong Hình~\ref{fig:offline-training-process}, ảnh đầu vào sẽ được chuẩn hóa và tiền xử lý nhằm đồng nhất kích thước, tăng tính đa dạng qua các kỹ thuật tăng cường dữ liệu xoay và lật ảnh. Sau bước này, ảnh được đưa qua khối \textcolor{red}{ADOF} – có chức năng lọc lấy những tín hiệu ở tần số cao trong ảnh, nơi mà các mô hình tạo sinh thường để lại dấu vết.
 %
-\begin{figure}[ht!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=1.0\linewidth]{Images/offline-training-process.png}
 	\begin{minipage}{1.0\linewidth}
@@ -344,7 +344,7 @@ Quá trình huấn luyện được mô tả trong Hình~\ref{fig:offline-traini
 	\end{minipage}
 \end{figure}
 %
-Đầu ra từ khối \textcolor{red}{ADOF} sau đó được đưa vào một kiến trúc ResNet-50~\cite{He2015DeepRL} đã được rút gọn và điều chỉnh nhằm trích xuất đặc trưng và thực hiện phân loại. Kiến trúc này được giảm bớt số lượng tầng so với phiên bản đầy đủ để giảm chi phí tính toán nhưng vẫn giữ lại khả năng biểu diễn cần thiết cho bài toán nhị phân. Đầu ra cuối cùng của mạng là một giá trị xác suất thể hiện mức độ tin tưởng rằng ảnh đầu vào là ảnh tạo sinh. Hàm mất mát được sử dụng trong quá trình huấn luyện là \textcolor{red}{Binary Cross-Entropy}, kết hợp với thuật toán tối ưu \gls{adam}. Sự lựa chọn này đặc biệt phù hợp với bài toán phân loại nhị phân, giúp mô hình hội tụ nhanh và ổn định. 
+Đầu ra từ khối \textcolor{red}{ADOF} sau đó được đưa vào một kiến trúc ResNet-50~\cite{He2015DeepRL} đã được rút gọn và điều chỉnh nhằm trích xuất đặc trưng và thực hiện phân loại. Kiến trúc này được giảm bớt số lượng tầng so với phiên bản đầy đủ để giảm chi phí tính toán nhưng vẫn giữ lại khả năng biểu diễn cần thiết cho bài toán nhị phân. Đầu ra cuối cùng của mạng là một giá trị xác suất thể hiện mức độ tin tưởng rằng ảnh đầu vào là ảnh tạo sinh. Hàm mất mát được sử dụng trong quá trình huấn luyện là \gls{bce}, kết hợp với thuật toán tối ưu \gls{adam}. Sự lựa chọn này đặc biệt phù hợp với bài toán phân loại nhị phân, giúp mô hình hội tụ nhanh và ổn định. 
 
 Quá trình huấn luyện được tổ chức thành nhiều bước cập nhật trọng số trong mỗi \gls{epoch}. Mỗi bước tương ứng với một \gls{batch} dữ liệu được đưa vào mô hình để tính toán hàm mất mát và cập nhật trọng số thông qua lan truyền ngược. Sau khi hoàn tất một \gls{epoch} – tức là toàn bộ tập huấn luyện đã được xử lý – mô hình sẽ được đánh giá trên tập dữ liệu kiểm thử nhằm theo dõi hiệu năng tổng thể và điều chỉnh chiến lược huấn luyện nếu cần thiết. Quá trình này tiếp tục cho đến khi mô hình đạt đến số \gls{epoch} tối đa đã định hoặc khi các chỉ số đánh giá dừng cải thiện trong một khoảng thời gian xác định trước. Quy trình huấn luyện như trên giúp mô hình học được các đặc trưng phân biệt hiệu quả giữa ảnh thật và ảnh tạo sinh, đồng thời hạn chế hiện tượng \gls{overfitting}.
 %
@@ -365,7 +365,7 @@ Sau khi quá trình huấn luyện hoàn tất, mô hình đã sẵn sàng cho v
 
 \section{Tối giản mô hình với kỹ thuật Feature-Based Knowledge Distillation}
 
-Nhằm tối ưu khả năng triển khai thực tế trên các thiết bị có tài nguyên hạn chế, sau khi hoàn tất huấn luyện mô hình với kiến trúc trình bày ở phần~\ref{sec:kien_truc_mo_hinh_rut_gon_tu_resnet_50}, ta tiếp tục áp dụng kỹ thuật \textcolor{red}{Feature-Based Knowledge Distillation} để rút gọn mô hình.
+Nhằm tối ưu khả năng triển khai thực tế trên các thiết bị có tài nguyên hạn chế, sau khi hoàn tất huấn luyện mô hình với kiến trúc trình bày ở phần~\ref{sec:kien_truc_mo_hinh_rut_gon_tu_resnet_50}, ta tiếp tục áp dụng kỹ thuật \gls{fbkd} để rút gọn mô hình.
 
 Cụ thể, mô hình đã huấn luyện sẽ đóng vai trò là mô hình Teacher, từ đó truyền đạt kiến thức cho một mô hình Student nhỏ gọn hơn. Thay vì chỉ dựa vào đầu ra cuối cùng, mô hình Student được hướng dẫn học theo các đặc trưng trung gian từ Teacher, giúp duy trì hiệu suất nhận dạng trong khi giảm đáng kể kích thước và chi phí suy luận của mô hình.
 
@@ -380,7 +380,7 @@ Việc lựa chọn số lượng \texttt{Layer} được giữ lại trong mô 
 \subsection{Quy trình huấn luyện và sử dụng}
 %offline-training-process-distillation.png
 %
-\begin{figure}[ht!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=1.0\linewidth]{Images/offline-training-process-distillation.png}
 	\begin{minipage}{1.0\linewidth}
@@ -398,7 +398,7 @@ Quy trình huấn luyện trải qua các bước tương tự với như phần
 \begin{itemize}
 	\item Lan truyền thuận: Hình ảnh từ đầu vào sẽ được đi qua cả hai mô hình Teacher và Student. Sau đó ta trích xuất véc-tơ đặc trưng ở đầu ra của \texttt{Layer2} trong mỗi mô hình và đưa vào hàm mất mát.
 	
-	\item  Hàm mất mát: Là sự kết hợp của 2 thành phần \textcolor{red}{Distillation} và \textcolor{red}{Binary Cross Entropy}, chi tiết được trình bày tại \textcolor{red}{tham chiều tới..}
+	\item  Hàm mất mát: Là sự kết hợp của 2 thành phần \gls{distillation} và \gls{bce}, chi tiết được trình bày tại \textcolor{red}{tham chiều tới..}
 	
 	\item Cập nhật trọng số: Trong suốt quá trình huấn luyện, mô hình Teacher chỉ sử dụng duy nhất một bộ trọng số đã được huấn luyện trước. Việc cập nhật bộ trọng số chỉ được áp dụng cho mô hình Student.
 \end{itemize}

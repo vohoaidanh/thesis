@@ -2,28 +2,28 @@
 
 %backbone
 \newglossaryentry{backbone}{
-	name=\texttt{backbone},
+	name={backbone},
 	description={Hay còn gọi \textit{mạng xương sống} trong tiếng Việt, là phần cơ bản của mô hình chịu trách nhiệm trích xuất các đặc trưng từ dữ liệu đầu vào. Các cấu trúc phổ biến thường sử dụng làm \textit{backbone} trong các nhiệm vụ liên quan đến hình ảnh gồm ResNet, VGG, và EfficientNet},
 	short={backbone},
 }
 %
 %up-sampling 
 \newglossaryentry{up-sampling}{
-	name=\texttt{up-sampling},
-	description={Toán tử \texttt{up-sampling} có chức năng tăng kích thước của ảnh bằng cách chèn các điểm mới giữa các điểm hiện có, được dùng phổ biến trong các mô hình tạo sinh, nhằm tăng kích thước của đầu ra so với đầu vào},
+	name={up-sampling},
+	description={Toán tử \textit{up-sampling} có chức năng tăng kích thước của ảnh bằng cách chèn các điểm mới giữa các điểm hiện có, được dùng phổ biến trong các mô hình tạo sinh, nhằm tăng kích thước của đầu ra so với đầu vào},
 	short={up-sampling},
 }
 
 %convolution
 \newglossaryentry{convolution}{
-	name=\texttt{convolution},
-	description={Toán tử \texttt{convolution}~\cite{convolution} là một toán tử được sử dụng trong mạng tích chập, dùng để trích xuất đặc trưng của tín hiệu},
+	name={convolution},
+	description={Toán tử \textit{convolution}~\cite{convolution} là một toán tử được sử dụng trong mạng tích chập, dùng để trích xuất đặc trưng của tín hiệu},
 	short={convolution},
 }
 
 %histogram
 \newglossaryentry{histogram}{
-	name=\texttt{histogram},
+	name={histogram},
 	description={Là một biểu đồ cột biểu diễn sự phân bố các giá trị màu sắc hoặc mức xám trong một hình ảnh. Biểu đồ này cung cấp một cái nhìn tổng quan về tần suất xuất hiện của các giá trị màu sắc khác nhau trong ảnh, từ đó có thể hiểu rõ hơn về đặc điểm của ảnh, chẳng hạn như độ sáng, độ tương phản, và sự cân bằng màu.
 	 },
 	short={histogram},
@@ -31,33 +31,156 @@
 
 %bilinear
 \newglossaryentry{bilinear}{
-	name=\texttt{bilinear},
-	description={Hay gọi đầy đủ là Bilinear interpolation  \cite{mastylo2013bilinear}- Nội suy song tuyến tính, là phương pháp được sử dụng phổ biến để phóng to hoặc thu nhỏ ảnh. Giá trị của điểm ảnh mới được tính toán dựa trên trung bình trọng số của 4 điểm ảnh lân cận theo cả trục ngang ($x$) và dọc ($y$).},
+	name={bilinear},
+	description={Hay gọi đầy đủ là \textit{Bilinear interpolation}  \cite{mastylo2013bilinear}- Nội suy song tuyến tính, là phương pháp được sử dụng phổ biến để phóng to hoặc thu nhỏ ảnh. Giá trị của điểm ảnh mới được tính toán dựa trên trung bình trọng số của 4 điểm ảnh lân cận theo cả trục ngang ($x$) và dọc ($y$).},
 	short={bilinear},
 }
 
 
 \newglossaryentry{epoch}{
-	name=\texttt{epoch},
-	description={Một vòng lặp hoàn chỉnh qua toàn bộ tập dữ liệu huấn luyện. Trong một epoch, mô hình được cập nhật nhiều lần, mỗi lần với một batch dữ liệu},
+	name={epoch},
+	description={Một vòng lặp hoàn chỉnh qua toàn bộ tập dữ liệu huấn luyện. Trong một \textit{epoch}, mô hình được cập nhật nhiều lần, mỗi lần với một batch dữ liệu},
 	short={epoch}
 }
 
 \newglossaryentry{batch}{
-	name=\texttt{batch},
+	name={batch},
 	description={Là một tập con của dữ liệu huấn luyện được sử dụng trong một lần lan truyền tiến và lan truyền ngược trong quá trình huấn luyện. Việc chia dữ liệu thành các batch giúp tối ưu hóa bộ nhớ và tăng tốc quá trình huấn luyện thông qua tính toán song song},
 	short={batch},
 }
 
 \newglossaryentry{overfitting}{
-	name=\texttt{overfitting},
-	description={Là hiện tượng xảy ra khi mô hình học quá kỹ các chi tiết và nhiễu trong tập huấn luyện, dẫn đến hiệu suất kém khi áp dụng cho dữ liệu chưa từng thấy. Mô hình bị overfitting sẽ có sai số huấn luyện thấp nhưng sai số kiểm tra cao},
+	name={overfitting},
+	description={Là hiện tượng xảy ra khi mô hình học quá kỹ các chi tiết và nhiễu trong tập huấn luyện, dẫn đến hiệu suất kém khi áp dụng cho dữ liệu chưa từng thấy. Mô hình bị \textit{overfitting} sẽ có sai số huấn luyện thấp nhưng sai số kiểm tra cao},
 	short={overfitting},
 }
 
 \newglossaryentry{adam}{
-	name=\texttt{Adam},
+	name={Adam},
 	description={Thuật toán tối ưu phổ biến trong huấn luyện mạng nơ-ron, kết hợp giữa momentum và điều chỉnh tốc độ học theo từng tham số. Tên đầy đủ là Adaptive Moment Estimation},
 	short={adam},
 }
 
+\newglossaryentry{cnn}{
+	name={CNN},
+	description={Mạng nơ-ron tích chập, thường được dùng trong các bài toán xử lý ảnh và nhận dạng mẫu. CNN sử dụng các lớp tích chập để tự động học các đặc trưng không gian từ dữ liệu ảnh đầu vào.},
+	first={CNN (Convolutional Neural Network)},
+	plural={CNNs}
+}
+
+\newglossaryentry{skipconnection}{
+	name={skip connection},
+	description={Kết nối bỏ qua; kỹ thuật kết nối đầu vào của một lớp với đầu ra của lớp sâu hơn, thường dùng trong mạng sâu như ResNet để giảm hiện tượng mất mát thông tin và giúp gradient lan truyền dễ dàng hơn.}
+}
+
+\newglossaryentry{fft}{
+	name={FFT},
+	description={viết tắt của \textit{Fast Fourier Transform}, tức Biến đổi Fourier nhanh. Đây là thuật toán hiệu quả để chuyển đổi tín hiệu từ miền thời gian sang miền tần số, thường được dùng trong xử lý tín hiệu và phân tích ảnh},
+	first={Fast Fourier Transform (FFT)},
+	plural={FFTs}
+}
+
+\newglossaryentry{ifft}{
+	name={iFFT},
+	description={viết tắt của \textit{Inverse Fast Fourier Transform}, tức Biến đổi Fourier ngược nhanh. Đây là thuật toán dùng để chuyển tín hiệu từ miền tần số trở về miền thời gian},
+	first={Inverse Fast Fourier Transform (iFFT)},
+	plural={iFFTs}
+}
+
+\newglossaryentry{dft}{
+	name={DFT},
+	description={viết tắt của \textit{Discrete Fourier Transform}, tức Biến đổi Fourier rời rạc. Đây là phép biến đổi dùng để phân tích một tín hiệu rời rạc theo miền tần số},
+	first={Discrete Fourier Transform (DFT)},
+	plural={DFTs}
+}
+
+\newglossaryentry{gpu}{
+	name={GPU},
+	description={viết tắt của \textit{Graphics Processing Unit}, tức bộ xử lý đồ họa. GPU có khả năng xử lý song song cao, thường được dùng để tăng tốc quá trình huấn luyện mạng học sâu},
+	first={GPU},
+	plural={GPUs}
+}
+
+\newglossaryentry{deepfake}{
+	name={deepfake},
+	description={là từ ghép giữa “deep learning” (học sâu) và “fake” (giả mạo). Deepfake là nội dung đa phương tiện (ảnh, video, âm thanh) được tạo ra bằng các kỹ thuật học sâu, khiến chúng trông như thật nhưng thực tế là giả mạo},
+	first={deepfake},
+	plural={deepfakes}
+}
+
+\newglossaryentry{bce}{
+	name={Binary Cross-Entropy},
+	description={là một hàm mất mát được dùng phổ biến trong các bài toán phân lớp nhị phân, giúp đo lường sự khác biệt giữa xác suất dự đoán và nhãn thực tế},
+	first={Binary Cross-Entropy},
+	plural={}
+}
+
+\newglossaryentry{fbkd}{
+	name={Feature-Based Knowledge Distillation},
+	description={là một kỹ thuật trong huấn luyện mạng học sâu, trong đó một mô hình nhỏ hơn (student) học từ mô hình lớn hơn (teacher) thông qua đặc trưng trung gian (feature), thay vì chỉ học từ đầu ra cuối cùng},
+	first={Feature-Based Knowledge Distillation (rút trích tri thức dựa trên đặc trưng)},
+	plural={}
+}
+
+\newglossaryentry{distillation}{
+	name={Distillation},
+	description={trong lĩnh vực học sâu, distillation (rút trích tri thức) là kỹ thuật huấn luyện một mô hình nhỏ (student) bằng cách học theo hành vi hoặc biểu diễn của một mô hình lớn đã được huấn luyện trước (teacher)},
+	first={Distillation},
+	plural={}
+}
+
+\newglossaryentry{stride}{
+	name={stride},
+	description={là một tham số trong lớp tích chập (convolution) hoặc pooling, biểu thị số bước mà cửa sổ trượt di chuyển trên ảnh đầu vào. Stride càng lớn thì kích thước đầu ra càng nhỏ},
+	first={stride},
+	plural={}
+}
+
+\newglossaryentry{padding}{
+	name={padding},
+	description={là kỹ thuật thêm các giá trị (thường là 0) xung quanh biên của ảnh đầu vào trong mạng tích chập. Mục đích là để giữ nguyên kích thước không gian đầu ra hoặc kiểm soát kích thước khi thực hiện phép tích chập},
+	first={padding},
+	plural={}
+}
+
+\newglossaryentry{relu}{
+	name={ReLU},
+	description={viết tắt của \textit{Rectified Linear Unit}, là một hàm kích hoạt trong mạng nơ-ron, được định nghĩa là \( f(x) = \max(0, x) \). ReLU giúp mô hình học phi tuyến và có khả năng lan truyền gradient hiệu quả hơn},
+	first={ReLU (Rectified Linear Unit)},
+	plural={}
+}
+
+\newglossaryentry{kernel}{
+	name={kernel},
+	description={trong mạng nơ-ron tích chập, kernel (hay còn gọi là filter) là một ma trận trọng số nhỏ dùng để quét qua ảnh đầu vào và trích xuất các đặc trưng như biên, góc cạnh, họa tiết,...},
+	first={kernel},
+	plural={kernels}
+}
+
+\newglossaryentry{maxpooling}{
+	name={Max Pooling},
+	description={là một phép toán trong mạng nơ-ron tích chập dùng để giảm kích thước đầu ra bằng cách lấy giá trị lớn nhất trong mỗi vùng nhỏ của ảnh đặc trưng. Max Pooling giúp giảm số lượng tham số và tăng tính khái quát của mô hình},
+	first={Max Pooling},
+	plural={}
+}
+
+\newglossaryentry{gap}{
+	name={Global Average Pooling},
+	description={là một kỹ thuật trong mạng nơ-ron tích chập, thay vì dùng các lớp fully connected, GAP tính trung bình toàn bộ mỗi bản đồ đặc trưng (feature map) và tạo ra một đầu ra duy nhất cho mỗi kênh. Phương pháp này giúp giảm số lượng tham số và hạn chế overfitting},
+	first={Global Average Pooling},
+	plural={}
+}
+
+\newglossaryentry{fc}{
+	name={Fully Connected layer},
+	description={là lớp trong mạng nơ-ron trong đó mỗi đầu vào được kết nối với tất cả các nút ở lớp tiếp theo. Lớp này thường xuất hiện ở cuối mô hình để đưa ra quyết định phân loại},
+	first={Fully Connected layer},
+	plural={}
+}
+
+\newglossaryentry{sigmoid}{
+	name={sigmoid},
+	description={là một hàm kích hoạt trong mạng nơ-ron, được định nghĩa là \( \sigma(x) = \frac{1}{1 + e^{-x}} \). Hàm sigmoid đưa đầu ra về khoảng (0, 1), thích hợp cho các bài toán phân lớp nhị phân},
+	first={sigmoid},
+	plural={}
+}
