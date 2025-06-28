@@ -44,7 +44,8 @@
 \addbibresource{References/references.bib}
 %glossaries
 %\usepackage[automake]{glossaries}
-\usepackage[automake,style=altlist]{glossaries}  % Đặt lệnh này trong preamble
+%\usepackage[automake,style=altlist]{glossaries}  % Đặt lệnh này trong preamble
+\usepackage[style=altlist,toc=true]{glossaries}
 \makeglossaries % Đừng quên lệnh này để tạo danh mục
 
 \input{Glossary/glossary} % Nhập các định nghĩa từ glossary.tex
@@ -101,10 +102,13 @@
 \pagenumbering{roman} % Đánh số i, ii, iii, ...
 
 \addcontentsline{toc}{chapter}{Lời cam đoan}
-\include{Appendix/reassurances}
+\include{reassurances}
 
 \addcontentsline{toc}{chapter}{Lời cảm ơn}
-\include{Appendix/thanks}
+\include{thanks}
+%
+% Tóm tắc luận văn
+\input{abstract}         % Tóm tắt luận văn
 % Mục lục, danh sách hình, danh sách bảng
 \addcontentsline{toc}{chapter}{Mục lục}
 \tableofcontents

@@ -1,7 +1,9 @@
 \chapter{GIỚI THIỆU}
 \label{Chapter1}
 %
-\section{Giới thiệu}
+Chương này nhằm giới thiệu tổng quan về đề tài phát hiện hình ảnh tạo sinh, một vấn đề nổi bật trong lĩnh vực thị giác máy tính hiện đại. Mở đầu chương trình bày bối cảnh và vấn đề nghiên cứu trong bối cảnh sự phát triển nhanh chóng của các mô hình tạo sinh ảnh như GAN~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP}. Tiếp theo, chương làm rõ động lực nghiên cứu cả về mặt khoa học và ứng dụng thực tiễn, từ đó xác lập mục tiêu nghiên cứu, phát biểu hình thức của bài toán, các thách thức kỹ thuật cần giải quyết, và phạm vi triển khai. Cuối cùng, chương trình bày những đóng góp chính của luận văn như một nền tảng định hướng cho các chương tiếp theo.
+%
+\section{Bối cảnh và vấn đề nghiên cứu}
 
 Sự phát triển vượt bậc của trí tuệ nhân tạo, đặc biệt trong lĩnh vực học sâu, đã thúc đẩy sự ra đời của các mô hình tạo sinh hình ảnh ngày càng tinh vi và chính xác. Những mô hình như Generative Adversarial Networks~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP} có khả năng tạo ra hình ảnh có chất lượng gần như tương đương với hình ảnh thật, gây khó khăn đáng kể trong việc phân biệt bằng mắt thường. Đây vừa là một bước tiến đột phá trong công nghệ xử lý ảnh, vừa đặt ra những thách thức lớn về mặt nhận diện, xác thực và quản lý thông tin.
 
@@ -55,38 +57,14 @@ Phát triển phương pháp phân biệt ảnh tạo sinh đạt được hai m
 	\item Phương pháp có hiệu quả trên nhiều loại mô hình tạo sinh khác nhau
 	\item Yêu cầu sức mạnh tính toán và lưu trữ thấp, tốc độ nhanh, phù hợp triển khai trên những thiết bị có cấu hình, tài nguyên hạn chế.
 \end{itemize}
-%
-\section{Nội dung và phạm vi nghiên cứu}
 
-\subsection{Nội dung nghiên cứu}
-
-Đề tài tập trung vào việc phát hiện hình ảnh tạo sinh bằng cách kết hợp giữa tiền xử lý đặc thù và mô hình học sâu. Các nội dung chính bao gồm:
-
-\begin{itemize}
-	\item Khảo sát các mô hình tạo sinh hình ảnh phổ biến như GANs và Diffusion Models.
-	\item Khảo sát các phương pháp phân biệt ảnh thật và ảnh tạo sinh trong miền không gian và miền tần số.
-	\item Đề xuất và thiết kế một bộ lọc không gian có chức năng tương đương với bộ lọc thông cao Fourier, nhằm làm nổi bật các đặc trưng giúp phân biệt ảnh giả.
-	\item Xây dựng mô hình học sâu (CNN) nhọ gọn để thực hiện phân loại ảnh thật/giả, sử dụng ảnh đầu vào đã được tiền xử lý.
-	\item Huấn luyện và đánh giá mô hình trên tập dữ liệu tổng hợp từ nhiều nguồn ảnh thật và ảnh tạo sinh.
-\end{itemize}
-
-\subsection{Phạm vi nghiên cứu}
-	
-\begin{itemize}
-	\item Chỉ tập trung vào ảnh tĩnh (không xử lý video hoặc ảnh động).
-	%
-	\item Ảnh giả mạo được tạo từ các mô hình tạo sinh phổ biến gồm GAN~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP}.
-	%
-	\item Tập trung và khai thác ưu điểm của các phương pháp tiền xử lý trên miền không gian và miền tần số.
-\end{itemize} 
-%
 \section{Phát biểu bài toán}
 %
 \subsection{Định nghĩa về Ảnh Thật và Ảnh Tạo Sinh}
 Trong khuôn khổ của đề tài, ta định nghĩa và phân biệt hai loại hình ảnh (2 lớp đối tượng) của bài toán:
 \begin{itemize}  
 
-    \item \textbf{Ảnh Tạo Sinh (ảnh giả mạo)}: Là những hình ảnh được tạo ra bởi mô hình GANs~\cite{Goodfellow2014GenerativeAN}, mô hình Diffusion \cite{Ho2020DenoisingDP}, hoặc bất kỳ mô hình tạo sinh khác. Nôi dung của hình ảnh tạo sinh là mô phỏng theo các đối tượng từ thế giới thật hoặc có thể là một đối tượng mới không có thật.
+    \item \textbf{Ảnh Tạo Sinh (ảnh giả mạo)}: Là những hình ảnh được tạo ra bởi mô hình GAN~\cite{Goodfellow2014GenerativeAN}, mô hình Diffusion \cite{Ho2020DenoisingDP}, hoặc bất kỳ mô hình tạo sinh khác. Nôi dung của hình ảnh tạo sinh là mô phỏng theo các đối tượng từ thế giới thật hoặc có thể là một đối tượng mới không có thật.
     
     \item \textbf{Ảnh Thật}: Là những hình ảnh được chụp từ thực tế bằng máy ảnh hoặc các thiết bị thu hình khác. Những hình ảnh này phản ảnh chân thực các đối tượng của thế giới thực, bao gồm cả ảnh chụp các tác phẩm nghệ thuật, hoặc ảnh chụp lại một hình ảnh tạo sinh.
 
@@ -94,7 +72,7 @@ Trong khuôn khổ của đề tài, ta định nghĩa và phân biệt hai lo�
 %
 \subsection{Phát biểu hình thức}
 %
-Phát hiện hình ảnh tạo sinh là bài toán xác định một hình ảnh là \textit{ảnh thật} được tạo ra bằng thiết bị thu hình như máy ảnh, máy quay phim, hay \textit{ảnh tạo sinh} được tạo ra bằng cách sử dụng các mô hình tạo sinh như GANs~\cite{Goodfellow2014GenerativeAN} hoặc Diffusion~\cite{Ho2020DenoisingDP}. Trong luận văn này, bài toán phát hiện hình ảnh tạo sinh được định hình như một bài toán phân loại trong lĩnh vực thị giác máy tính và được mô tả cụ thể như sau:\\
+Phát hiện hình ảnh tạo sinh là bài toán xác định một hình ảnh là \textit{ảnh thật} được tạo ra bằng thiết bị thu hình như máy ảnh, máy quay phim, hay \textit{ảnh tạo sinh} được tạo ra bằng cách sử dụng các mô hình tạo sinh như GAN~\cite{Goodfellow2014GenerativeAN} hoặc Diffusion~\cite{Ho2020DenoisingDP}. Trong luận văn này, bài toán phát hiện hình ảnh tạo sinh được định hình như một bài toán phân loại trong lĩnh vực thị giác máy tính và được mô tả cụ thể như sau:\\
 %
 \textbf{Đầu vào:} Ảnh đầu vào $I \in \mathbb{R}^{w \times h \times c}$, trong đó $w ,h, c$ tương ứng chiều rộng, chiều cao và số lượng kênh màu của hình ảnh.\\
 %
@@ -108,57 +86,12 @@ Với  \( y \in \{0, 1\} \) là nhãn phân loại của ảnh \( I \), $f(.)$ l
     \item Nếu \( y = 1 \), thì \( I \) được phân loại là ảnh tạo sinh.
 \end{itemize}
 %
-%\subsection{Phương pháp giải bài toán}
-%%
-%Bài toán phát hiện hình ảnh tạo sinh được tiếp cận dưới góc nhìn phân loại ảnh, trong đó mô hình cần học cách phân biệt giữa hai loại ảnh: ảnh thật (do máy ảnh chụp) và ảnh giả (được sinh ra từ các mô hình tạo sinh như GANs~\cite{Goodfellow2014GenerativeAN} hoặc Diffusion~\cite{Ho2020DenoisingDP}). Phương pháp đề xuất trong luận văn kết hợp giữa học sâu và kỹ thuật tiền xử lý ảnh nhằm tăng cường khả năng nhận diện các đặc điểm đặc trưng giúp phân biệt hai loại ảnh này.
-%
-%Cụ thể, trước khi đưa ảnh vào mạng học sâu, ảnh đầu vào sẽ được xử lý thông qua một bộ lọc tần số cao được thiết kế đặc biệt. Bộ lọc này hoạt động tương tự như một bộ lọc thông cao trong miền tần số, với mục tiêu làm nổi bật các chi tiết vi mô, nhiễu không gian, hoặc các dấu hiệu không tự nhiên thường xuất hiện trong ảnh tạo sinh. Thay vì sử dụng trực tiếp phép biến đổi Fourier~\cite{Arunachalam2013TheFF}, luận văn đề xuất một phương pháp tương đương trong miền không gian, giúp đơn giản hoá quá trình xử lý và tăng tốc độ tính toán, phù hợp với môi trường triển khai trên thiết bị tài nguyên thấp.
-%
-%Sau khi được tiền xử lý, ảnh sẽ được đưa vào một mạng học sâu với kiến trúc CNN~\cite{Krizhevsky2012ImageNetCW}, nhằm học các đặc trưng sâu phân biệt giữa ảnh thật và ảnh giả. Mô hình được huấn luyện trên tập dữ liệu bao gồm cả ảnh thật và ảnh tạo sinh từ nhiều mô hình khác nhau để đảm bảo tính tổng quát và khả năng phát hiện trên ảnh chưa từng gặp.
-%
-%Việc kết hợp giữa tiền xử lý đặc thù và mô hình học sâu cho phép hệ thống khai thác cả đặc trưng miền tần số lẫn đặc trưng không gian, từ đó nâng cao hiệu quả phát hiện ảnh giả trong nhiều điều kiện và nguồn ảnh khác nhau.
-%%
-%
-%Sử dụng kỹ thuật học sâu để xây dựng được hàm $f(.)$ có khả năng phân lớp giữa ảnh thật và ảnh giả mạo.\\
-%%
-%% Tập dữ liệu
-%Cho tập dữ liệu \( X \) và nhãn \( Y \) được mô tả như sau:
-%\[ X = \{ \mathbf{x}_i \}_{i=1}^{N}, \quad Y = \{ y_i \}_{i=1}^{N} \]
-%% Bộ phân lớp
-%Bộ phân lớp \( f \):
-%\[
-%f: \mathbb{R}^{H \times W \times C} \to \{0, 1\}
-%\]\\
-%%
-%Trong đó, $\mathbf{x}_i$ là ảnh thứ $i$, $N$ là số lượng hình ảnh, $0$: ảnh thật, $1$: ảnh giả mạo. \\
-%%
-%Mục tiêu huấn luyện là tìm bộ tham số \(\theta\) để hàm mất mát \(\mathcal{L}(\theta)\) đạt giá trị nhỏ nhất.
-%\[
-%\hat{\theta} = \arg \min_{\theta} \mathcal{L}(\theta)
-%\]
-%
-%
-%\begin{itemize}
-%	\item \(\hat{\theta}\) là giá trị tối ưu của bộ tham số \(\theta\).
-%	\item Hàm mất mát cross-entropy~\cite{2023arXiv230407288M} sử dụng cho bài toán phân lớp nhị phân với nhãn $y$ và dự đoán $\hat{y} = f(\mathbf{x}_i) $.
-%	
-%	\[
-%	\mathcal{L}(\theta) = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]
-%	\]
-%	% Biểu diễn cụ thể hàm cross-entropy
-%	Trong đó:
-%	\begin{itemize}
-%		\item \(N\): số lượng mẫu trong tập huấn luyện.
-%		\item \(y_i\): nhãn thực tế của mẫu $\mathbf{x}_i$, \quad \(y_i \in \{0, 1\}\).
-%		\item \(\hat{y}_i\): xác suất dự đoán mẫu $\mathbf{x}_i$ là ảnh giả mạo,$\quad \hat{y}_i \in [0, 1]$ .
-%	\end{itemize}
-%\end{itemize}
 %
 \subsection{Phương pháp giải bài toán}
 
-Bài toán phát hiện hình ảnh tạo sinh được tiếp cận dưới dạng bài toán phân loại nhị phân, trong đó mô hình học sâu cần phân biệt giữa ảnh thật (do máy ảnh chụp) và ảnh giả (được sinh ra bởi các mô hình tạo sinh như GANs~\cite{Goodfellow2014GenerativeAN} hoặc Diffusion~\cite{Ho2020DenoisingDP}). Phương pháp được đề xuất trong luận văn gồm hai giai đoạn chính: \textbf{tiền xử lý ảnh đầu vào} và \textbf{huấn luyện bộ phân lớp học sâu.}
+Bài toán phát hiện hình ảnh tạo sinh được tiếp cận dưới dạng bài toán phân loại nhị phân, trong đó mô hình học sâu cần phân biệt giữa ảnh thật (do máy ảnh chụp) và ảnh giả (được sinh ra bởi các mô hình tạo sinh như GAN~\cite{Goodfellow2014GenerativeAN} hoặc Diffusion~\cite{Ho2020DenoisingDP}). Phương pháp được đề xuất trong luận văn gồm hai giai đoạn chính: \textbf{tiền xử lý ảnh đầu vào} và \textbf{huấn luyện bộ phân lớp học sâu.}
 
-Trước khi đưa ảnh vào mô hình học sâu, ảnh đầu vào được xử lý bởi một bộ lọc tần số cao trong miền không gian. Bộ lọc này được thiết kế nhằm làm nổi bật các chi tiết vi mô hoặc những nhiễu đặc trưng mà các mô hình tạo sinh thường để lại. Thay vì sử dụng trực tiếp phép biến đổi Fourier (FFT)~\cite{Arunachalam2013TheFF} – vốn yêu cầu chuyển đổi qua lại giữa miền không gian và miền tần số, luận văn đề xuất một bộ lọc tương đương trong miền không gian có tên gọi là \textbf{ADOF}. Cụ thể, bộ lọc được xây dựng bằng cách thiết kế một kernel với đáp ứng tương tự bộ lọc thông cao, cho phép loại bỏ các thành phần tần số thấp và giữ lại các chi tiết tần số cao vốn dễ thể hiện sự khác biệt giữa ảnh thật và ảnh giả.
+Trước khi đưa ảnh vào mô hình học sâu, ảnh đầu vào được xử lý bởi một bộ lọc tần số cao trong miền không gian. Bộ lọc này được thiết kế nhằm làm nổi bật các chi tiết vi mô hoặc những nhiễu đặc trưng mà các mô hình tạo sinh thường để lại. Thay vì sử dụng trực tiếp \gls{fft}~\cite{Arunachalam2013TheFF} – vốn yêu cầu chuyển đổi qua lại giữa miền không gian và miền tần số, luận văn đề xuất một bộ lọc tương đương trong miền không gian có tên gọi là \textbf{ADOF}. Cụ thể, bộ lọc được xây dựng bằng cách thiết kế một \gls{kernel} với đáp ứng tương tự bộ lọc thông cao, cho phép loại bỏ các thành phần tần số thấp và giữ lại các chi tiết tần số cao vốn dễ thể hiện sự khác biệt giữa ảnh thật và ảnh giả.
 
 Ảnh sau khi được lọc sẽ giữ lại nhiều đặc trưng hữu ích cho quá trình học, đồng thời giảm nhiễu từ nền ảnh hoặc cấu trúc toàn cục. Đây là bước quan trọng giúp tăng độ nhạy của mô hình đối với các tín hiệu tinh vi mà ảnh tạo sinh thường để lộ.
 
@@ -208,7 +141,7 @@ Tốc độ phát triển của công nghệ tạo ảnh bằng mạng học sâ
 	%
 	\item Phát hiện hình ảnh giả mạo dựa vào phân tích, rút trích các đặc trưng tần số hay đặc trưng không gian trên hình ảnh. Hướng tiếp cận này mặc dù đem lại kết quả cao, ít phụ thuộc vào ngữ nghĩa của hình ảnh, tuy nhiên các kiến trúc mô hình khác nhau sẽ tạo ra những dấu vết khác nhau, do đó, thách thức lớn trong việc tìm ra đặt trưng chung và có hiệu quả trên nhiều mô hình tạo sinh (Hình~\ref{fig:gan-fingerprints-1}).
 	
-	\begin{figure}[htp]
+	\begin{figure}[h]
 		\centering
 		\includegraphics[width=1.0\textwidth]{gan-fingerprints-1.png}
 	    \vspace{10pt} % Thay đổi khoảng cách giữa ảnh và chú thích
@@ -225,6 +158,32 @@ Tốc độ phát triển của công nghệ tạo ảnh bằng mạng học sâ
 
 Khó khăn trong việc trả lời câu hỏi \textit{"mô hình đã dựa vào đâu để đưa ra kết luận?"}, đây là khó khăn chung của việc ứng dụng kỹ thuật học sâu, và trong nhiệm vụ phát hiện ảnh giả mạo thì yêu cầu tính \textit{"giải thích được"} càng quan trọng. Các đặc điểm thể hiện một hình ảnh là giả mạo thường không thể nhận biết một cách trực quan mà là qua sự tổng hợp rút trích đặc trưng của mạng học sâu, do tính chất phức tạp của các mô hình này, việc cung cấp giải thích rõ ràng và minh bạch cho các quyết định của mô hình là một thách thức lớn.
 
+%
+\section{Nội dung và phạm vi nghiên cứu}
+
+\subsection{Nội dung nghiên cứu}
+
+Đề tài tập trung vào việc phát hiện hình ảnh tạo sinh bằng cách kết hợp giữa tiền xử lý đặc thù và mô hình học sâu. Các nội dung chính bao gồm:
+
+\begin{itemize}
+	\item Khảo sát các mô hình tạo sinh hình ảnh phổ biến như GAN~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP}.
+	\item Khảo sát các phương pháp phân biệt ảnh thật và ảnh tạo sinh trong miền không gian và miền tần số.
+	\item Đề xuất và thiết kế một bộ lọc không gian có chức năng tương đương với bộ lọc thông cao Fourier, nhằm làm nổi bật các đặc trưng giúp phân biệt ảnh giả.
+	\item Xây dựng mô hình học sâu \gls{cnn} nhọ gọn để thực hiện phân loại ảnh thật/giả, sử dụng ảnh đầu vào đã được tiền xử lý.
+	\item Huấn luyện và đánh giá mô hình trên tập dữ liệu tổng hợp từ nhiều nguồn ảnh thật và ảnh tạo sinh.
+\end{itemize}
+
+\subsection{Phạm vi nghiên cứu}
+
+\begin{itemize}
+	\item Chỉ tập trung vào ảnh tĩnh (không xử lý video hoặc ảnh động).
+	%
+	\item Ảnh giả mạo được tạo từ các mô hình tạo sinh phổ biến gồm GAN~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP}.
+	%
+	\item Tập trung và khai thác ưu điểm của các phương pháp tiền xử lý trên miền không gian và miền tần số.
+\end{itemize} 
+%
+
 \section{Đóng góp của luận văn}
 Luận văn có những đóng góp cơ bản sau:
 \begin{itemize}
@@ -235,7 +194,23 @@ Luận văn có những đóng góp cơ bản sau:
 	%
 \end{itemize}
 
-\textcolor{red}{Thêm cấu trúc của luận văn}
+\section{Cấu trúc của luận văn}
+
+Luận văn được tổ chức thành 5 chương như sau:
+
+\begin{itemize}
+	\item \textbf{Chương 1 – Giới thiệu:} Trình bày bối cảnh, động lực nghiên cứu, mục tiêu, phạm vi và phát biểu bài toán. Chương cũng nêu rõ các thách thức và đóng góp chính của luận văn.
+	
+	\item \textbf{Chương 2 – Nghiên cứu liên quan:} Tổng quan các mô hình tạo sinh ảnh tiêu biểu và phân tích các nhóm phương pháp phát hiện hình ảnh tạo sinh, bao gồm phương pháp miền không gian, miền tần số và kết hợp.
+	
+	\item \textbf{Chương 3 – Phương pháp đề xuất:} Mô tả chi tiết quy trình tiền xử lý ảnh, kiến trúc mô hình học sâu, hàm mất mát sử dụng và quy trình huấn luyện mô hình.
+	
+	\item \textbf{Chương 4 – Thực nghiệm và đánh giá:} Trình bày các tập dữ liệu sử dụng, thiết lập thí nghiệm, các chỉ số đánh giá và kết quả so sánh với các phương pháp khác.
+	
+	\item \textbf{Chương 5 – Kết luận và hướng phát triển:} Tổng kết các kết quả đạt được và đề xuất một số hướng nghiên cứu mở trong tương lai.
+\end{itemize}
+
+
 
 
 

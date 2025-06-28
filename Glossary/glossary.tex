@@ -56,7 +56,7 @@
 }
 
 \newglossaryentry{adam}{
-	name={Adam},
+	name={adam},
 	description={Thuật toán tối ưu phổ biến trong huấn luyện mạng nơ-ron, kết hợp giữa momentum và điều chỉnh tốc độ học theo từng tham số. Tên đầy đủ là Adaptive Moment Estimation},
 	short={adam},
 }
@@ -64,7 +64,7 @@
 \newglossaryentry{cnn}{
 	name={CNN},
 	description={Mạng nơ-ron tích chập, thường được dùng trong các bài toán xử lý ảnh và nhận dạng mẫu. CNN sử dụng các lớp tích chập để tự động học các đặc trưng không gian từ dữ liệu ảnh đầu vào.},
-	first={CNN (Convolutional Neural Network)},
+	first={Convolutional Neural Network (CNN)},
 	plural={CNNs}
 }
 
@@ -73,10 +73,11 @@
 	description={Kết nối bỏ qua; kỹ thuật kết nối đầu vào của một lớp với đầu ra của lớp sâu hơn, thường dùng trong mạng sâu như ResNet để giảm hiện tượng mất mát thông tin và giúp gradient lan truyền dễ dàng hơn.}
 }
 
+
 \newglossaryentry{fft}{
 	name={FFT},
 	description={viết tắt của \textit{Fast Fourier Transform}, tức Biến đổi Fourier nhanh. Đây là thuật toán hiệu quả để chuyển đổi tín hiệu từ miền thời gian sang miền tần số, thường được dùng trong xử lý tín hiệu và phân tích ảnh},
-	first={Fast Fourier Transform (FFT)},
+	first={biến đổi Fourier (FFT)},
 	plural={FFTs}
 }
 
@@ -90,7 +91,7 @@
 \newglossaryentry{dft}{
 	name={DFT},
 	description={viết tắt của \textit{Discrete Fourier Transform}, tức Biến đổi Fourier rời rạc. Đây là phép biến đổi dùng để phân tích một tín hiệu rời rạc theo miền tần số},
-	first={Discrete Fourier Transform (DFT)},
+	first={biến đổi Fourier rời rạc (DFT)},
 	plural={DFTs}
 }
 
@@ -109,23 +110,23 @@
 }
 
 \newglossaryentry{bce}{
-	name={Binary Cross-Entropy},
+	name={binary cross-entropy},
 	description={là một hàm mất mát được dùng phổ biến trong các bài toán phân lớp nhị phân, giúp đo lường sự khác biệt giữa xác suất dự đoán và nhãn thực tế},
-	first={Binary Cross-Entropy},
+	first={binary cross-entropy},
 	plural={}
 }
 
 \newglossaryentry{fbkd}{
 	name={Feature-Based Knowledge Distillation},
 	description={là một kỹ thuật trong huấn luyện mạng học sâu, trong đó một mô hình nhỏ hơn (student) học từ mô hình lớn hơn (teacher) thông qua đặc trưng trung gian (feature), thay vì chỉ học từ đầu ra cuối cùng},
-	first={Feature-Based Knowledge Distillation (rút trích tri thức dựa trên đặc trưng)},
-	plural={}
+	first={rút trích tri thức dựa trên đặc trưng (Feature-Based Knowledge Distillation)},
+	plural={Feature-Based Knowledge Distillation}
 }
 
 \newglossaryentry{distillation}{
-	name={Distillation},
+	name={distillation},
 	description={trong lĩnh vực học sâu, distillation (rút trích tri thức) là kỹ thuật huấn luyện một mô hình nhỏ (student) bằng cách học theo hành vi hoặc biểu diễn của một mô hình lớn đã được huấn luyện trước (teacher)},
-	first={Distillation},
+	first={distillation},
 	plural={}
 }
 
@@ -158,23 +159,23 @@
 }
 
 \newglossaryentry{maxpooling}{
-	name={Max Pooling},
+	name={max pooling},
 	description={là một phép toán trong mạng nơ-ron tích chập dùng để giảm kích thước đầu ra bằng cách lấy giá trị lớn nhất trong mỗi vùng nhỏ của ảnh đặc trưng. Max Pooling giúp giảm số lượng tham số và tăng tính khái quát của mô hình},
-	first={Max Pooling},
+	first={max pooling},
 	plural={}
 }
 
 \newglossaryentry{gap}{
-	name={Global Average Pooling},
+	name={global average pooling},
 	description={là một kỹ thuật trong mạng nơ-ron tích chập, thay vì dùng các lớp fully connected, GAP tính trung bình toàn bộ mỗi bản đồ đặc trưng (feature map) và tạo ra một đầu ra duy nhất cho mỗi kênh. Phương pháp này giúp giảm số lượng tham số và hạn chế overfitting},
-	first={Global Average Pooling},
+	first={global average pooling},
 	plural={}
 }
 
 \newglossaryentry{fc}{
-	name={Fully Connected layer},
+	name={fully connected layer},
 	description={là lớp trong mạng nơ-ron trong đó mỗi đầu vào được kết nối với tất cả các nút ở lớp tiếp theo. Lớp này thường xuất hiện ở cuối mô hình để đưa ra quyết định phân loại},
-	first={Fully Connected layer},
+	first={fully connected layer},
 	plural={}
 }
 
@@ -184,3 +185,145 @@
 	first={sigmoid},
 	plural={}
 }
+
+\newglossaryentry{generator}{
+	name={generator},
+	description={trong mô hình GAN, generator là mạng học sâu có nhiệm vụ sinh ra dữ liệu giả sao cho giống dữ liệu thật nhất có thể, nhằm đánh lừa discriminator},
+	first={generator (mạng sinh dữ liệu giả)},
+	plural={generators}
+}
+
+\newglossaryentry{discriminator}{
+	name={discriminator},
+	description={trong mô hình GAN, discriminator là mạng học sâu có nhiệm vụ phân biệt dữ liệu thật và dữ liệu do generator tạo ra},
+	first={discriminator (mạng phân biệt thật – giả)},
+	plural={discriminators}
+}
+
+\newglossaryentry{gaussian}{
+	name={gaussian},
+	description={là một phân phối xác suất liên tục có dạng hình chuông đối xứng, còn gọi là phân phối chuẩn (normal distribution), được sử dụng rộng rãi trong thống kê và học máy để mô hình hóa dữ liệu nhiễu hoặc phân bố tự nhiên},
+	first={gaussian},
+	plural={}
+}
+
+\newglossaryentry{grayscale}{
+	name={gray-scale},
+	description={là dạng ảnh chỉ bao gồm các mức độ xám, mỗi điểm ảnh được biểu diễn bằng một giá trị cường độ ánh sáng, thường từ 0 (đen) đến 255 (trắng)},
+	first={gray-scale},
+	plural={}
+}
+
+\newglossaryentry{texture}{
+	name={texture},
+	description={thuật ngữ trong xử lý ảnh biểu thị các mẫu lặp lại hoặc sự thay đổi cường độ ánh sáng, màu sắc trên bề mặt hình ảnh, dùng để mô tả độ mịn, nhám hoặc cấu trúc vật liệu},
+	first={texture},
+	plural={textures}
+}
+
+\newglossaryentry{poortexteregion}{
+	name={poor texture regions},
+	description={các vùng ảnh có rất ít thông tin kết cấu, bề mặt tương đối đồng đều và ít thay đổi về cường độ, khiến việc phát hiện đặc trưng trở nên khó khăn},
+	first={poor texture regions (vùng kết cấu đơn giản)},
+	plural={}
+}
+
+\newglossaryentry{richtexteregion}{
+	name={rich texture regions},
+	description={các vùng ảnh chứa nhiều thông tin kết cấu, có sự thay đổi rõ rệt về cường độ hoặc hoa văn, giúp trích xuất đặc trưng dễ dàng hơn},
+	first={rich texture regions (vùng kết cấu phức tạp)},
+	plural={}
+}
+
+\newglossaryentry{patch}{
+	name={patch},
+	description={một vùng nhỏ hình vuông hoặc hình chữ nhật được trích xuất từ hình ảnh gốc, thường được sử dụng để phân tích cục bộ hoặc huấn luyện mô hình học sâu},
+	first={patch (vùng cục bộ của ảnh)},
+	plural={patches}
+}
+
+\newglossaryentry{azimuthalaveraging}{
+	name={azimuthal averaging},
+	description={kỹ thuật tính trung bình các giá trị theo hướng góc (azimuth) trong hệ tọa độ cực, thường được áp dụng trên ảnh hoặc phổ tần số để rút gọn dữ liệu thành một hàm một chiều theo bán kính},
+	first={trung bình theo phương góc (azimuthal averaging)},
+	plural={}
+}
+
+\newglossaryentry{svm}{
+	name={SVM},
+	description={là một thuật toán học có giám sát được sử dụng để phân loại và hồi quy, hoạt động bằng cách tìm siêu phẳng tối ưu phân tách các lớp dữ liệu khác nhau},
+	first={Support Vector Machine (SVM)},
+	plural={}
+}
+
+\newglossaryentry{kmeans}{
+	name={K-means},
+	description={là thuật toán phân cụm không có giám sát, chia dữ liệu thành $K$ nhóm sao cho khoảng cách nội nhóm được tối thiểu hoá. Thuật toán hoạt động bằng cách cập nhật các tâm cụm và gán lại nhãn lặp đi lặp lại cho đến khi hội tụ},
+	first={K-means},
+	plural={}
+}
+
+\newglossaryentry{logisticregression}{
+	name={Logistic Regression},
+	description={là một mô hình học có giám sát dùng để giải bài toán phân loại nhị phân, dựa trên hàm sigmoid để ánh xạ đầu ra về khoảng xác suất $[0, 1]$},
+	first={hồi quy logistic (Logistic Regression)},
+	plural={}
+}
+
+\newglossaryentry{dct}{
+	name={DCT},
+	description={là một phép biến đổi tương tự như biến đổi Fourier, dùng để biểu diễn tín hiệu dưới dạng tổ hợp các hàm cosine với tần số khác nhau. DCT thường được sử dụng trong nén ảnh và xử lý tín hiệu do khả năng tập trung năng lượng tốt},
+	first={biến đổi Cosine rời rạc (Discrete Cosine Transform – DCT)},
+	plural={}
+}
+
+\newglossaryentry{nearestneighbor}{
+	name={rearest neighbor},
+	description={là phương pháp nội suy đơn giản trong xử lý ảnh, trong đó mỗi điểm mới được gán giá trị của điểm lân cận gần nhất. Phương pháp này rất nhanh nhưng có thể tạo ra ảnh bậc thang và thiếu mượt mà},
+	first={phương pháp láng giềng gần nhất (nearest neighbor)},
+	plural={}
+}
+
+
+\newglossaryentry{binomial}{
+	name={binomial filter},
+	description={là bộ lọc làm mượt hình ảnh dựa trên hệ số nhị thức Pascal. Trong nội suy, binomial filter giúp làm trơn dữ liệu đầu ra bằng cách sử dụng các trọng số giống Gaussian một cách đơn giản},
+	first={bộ lọc nhị thức (binomial filter)},
+	plural={}
+}
+
+\newglossaryentry{binomialupsampling}{
+	name={binomial up-sampling},
+	description={là kỹ thuật phóng to ảnh bằng cách chèn thêm điểm ảnh (zero-insertion) và sau đó làm mượt bằng bộ lọc nhị thức (binomial filter). Phương pháp này giúp giảm hiện tượng răng cưa và tạo ảnh mượt mà hơn so với nội suy đơn giản},
+	first={nội suy nhị thức (binomial up-sampling)},
+	plural={}
+}
+
+\newglossaryentry{optimizer}{
+	name={optimizer},
+	description={là thuật toán tối ưu dùng trong huấn luyện mạng học sâu, nhằm cập nhật các tham số mô hình để giảm hàm mất mát. Một số thuật toán tối ưu phổ biến gồm SGD, Adam, RMSProp},
+	first={optimizer},
+	plural={}
+}
+
+\newglossaryentry{learningrate}{
+	name={learning rate},
+	description={là siêu tham số quyết định bước nhảy trong quá trình cập nhật tham số mô hình. Giá trị learning rate quá lớn có thể gây dao động, còn quá nhỏ khiến quá trình huấn luyện chậm},
+	first={learning rate},
+	plural={}
+}
+
+\newglossaryentry{batchsize}{
+	name={batch size},
+	description={là số lượng mẫu được sử dụng trong mỗi lần cập nhật tham số trong quá trình huấn luyện. Batch size ảnh hưởng đến tốc độ huấn luyện, bộ nhớ và độ ổn định của mô hình},
+	first={batch size},
+	plural={}
+}
+
+\newglossaryentry{pytorch}{
+	name={PyTorch},
+	description={là một thư viện mã nguồn mở chuyên dùng để xây dựng và huấn luyện các mô hình học sâu, hỗ trợ linh hoạt cả nghiên cứu và triển khai thực tế, phát triển bởi Facebook AI Research},
+	first={PyTorch},
+	plural={}
+}
+

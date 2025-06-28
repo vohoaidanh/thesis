@@ -19,7 +19,7 @@ Phương pháp thu thập và xử lý dữ liệu ảnh thật và ảnh tạo 
 	\item Độ phân giải ảnh được chuẩn hóa như sau:
 	\begin{itemize}
 		\item Đối với các mô hình có đầu ra độ phân giải 256×256 (CycleGAN, StarGAN, ProGAN LSUN, GauGAN COCO, IMLE), kích thước ảnh được giữ nguyên.
-		\item Với mô hình tạo ảnh có độ phân giải thấp hơn (DeepFake), ảnh được phóng to bằng nội suy \gls{bilinear} sao cho cạnh ngắn bằng 256, giữ nguyên tỉ lệ khung hình.
+		\item Với mô hình tạo ảnh có độ phân giải thấp hơn (DeepFake), ảnh được phóng to bằng phép \gls{bilinear} sao cho cạnh ngắn bằng 256, giữ nguyên tỉ lệ khung hình.
 		\item Với mô hình tạo ảnh có độ phân giải cao hơn (ProGAN, StyleGAN, SAN, SITD), ảnh giữ nguyên độ phân giải gốc.
 	\end{itemize}
 	
@@ -126,10 +126,10 @@ Lý do chọn:
 %
 \subsection{Cấu hình phần cứng và cài đặt các tham số} Được thiết lập tương tự như các phương pháp \cite{Wang2019CNNGeneratedIA, Tan2023RethinkingTU,Tan2023LearningOG} để giảm tác động của các yếu tố ngẫu nhiên đến kết quả cuối cùng, làm mất tính khách quan khi so sánh, đánh giá giữa nhiều phương pháp. Giá trị thiết lập các tham số bao gồm:
 	\begin{itemize}
-		\item Optimizer: Adam
-		\item Learning Rate $2 \times 10^{-4}$
-		\item Batch Size: 64
-		\item Framework: Các thử nghiệm được xây dựng bằng thư viện PyTorch.
+		\item \Gls{optimizer}: \Gls{adam}
+		\item \Gls{learningrate}: $2 \times 10^{-4}$
+		\item \Gls{batchsize}: 64
+		\item Framework: Các thử nghiệm được xây dựng bằng thư viện \Gls{pytorch}.
 		\item Cấu hình máy tính: CPU AMD Ryzen 5 5600X 6-Core, 1 $\times$ GPU NVIDIA RTX A4000, 1 $\times$ 16 GB bộ nhớ RAM.
 	\end{itemize}
 

@@ -2,11 +2,16 @@
 %https://ir.vnulib.edu.vn/bitstream/VNUHCM/32505/2/LeMinhHung.html
 % Nhớ thêm trích dẫn tham khảo từ luận văn này (tham khảo về cách trình bày)
 \label{Chapter3}
+%
+Trong chương này, luận văn trình bày chi tiết quá trình phân tích và đề xuất phương pháp phát hiện hình ảnh tạo sinh dựa trên đặc trưng tần số cao. Trước tiên, một số thử nghiệm sơ bộ được tiến hành nhằm khảo sát ảnh hưởng của các thành phần tần số đến hiệu quả phân loại giữa ảnh thật và ảnh tạo sinh. Dựa trên kết quả thu được, chương tiếp tục giới thiệu một kỹ thuật tiền xử lý hiệu quả với chi phí tính toán thấp – bộ lọc thông cao rời rạc \textbf{ADOF} – như một thay thế cho biến đổi Fourier truyền thống.
+
+Tiếp theo, một mô hình phân loại được xây dựng trên nền kiến trúc ResNet~\cite{He2015DeepRL}, kết hợp với khối tiền xử lý tần số để tăng cường khả năng nhận biết các đặc trưng vi mô của ảnh giả. Nhằm đáp ứng yêu cầu triển khai thực tế trên các hệ thống hạn chế tài nguyên, chương này cũng đề xuất một phiên bản rút gọn của mô hình, bằng cách sử dụng kỹ thuật \gls{fbkd}. Phần cuối cùng mô tả chi tiết quy trình huấn luyện và triển khai mô hình trong cả hai giai đoạn: đào tạo và suy luận.
+%
 \section{Thử nghiệm sơ bộ và tìm hướng tiếp cận}
 %
 \subsection{Thử nghiệm 1}
 %
-\begin{figure}[h!]
+\begin{figure}[ht!]
 	\centering
 	\includegraphics[width=1.0\linewidth]{Images/restyle-encoder-1.png}
 	\begin{minipage}{1.0\linewidth}
@@ -190,7 +195,7 @@ Biên độ đáp ứng tần số của bộ lọc thông cao là:
 
 
 
-**Nhận xét:** Để giữ lại tần số cao nhiều nhất, ta nên chọn \( M \) chẵn.
+Nhận xét: Để giữ lại tần số cao nhiều nhất, ta nên chọn \( M \) chẵn.
 
 \subsection*{Cửa Sổ Bộ Lọc Thông Cao}
 \label{sec:cua_so_loc_thong_cao}
@@ -367,7 +372,7 @@ Sau khi quá trình huấn luyện hoàn tất, mô hình đã sẵn sàng cho v
 
 Nhằm tối ưu khả năng triển khai thực tế trên các thiết bị có tài nguyên hạn chế, sau khi hoàn tất huấn luyện mô hình với kiến trúc trình bày ở phần~\ref{sec:kien_truc_mo_hinh_rut_gon_tu_resnet_50}, ta tiếp tục áp dụng kỹ thuật \gls{fbkd} để rút gọn mô hình.
 
-Cụ thể, mô hình đã huấn luyện sẽ đóng vai trò là mô hình Teacher, từ đó truyền đạt kiến thức cho một mô hình Student nhỏ gọn hơn. Thay vì chỉ dựa vào đầu ra cuối cùng, mô hình Student được hướng dẫn học theo các đặc trưng trung gian từ Teacher, giúp duy trì hiệu suất nhận dạng trong khi giảm đáng kể kích thước và chi phí suy luận của mô hình.
+Cụ thể, mô hình đã huấn luyện sẽ đóng vai trò là mô hình giáo viên (teacher), từ đó truyền đạt kiến thức cho một mô hình học sinh (student) nhỏ gọn hơn. Thay vì chỉ dựa vào đầu ra cuối cùng, mô hình student được hướng dẫn học theo các đặc trưng trung gian từ teacher, giúp duy trì hiệu suất nhận dạng trong khi giảm đáng kể kích thước và chi phí suy luận của mô hình.
 
 \subsection{Kiến trúc mô hình Student}
 %figure_model_student_architecture.png
@@ -396,14 +401,15 @@ Quy trình huấn luyện trải qua các bước tương tự với như phần
 Điểm khác biệt nằm ở quá trình lan truyền thuận, hàm mất mát và việc cập nhật bộ trọng số cho mô hình.
 %
 \begin{itemize}
-	\item Lan truyền thuận: Hình ảnh từ đầu vào sẽ được đi qua cả hai mô hình Teacher và Student. Sau đó ta trích xuất véc-tơ đặc trưng ở đầu ra của \texttt{Layer2} trong mỗi mô hình và đưa vào hàm mất mát.
+	\item Lan truyền thuận: Hình ảnh từ đầu vào sẽ được đi qua cả hai mô hình teacher và student. Sau đó ta trích xuất véc-tơ đặc trưng ở đầu ra của \texttt{Layer2} trong mỗi mô hình và đưa vào hàm mất mát.
 	
-	\item  Hàm mất mát: Là sự kết hợp của 2 thành phần \gls{distillation} và \gls{bce}, chi tiết được trình bày tại \textcolor{red}{tham chiều tới..}
+	\item  Hàm mất mát: Là sự kết hợp của 2 thành phần \gls{distillation} và \gls{bce}.
+%	chi tiết được trình bày tại \textcolor{red}{tham chiều tới..}
 	
 	\item Cập nhật trọng số: Trong suốt quá trình huấn luyện, mô hình Teacher chỉ sử dụng duy nhất một bộ trọng số đã được huấn luyện trước. Việc cập nhật bộ trọng số chỉ được áp dụng cho mô hình Student.
 \end{itemize}
 
-Sau khi quá trình huấn luyện hoàn tất, mô hình Student đã sẵn sàng cho việc dự đoán trên dữ liệu mới (chi tiết xem trên Hình~\ref{fig:online-serving}). 
+Sau khi quá trình huấn luyện hoàn tất, mô hình student đã sẵn sàng cho việc dự đoán trên dữ liệu mới (chi tiết xem trên Hình~\ref{fig:online-serving}). 
 
 
 
