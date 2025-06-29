@@ -44,8 +44,8 @@
 \addbibresource{References/references.bib}
 %glossaries
 %\usepackage[automake]{glossaries}
-%\usepackage[automake,style=altlist]{glossaries}  % Đặt lệnh này trong preamble
-\usepackage[style=altlist,toc=true]{glossaries}
+\usepackage[automake,style=altlist]{glossaries}  % Đặt lệnh này trong preamble
+%\usepackage[style=altlist,toc=true]{glossaries}
 \makeglossaries % Đừng quên lệnh này để tạo danh mục
 
 \input{Glossary/glossary} % Nhập các định nghĩa từ glossary.tex
@@ -73,11 +73,11 @@
 \renewcommand{\chaptername}{Chương}
 \renewcommand{\figurename}{Hình}
 \renewcommand{\tablename}{Bảng}
-\renewcommand{\contentsname}{Mục lục}
-\renewcommand{\listfigurename}{Danh sách hình}
-\renewcommand{\listtablename}{Danh sách bảng}
-\renewcommand{\appendixname}{Phụ lục}
-\renewcommand{\glossaryname}{Danh sách thuật ngữ}
+\renewcommand{\contentsname}{MỤC LỤC}
+\renewcommand{\listfigurename}{DANH SÁCH CÁC HÌNH VẼ}
+\renewcommand{\listtablename}{DANH SÁCH CÁC BẢNG}
+\renewcommand{\appendixname}{PHỤ LỤC}
+\renewcommand{\glossaryname}{DANH SÁCH THUẬT NGỮ}
 % Dãn dòng 1.5
 \usepackage{setspace}
 \onehalfspacing
@@ -101,16 +101,23 @@
 
 \pagenumbering{roman} % Đánh số i, ii, iii, ...
 
-\addcontentsline{toc}{chapter}{Lời cam đoan}
+\addcontentsline{toc}{chapter}{LỜI CAM ĐOAN}
 \include{reassurances}
 
-\addcontentsline{toc}{chapter}{Lời cảm ơn}
+\addcontentsline{toc}{chapter}{LỜI CẢM ƠN}
 \include{thanks}
 %
 % Tóm tắc luận văn
 \input{abstract}         % Tóm tắt luận văn
+
 % Mục lục, danh sách hình, danh sách bảng
-\addcontentsline{toc}{chapter}{Mục lục}
+\addcontentsline{toc}{chapter}{DANH SÁCH CÁC BẢNG}
+\listoftables
+%
+\addcontentsline{toc}{chapter}{DANH SÁCH CÁC HÌNH VẼ}
+\listoffigures
+%
+\addcontentsline{toc}{chapter}{MỤC LỤC}
 \tableofcontents
 \listoffigures
 \listoftables
@@ -131,8 +138,8 @@
 %\include{Chapter5/chapter5}
 
 % Công trình của tác giả
-%\addcontentsline{toc}{chapter}{Danh mục công trình của tác giả}
-%\include{Appendix/publish}
+\addcontentsline{toc}{chapter}{Danh mục công trình của tác giả}
+\include{publish}
 
 % In tài liệu tham khảo
 %\addcontentsline{toc}{chapter}{Tài liệu tham khảo}

@@ -68,7 +68,7 @@ Trong quá trình thử nghiệm, ta đã sử dụng phép biến đổi \gls{f
 	\item Hiệu ứng biên trong biến đổi \gls{fft} làm xuất hiện các tín hiệu nhiễu không mong muốn.
 \end{itemize}
 
-\section{Biến đổi sai phân như một phép lọc thông cao: Phân tích từ góc nhìn miền tần số}
+\section{Phép sai phân như một bộ lọc thông cao trong miền tần số}
 
 Để khắc phục các hạn chế của \gls{fft} trong việc lọc tần số cao, một hướng tiếp cận thay thế là xây dựng bộ lọc thông cao trực tiếp trong miền không gian ảnh, cho phép loại bỏ thành phần tần số thấp mà không cần thực hiện biến đổi \gls{fft} và biến đổi \gls{fft} ngược.
 %
@@ -136,7 +136,7 @@ Với biên độ đáp ứng tần số là:
 \sin\left(\frac{M\pi}{2}\right) = \pm 1 \Rightarrow |H_{\mathrm{LP}}(\pi)| = \frac{1}{M}
 \]
 
-**Nhận xét** Để triệt tiêu hoàn toàn tần số cao, ta nên chọn \( M \) chẵn.
+Nhận xét: Để triệt tiêu hoàn toàn tần số cao, ta nên chọn \( M \) chẵn.
 
 \subsection*{Thiết Kế Bộ Lọc Thông Cao}
 
@@ -245,19 +245,40 @@ Biểu thức tổng quát cho bộ lọc thông cao có thể được diễn �
 
 Bộ lọc thông cao có thể được xây dựng từ bộ lọc trung bình thông qua một phép toán đơn giản. Qua thực nghiệm, ta thấy rằng \( M = 2 \) cho kết quả tối ưu cho mô hình.
 %
+Với \( M = 2 \), biểu thức cho đáp ứng xung của bộ lọc thông cao từ phương trình \eqref{eq:h_HP} trở thành:
+
+\[
+h_{\mathrm{HP}}[n] = \left[ \frac{1}{2},\ -\frac{1}{2} \right]
+\]
+
+Ta thấy rằng đây chính là {phép sai phân tuyến tính chuẩn hóa}, tương đương với:
+
+\[
+y[n] = \frac{1}{2}x[n] - \frac{1}{2}x[n-1] = \frac{1}{2}(x[n] - x[n-1])
+\]
+
+Bỏ hệ số tỉ lệ (vì không làm thay đổi đặc tính tần số), ta có thể viết lại thành dạng sai phân đơn giản:
+
+\begin{equation}
+	\label{eq:y_n}
+	y[n] = x[n] - x[n-1]
+\end{equation}
+
+Điều này chứng minh rằng khi \( M = 2 \), bộ lọc thông cao được xây dựng từ bộ lọc trung bình chính là \textbf{phép sai phân bậc nhất} – một bộ lọc thông cao hiệu quả với độ phức tạp tính toán rất thấp, đồng thời loại bỏ mạnh mẽ các thành phần tần số thấp trong tín hiệu hoặc ảnh đầu vào.
+
 %
 \section{Xây dựng khối tiền xử lý dựa trên bộ lọc thông cao}
-Phương trình~\eqref{eq:h_HP} mô tả bộ lọc thông cao dưới dạng tổng quát. Ta mở rộng thành ma trận $H_x, H_y$ như bên dưới để thuận tiện cho việc sử dụng thư viện như \texttt{Pytorch} khi lập trình.
+Phương trình~\eqref{eq:y_n} mô tả bộ lọc thông cao dưới dạng tổng quát. Ta mở rộng thành ma trận $H_x, H_y$ như bên dưới để thuận tiện cho việc sử dụng thư viện như \texttt{Pytorch} khi lập trình.
 	\[
 	H_x = \begin{bmatrix}
 		0 & 0 & 0 \\
-		0 & \tfrac{1}{2} &  \text{-}\tfrac{1}{2} \\
+		0 & 1 &  \text{-}1 \\
 		0 & 0 & 0
 	\end{bmatrix} \qquad \qquad
 	H_y = \begin{bmatrix}
 		0 & 0 & 0 \\
-		0 & \tfrac{1}{2} &  0 \\
-		0 & \text{-}\tfrac{1}{2} & 0
+		0 & 1 &  0 \\
+		0 & \text{-}1 & 0
 	\end{bmatrix}
 	\]
 	
@@ -306,32 +327,46 @@ Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_archi
 		\end{bmatrix}
 	\]
 	
-	\begin{itemize}
-		\item Hai 2 bộ lọc thông cao áp dụng cho 2 hướng $x, y$ giúp loại bỏ thông tin tần số thấp của hình ảnh.
-		\item Đầu ra tương ứng của 2 bộ lọc thông cao được kết hợp với nhau để tạo ra một bản đồ đặt trưng. \textcolor{red}{Chi tiết được trình bài tại..}
-	\end{itemize}
-	\item \textbf{Tầng đầu vào (Stem Layer)}:
-	\begin{itemize}
-		\item Một lớp \gls{convolution} với \gls{kernel} \(3 \times 3\), \gls{stride} = 1, \gls{padding} = 1, tiếp theo là \texttt{Batch Normalization} và hàm kích hoạt \gls{relu}.
-		\item Một lớp \gls{maxpooling} với \gls{kernel} \(3 \times 3\), \gls{stride} = 2 nhằm giảm kích thước đầu vào.
-	\end{itemize}
-	
-	\item \textbf{Khối Layer1}:
-	\begin{itemize}
-		\item Gồm 3 khối Bottleneck, sử dụng \gls{skipconnection} để học các đặc trưng cơ bản như cạnh, vùng chuyển tiếp và kết cấu ảnh.
-	\end{itemize}
-	
-	\item \textbf{Khối Layer2}:
-	\begin{itemize}
-		\item Gồm 4 khối \texttt{Bottleneck}, tiếp tục trích xuất đặc trưng ở mức trừu tượng cao hơn, giúp mô hình phân biệt được các khác biệt tinh vi giữa ảnh thật và ảnh tạo sinh.
-	\end{itemize}
-	
-	\item \textbf{Bộ phân loại đầu ra}:
-	\begin{itemize}
-		\item Một lớp \gls{gap} để chuyển đổi bản đồ đặc trưng thành vec-tơ đặc trưng cố định.
-		\item Một \gls{fc} với một ngõ ra duy nhất, sử dụng hàm kích hoạt \gls{sigmoid} để phân loại ảnh đầu vào là thật hay tạo sinh.
-	\end{itemize}
+		\begin{itemize}
+			\item Hai 2 bộ lọc thông cao áp dụng cho 2 hướng $x, y$ giúp loại bỏ thông tin tần số thấp của hình ảnh.
+			\item Đầu ra tương ứng của 2 bộ lọc thông cao được kết hợp với nhau để tạo ra một bản đồ đặt trưng. \textcolor{red}{Chi tiết được trình bài tại..}
+		\end{itemize}
+
+%
+	\item \textbf{Tầng đầu vào}:
+	%
+		\begin{itemize}
+			\item Một lớp \gls{convolution} với \gls{kernel} kích thước \(3 \times 3\), \gls{stride} = 2, \gls{padding} = 1, không dùng \texttt{bias}.
+			\item Tiếp theo là lớp \gls{batchnorm} và hàm kích hoạt \gls{relu}.
+			\item Sau cùng là lớp \gls{maxpooling} với \gls{kernel} \(3 \times 3\), \gls{stride} = 2, \gls{padding} = 1.
+		\end{itemize}
+		%
+		\item \textbf{Tầng \texttt{layer1}}:
+		\begin{itemize}
+			\item Gồm 3 khối \gls{bottleneck}, được kết nối bằng \gls{skipconnection}, nhằm học các đặc trưng cơ bản như biên cạnh, vùng chuyển tiếp và kết cấu bề mặt ảnh.
+		\end{itemize}
+		
+		\item \textbf{Tầng \texttt{layer2}}:
+		\begin{itemize}
+			\item Gồm 4 khối \gls{bottleneck}, tiếp tục trích xuất đặc trưng ở mức trừu tượng cao hơn, giúp mô hình nhận diện các khác biệt tinh vi giữa ảnh thật và ảnh tạo sinh.
+		\end{itemize}
+		
+		\item \textbf{Bộ phân loại đầu ra}:
+		\begin{itemize}
+			\item Một lớp \gls{gap} để chuyển đổi bản đồ đặc trưng thành vector đặc trưng cố định chiều.
+			\item Một lớp \gls{fc} với một nút đầu ra duy nhất, sử dụng hàm kích hoạt \gls{sigmoid} để phân loại ảnh đầu vào là thật hay tạo sinh.
+		\end{itemize}
 \end{itemize}
+
+\subsection{Hàm mất mát}
+\label{ss:ham_mat_mat_bce}
+Để huấn luyện mô hình phân loại ảnh thật và ảnh tạo sinh, luận văn sử dụng hàm mất mát nhị phân \gls{bce}, được định nghĩa như sau:
+
+\begin{equation}
+	\mathcal{L}_{\mathrm{BCE}} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i)\log(1 - \hat{y}_i) \right]
+\end{equation}
+
+Trong đó, \( y_i \in \{0, 1\} \) là nhãn thực tế của ảnh đầu vào, và \( \hat{y}_i \in (0, 1) \) là xác suất do mô hình dự đoán.
 
 \subsection{Quy trình huấn luyện và sử dụng}
 %
@@ -368,20 +403,49 @@ Quá trình huấn luyện được tổ chức thành nhiều bước cập nh�
 
 Sau khi quá trình huấn luyện hoàn tất, mô hình đã sẵn sàng cho việc dự đoán trên dữ liệu mới (chi tiết được mô tả trong Hình~\ref{fig:online-serving}). Trong giai đoạn này, ảnh đầu vào sẽ được chuẩn hoá theo đúng các thông số đã sử dụng trong quá trình huấn luyện nhằm đảm bảo tính nhất quán về phân phối dữ liệu. Tiếp theo, ảnh được đưa qua khối \textcolor{red}{ADOF} để trích xuất các tín hiệu tần số cao. Đầu ra từ khối này được chuyển vào mô hình đã huấn luyện để thực hiện suy luận và đưa ra kết quả dự đoán cuối cùng.
 
-\section{Tối giản mô hình với kỹ thuật Feature-Based Knowledge Distillation}
+\section{Tối giản mô hình với kỹ thuật \gls{fbkd}}
 
 Nhằm tối ưu khả năng triển khai thực tế trên các thiết bị có tài nguyên hạn chế, sau khi hoàn tất huấn luyện mô hình với kiến trúc trình bày ở phần~\ref{sec:kien_truc_mo_hinh_rut_gon_tu_resnet_50}, ta tiếp tục áp dụng kỹ thuật \gls{fbkd} để rút gọn mô hình.
 
-Cụ thể, mô hình đã huấn luyện sẽ đóng vai trò là mô hình giáo viên (teacher), từ đó truyền đạt kiến thức cho một mô hình học sinh (student) nhỏ gọn hơn. Thay vì chỉ dựa vào đầu ra cuối cùng, mô hình student được hướng dẫn học theo các đặc trưng trung gian từ teacher, giúp duy trì hiệu suất nhận dạng trong khi giảm đáng kể kích thước và chi phí suy luận của mô hình.
+Cụ thể, mô hình đã huấn luyện sẽ đóng vai trò là mô hình \gls{teacher}, từ đó truyền đạt kiến thức cho một mô hình \gls{student} nhỏ gọn hơn. Thay vì chỉ dựa vào đầu ra cuối cùng, mô hình \gls{student} được hướng dẫn học theo các đặc trưng trung gian từ \gls{teacher}, giúp duy trì hiệu suất nhận dạng trong khi giảm đáng kể kích thước và chi phí suy luận của mô hình.
 
-\subsection{Kiến trúc mô hình Student}
+\subsection{Kiến trúc mô hình \gls{student}}
 %figure_model_student_architecture.png
 %
 %
-Trong mô hình Student, ta chỉ giữ lại một khối \texttt{Bottleneck} tại \texttt{Layer1} (thay vì ba khối) và một khối \texttt{Bottleneck} tại \texttt{Layer2} (thay vì bốn khối) từ mô hình Teacher (Hình~\ref{fig:figure_model_architecture}).
+Trong mô hình \gls{student}, ta chỉ giữ lại một khối \gls{bottleneck} tại \texttt{Layer1} (thay vì ba khối) và một khối \gls{bottleneck} tại \texttt{Layer2} (thay vì bốn khối) từ mô hình \gls{teacher} (Hình~\ref{fig:figure_model_architecture}).
 %
-Việc lựa chọn số lượng \texttt{Layer} được giữ lại trong mô hình Student là kết quả của quá trình thử nghiệm thực tế, với tiêu chí cân bằng giữa độ chính xác và độ phức tạp của mô hình.
+Việc lựa chọn số lượng layer được giữ lại trong mô hình \gls{student} là kết quả của quá trình thử nghiệm thực tế, với tiêu chí cân bằng giữa độ chính xác và độ phức tạp của mô hình.
+%%
+\subsection{Hàm mất mát}
 
+Hàm mất mát trong quá trình huấn luyện mô hình \gls{student} là sự kết hợp của hai thành phần:
+
+\begin{enumerate}
+	\item \textbf{Hàm mất mát phân loại (Classification Loss)}:
+	%
+	Là hàm \gls{bce}, được sử dụng trực tiếp để huấn luyện mô hình \gls{student} theo nhãn thật. Chi tiết về \gls{bce} đã được trình bày tại phần~\ref{ss:ham_mat_mat_bce}.
+	%
+	%
+	\item \textbf{Hàm mất mát lan truyền tri thức (\Gls{distillation} Loss)}:
+	%
+	Thành phần này được sử dụng để truyền đạt tri thức từ mô hình \gls{teacher} sang \gls{student} thông qua việc so sánh các biểu diễn đặc trưng tại một lớp trung gian, cụ thể là đầu ra của \texttt{Layer2}. Để đo lường mức độ sai khác giữa hai biểu diễn này, ta sử dụng hàm mất mát \gls{mse}.
+	%
+	\begin{equation}
+		\mathcal{L}_{\mathrm{distill}} = \frac{1}{N} \sum_{i=1}^{N} \left\| f^{(T)}_i - f^{(S)}_i \right\|^2
+	\end{equation}
+	
+	trong đó, \( f^{(T)}_i \) và \( f^{(S)}_i \) lần lượt là véc-tơ đặc trưng đầu ra tại lớp trung gian của mô hình \gls{teacher} và \gls{student} ứng với mẫu dữ liệu thứ \( i \).
+		
+\end{enumerate}
+
+Tổng hàm mất mát được tính theo công thức:
+\begin{equation}
+	\mathcal{L}_{\mathrm{total}} = \lambda \cdot \mathcal{L}_{\mathrm{distill}} + (1 - \lambda) \cdot \mathcal{L}_{\mathrm{BCE}}
+\end{equation}
+trong đó \( \lambda \in [0, 1] \) là siêu tham số điều chỉnh mức độ ảnh hưởng của mỗi thành phần trong tổng hàm mất mát. Việc lựa chọn giá trị \( \lambda \) phù hợp được xác định thông qua quá trình hiệu chỉnh và thử nghiệm thực tế.
+%
+%
 \subsection{Quy trình huấn luyện và sử dụng}
 %offline-training-process-distillation.png
 %
@@ -401,15 +465,15 @@ Quy trình huấn luyện trải qua các bước tương tự với như phần
 Điểm khác biệt nằm ở quá trình lan truyền thuận, hàm mất mát và việc cập nhật bộ trọng số cho mô hình.
 %
 \begin{itemize}
-	\item Lan truyền thuận: Hình ảnh từ đầu vào sẽ được đi qua cả hai mô hình teacher và student. Sau đó ta trích xuất véc-tơ đặc trưng ở đầu ra của \texttt{Layer2} trong mỗi mô hình và đưa vào hàm mất mát.
+	\item Lan truyền thuận: Hình ảnh từ đầu vào sẽ được đi qua cả hai mô hình \gls{teacher} và \gls{student}. Sau đó ta trích xuất véc-tơ đặc trưng ở đầu ra của \texttt{Layer2} trong mỗi mô hình và đưa vào hàm mất mát.
 	
-	\item  Hàm mất mát: Là sự kết hợp của 2 thành phần \gls{distillation} và \gls{bce}.
+	\item  Hàm mất mát: Là sự kết hợp của 2 hàm mất mát thành phần \gls{distillation} và \gls{classification}.
 %	chi tiết được trình bày tại \textcolor{red}{tham chiều tới..}
 	
-	\item Cập nhật trọng số: Trong suốt quá trình huấn luyện, mô hình Teacher chỉ sử dụng duy nhất một bộ trọng số đã được huấn luyện trước. Việc cập nhật bộ trọng số chỉ được áp dụng cho mô hình Student.
+	\item Cập nhật trọng số: Trong suốt quá trình huấn luyện, mô hình \gls{teacher} chỉ sử dụng duy nhất một bộ trọng số đã được huấn luyện trước. Việc cập nhật bộ trọng số chỉ được áp dụng cho mô hình \gls{student}.
 \end{itemize}
 
-Sau khi quá trình huấn luyện hoàn tất, mô hình student đã sẵn sàng cho việc dự đoán trên dữ liệu mới (chi tiết xem trên Hình~\ref{fig:online-serving}). 
+Sau khi quá trình huấn luyện hoàn tất, mô hình \gls{student} đã sẵn sàng cho việc dự đoán trên dữ liệu mới (chi tiết xem trên Hình~\ref{fig:online-serving}). 
 
 
 

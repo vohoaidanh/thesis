@@ -77,7 +77,7 @@
 \newglossaryentry{fft}{
 	name={FFT},
 	description={viết tắt của \textit{Fast Fourier Transform}, tức Biến đổi Fourier nhanh. Đây là thuật toán hiệu quả để chuyển đổi tín hiệu từ miền thời gian sang miền tần số, thường được dùng trong xử lý tín hiệu và phân tích ảnh},
-	first={biến đổi Fourier (FFT)},
+	first={biến đổi Fourier nhanh (FFT)},
 	plural={FFTs}
 }
 
@@ -116,8 +116,15 @@
 	plural={}
 }
 
+\newglossaryentry{knowledgedistillation}{
+	name={knowledge distillation},
+	description={là kỹ thuật huấn luyện mô hình nhỏ hơn (student) bằng cách học từ mô hình lớn hơn (teacher), thông qua đầu ra hoặc biểu diễn đặc trưng trung gian},
+	first={knowledge distillation},
+	plural={}
+}
+
 \newglossaryentry{fbkd}{
-	name={Feature-Based Knowledge Distillation},
+	name={feature-based knowledge distillation},
 	description={là một kỹ thuật trong huấn luyện mạng học sâu, trong đó một mô hình nhỏ hơn (student) học từ mô hình lớn hơn (teacher) thông qua đặc trưng trung gian (feature), thay vì chỉ học từ đầu ra cuối cùng},
 	first={rút trích tri thức dựa trên đặc trưng (Feature-Based Knowledge Distillation)},
 	plural={Feature-Based Knowledge Distillation}
@@ -326,4 +333,78 @@
 	first={PyTorch},
 	plural={}
 }
+
+\newglossaryentry{batchnorm}{
+	name={batch normalization},
+	description={Kỹ thuật chuẩn hoá dữ liệu đầu vào của từng lớp trong mạng nơ-ron bằng cách đưa chúng về phân phối chuẩn (zero mean, unit variance) trong mỗi mini-batch, giúp tăng tốc quá trình huấn luyện và cải thiện độ ổn định của mô hình}
+}
+
+\newglossaryentry{bottleneck}{
+	name=bottleneck,
+	description={Một khối trong kiến trúc ResNet gồm ba lớp convolution liên tiếp (1×1, 3×3, 1×1), giúp giảm chi phí tính toán mà vẫn giữ được khả năng học đặc trưng}
+}
+
+\newglossaryentry{mse}{
+	name={MSE},
+	description={là viết tắt của \textit{Mean Squared Error}, một hàm mất mát phổ biến dùng để đo sai số bình phương trung bình giữa đầu ra dự đoán và nhãn thật trong các mô hình học máy},
+	first={Mean Squared Error (MSE)},
+	plural={}
+}
+
+\newglossaryentry{teacher}{
+	name={teacher},
+	description={Mô hình được huấn luyện trước, đóng vai trò truyền đạt tri thức cho mô hình Student thông qua cơ chế lan truyền tri thức (Knowledge Distillation)},
+	plural={}
+}
+
+\newglossaryentry{student}{
+	name={student},
+	description={Mô hình nhẹ hơn, được huấn luyện bằng cách học theo đầu ra của mô hình Teacher thông qua lan truyền tri thức},
+	plural={}
+}
+
+\newglossaryentry{layer}{
+	name={layer},
+	description={là một tầng trong mạng nơ-ron, thực hiện một phép biến đổi dữ liệu đầu vào thành đầu ra. Các loại layer phổ biến gồm convolutional layer, pooling layer và fully connected layer},
+	first={layer},
+	plural={layers}
+}
+
+\newglossaryentry{attention}{
+	name={attention},
+	description={là cơ chế giúp mô hình học sâu tập trung vào các phần thông tin quan trọng hơn trong chuỗi đầu vào, được sử dụng phổ biến trong mô hình Transformer và các biến thể của nó},
+	first={attention},
+	plural={}
+}
+
+\newglossaryentry{classification}{
+	name={classification},
+	description={là một dạng bài toán trong học máy, trong đó mô hình học cách phân loại đầu vào vào các nhóm hoặc lớp đã biết. Các loại phân loại gồm phân loại nhị phân, phân loại đa lớp, v.v.},
+	first={classification},
+	plural={}
+}
+
+\newglossaryentry{train}{
+	name={train},
+	description={giai đoạn huấn luyện mô hình, trong đó mô hình học từ tập dữ liệu huấn luyện (training data) để tối ưu hóa các tham số},
+	first={train},
+	plural={}
+}
+
+\newglossaryentry{validation}{
+	name={validation},
+	description={là quá trình đánh giá mô hình trong quá trình huấn luyện bằng tập dữ liệu riêng biệt, nhằm điều chỉnh siêu tham số và tránh overfitting},
+	first={validation},
+	plural={}
+}
+
+\newglossaryentry{test}{
+	name={test},
+	description={là giai đoạn kiểm tra hiệu suất mô hình sau khi huấn luyện, sử dụng tập dữ liệu chưa từng thấy để đánh giá khả năng tổng quát hóa},
+	first={test},
+	plural={}
+}
+
+
+
 

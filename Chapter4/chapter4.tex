@@ -118,7 +118,7 @@ Lý do chọn:
 \begin{itemize}
 	\item Thuận lợi khi so sánh giữa các phương pháp vì đây là tập huấn luyện được nhiều nghiên cứu sử dụng như: Wang~\cite{Wang2019CNNGeneratedIA}, NPR~\cite{Tan2023RethinkingTU}, LGrad~\cite{Tan2023LearningOG}, Ojha~\cite{Ojha2023TowardsUF}. 
 	%
-	\item Việc lựa chọn hình ảnh cho tập \textbf{train} chỉ từ một mô hình sinh ảnh duy nhất (ProGAN~\cite{karras2018progressive}) nhằm đánh giá khả năng khái quát và hiệu quả thực sự của phương pháp phát hiện. Cách tiếp cận này phản ánh bối cảnh thực tế, trong đó các mô hình sinh ảnh mới liên tục xuất hiện, trong khi dữ liệu huấn luyện thường đến từ các nguồn cũ và có tốc độ cập nhật chậm hoặc không được cập nhật.
+	\item Việc lựa chọn hình ảnh cho tập \gls{train} chỉ từ một mô hình sinh ảnh duy nhất (ProGAN~\cite{karras2018progressive}) nhằm đánh giá khả năng khái quát và hiệu quả thực sự của phương pháp phát hiện. Cách tiếp cận này phản ánh bối cảnh thực tế, trong đó các mô hình sinh ảnh mới liên tục xuất hiện, trong khi dữ liệu huấn luyện thường đến từ các nguồn cũ và có tốc độ cập nhật chậm hoặc không được cập nhật.
 	%
 	\item Tập kiểm định được xây dựng từ hình ảnh giả mạo của nhiều mô hình GAN khác nhau, nhằm hỗ trợ việc lựa chọn bộ trọng số có khả năng khái quát tốt nhất trong quá trình huấn luyện. Điều này giúp đảm bảo mô hình được đánh giá trên nhiều kiểu dữ liệu sinh, từ đó tăng độ tin cậy của quá trình chọn lựa mô hình cuối cùng.
 	%
