@@ -449,6 +449,11 @@ trong đó \( \lambda \in [0, 1] \) là siêu tham số điều chỉnh mức đ
 \subsection{Quy trình huấn luyện và sử dụng}
 %offline-training-process-distillation.png
 %
+Quy trình huấn luyện trải qua các bước tương tự với như phần~\ref{ssec:quy_trinh_huan_luyen}.
+%
+Điểm khác biệt nằm ở quá trình lan truyền thuận, hàm mất mát và việc cập nhật bộ trọng số cho mô hình.
+%
+%
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=1.0\linewidth]{Images/offline-training-process-distillation.png}
@@ -459,15 +464,10 @@ trong đó \( \lambda \in [0, 1] \) là siêu tham số điều chỉnh mức đ
 	\end{minipage}
 \end{figure}
 %
-%
-Quy trình huấn luyện trải qua các bước tương tự với như phần~\ref{ssec:quy_trinh_huan_luyen}.
-%
-Điểm khác biệt nằm ở quá trình lan truyền thuận, hàm mất mát và việc cập nhật bộ trọng số cho mô hình.
-%
 \begin{itemize}
 	\item Lan truyền thuận: Hình ảnh từ đầu vào sẽ được đi qua cả hai mô hình \gls{teacher} và \gls{student}. Sau đó ta trích xuất véc-tơ đặc trưng ở đầu ra của \texttt{Layer2} trong mỗi mô hình và đưa vào hàm mất mát.
 	
-	\item  Hàm mất mát: Là sự kết hợp của 2 hàm mất mát thành phần \gls{distillation} và \gls{classification}.
+	\item  Tối ưu hàm mất mát: Là sự kết hợp của 2 hàm mất mát thành phần \gls{distillation} và \gls{classification}.
 %	chi tiết được trình bày tại \textcolor{red}{tham chiều tới..}
 	
 	\item Cập nhật trọng số: Trong suốt quá trình huấn luyện, mô hình \gls{teacher} chỉ sử dụng duy nhất một bộ trọng số đã được huấn luyện trước. Việc cập nhật bộ trọng số chỉ được áp dụng cho mô hình \gls{student}.
