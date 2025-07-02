@@ -59,7 +59,7 @@ Những quan sát từ thử nghiệm cho thấy rằng việc tăng cường kh
 
 \subsection{Các hạn chế khi dùng biến đổi Fourier}
 
-Trong quá trình thử nghiệm, ta đã sử dụng phép biến đổi \gls{fft}~\cite{Arunachalam2013TheFF} để phân tích tín hiệu trong miền tần số và thực hiện việc loại bỏ các thành phần tần số thấp nhằm tập trung khai thác đặc trưng tần số cao. Việc này giúp tăng hiệu quả phân loại ảnh thật và giả mạo. Tuy nhiên, mặc dù \gls{fft} có ưu điểm về tốc độ tính toán nhanh hơn nhiều so với biến đổi \gls{dft}, quá trình áp dụng \gls{fft} và cắt lọc tần số cũng tồn tại những hạn chế nhất định.
+Trong quá trình thử nghiệm, ta đã sử dụng \gls{fft}~\cite{Arunachalam2013TheFF} để phân tích tín hiệu trong miền tần số và thực hiện việc loại bỏ các thành phần tần số thấp nhằm tập trung khai thác đặc trưng tần số cao. Việc này giúp tăng hiệu quả phân loại ảnh thật và giả mạo. Tuy nhiên, mặc dù \gls{fft} có ưu điểm về tốc độ tính toán nhanh hơn nhiều so với \gls{dft}, quá trình áp dụng \gls{fft} và cắt lọc tần số cũng tồn tại những hạn chế nhất định.
 
 \begin{itemize}
 	\item Tuy độ phức tạp tính toán chỉ là $O(N\log{N})$ nhưng ta phải thêm bước \gls{ifft} về không gian ảnh ban đầu sau khi áp dụng mặt nạ lọc tần số.
@@ -68,7 +68,7 @@ Trong quá trình thử nghiệm, ta đã sử dụng phép biến đổi \gls{f
 	\item Hiệu ứng biên trong biến đổi \gls{fft} làm xuất hiện các tín hiệu nhiễu không mong muốn.
 \end{itemize}
 
-\section{Phép sai phân như một bộ lọc thông cao trong miền tần số}
+\section{Phép sai phân đóng vai trò như một bộ lọc thông cao trong miền tần số}
 
 Để khắc phục các hạn chế của \gls{fft} trong việc lọc tần số cao, một hướng tiếp cận thay thế là xây dựng bộ lọc thông cao trực tiếp trong miền không gian ảnh, cho phép loại bỏ thành phần tần số thấp mà không cần thực hiện biến đổi \gls{fft} và biến đổi \gls{fft} ngược.
 %
@@ -78,7 +78,7 @@ Trong phần này, tôi sẽ trình bày cơ sở lý thuyết của phương ph
 %
 Thông qua phân tích đáp ứng tần số, ta sẽ chứng minh rằng thao tác lấy sai phân (hiệu) giữa các điểm ảnh kề nhau có thể được xem như một phép lọc thông cao hiệu quả, với độ phức tạp rất thấp.
 
-\subsection{Bộ Lọc Trung Bình}
+\subsection{Bộ lọc trung bình}
 
 Bộ lọc trung bình rời rạc \( h_{\mathrm{LP}}[n] \) có thể được định nghĩa theo công thức:
 
@@ -114,7 +114,7 @@ Với biên độ đáp ứng tần số là:
 |H_{\mathrm{LP}}(\omega)| = \left| \frac{1}{M} \cdot \frac{\sin\left( \frac{M \omega}{2} \right)}{\sin\left( \frac{\omega}{2} \right)} \right|
 \]
 
-\subsection*{Phân Tích Đặc Tính Đáp Ứng Biên Độ}
+\subsection*{Phân tích đặc tính đáp ứng biên độ}
 
 - Khi \( \omega \to 0 \), theo định lý L'Hopital, ta có:
 
@@ -138,7 +138,7 @@ Với biên độ đáp ứng tần số là:
 
 Nhận xét: Để triệt tiêu hoàn toàn tần số cao, ta nên chọn \( M \) chẵn.
 
-\subsection*{Thiết Kế Bộ Lọc Thông Cao}
+\subsection*{Thiết kế bộ lọc thông cao}
 
 Bộ lọc thông cao có thể được xây dựng từ bộ lọc thông thấp thông qua một quan hệ tuyến tính. Cụ thể, tín hiệu đầu ra của bộ lọc thông cao là:
 
@@ -170,7 +170,7 @@ Biên độ đáp ứng tần số của bộ lọc thông cao là:
 |H_{\mathrm{HP}}(\omega)| = \left| 1 - \frac{1}{M} \cdot \frac{\sin\left( \frac{M \omega}{2} \right)}{\sin\left( \frac{\omega}{2} \right)} \right|
 \]
 
-\subsection*{Phân Tích Đặc Tính Đáp Ứng Biên Độ}
+\subsection*{Phân tích đặc tính đáp ứng biên độ}
 
 \begin{itemize}
 	\item Khi \( \omega \to 0 \):
@@ -197,7 +197,7 @@ Biên độ đáp ứng tần số của bộ lọc thông cao là:
 
 Nhận xét: Để giữ lại tần số cao nhiều nhất, ta nên chọn \( M \) chẵn.
 
-\subsection*{Cửa Sổ Bộ Lọc Thông Cao}
+\subsection*{Cửa sổ bộ lọc thông cao}
 \label{sec:cua_so_loc_thong_cao}
 
 Từ biểu thức đáp Ứng Xung của Bộ Lọc Thông Cao:
@@ -403,7 +403,7 @@ Quá trình huấn luyện được tổ chức thành nhiều bước cập nh�
 
 Sau khi quá trình huấn luyện hoàn tất, mô hình đã sẵn sàng cho việc dự đoán trên dữ liệu mới (chi tiết được mô tả trong Hình~\ref{fig:online-serving}). Trong giai đoạn này, ảnh đầu vào sẽ được chuẩn hoá theo đúng các thông số đã sử dụng trong quá trình huấn luyện nhằm đảm bảo tính nhất quán về phân phối dữ liệu. Tiếp theo, ảnh được đưa qua khối \textcolor{red}{ADOF} để trích xuất các tín hiệu tần số cao. Đầu ra từ khối này được chuyển vào mô hình đã huấn luyện để thực hiện suy luận và đưa ra kết quả dự đoán cuối cùng.
 
-\section{Tối giản mô hình với kỹ thuật \gls{fbkd}}
+\section{Tối giản mô hình với kỹ thuật \glsentrytext{fbkd}}
 
 Nhằm tối ưu khả năng triển khai thực tế trên các thiết bị có tài nguyên hạn chế, sau khi hoàn tất huấn luyện mô hình với kiến trúc trình bày ở phần~\ref{sec:kien_truc_mo_hinh_rut_gon_tu_resnet_50}, ta tiếp tục áp dụng kỹ thuật \gls{fbkd} để rút gọn mô hình.
 
