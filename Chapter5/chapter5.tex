@@ -1,16 +1,32 @@
 \chapter{KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}
 
-\section*{Kết luận}
-Luận văn đã đề xuất một bộ lọc đơn giản nhưng hiệu quả, được đặt tên là \textbf{ADOF}, nhằm khai thác các biến thiên mức xám cục bộ giữa các điểm ảnh lân cận. Bằng cách xem hình ảnh như một tín hiệu số rời rạc và áp dụng kỹ thuật sai phân, phương pháp đã loại bỏ các thành phần trung bình của tín hiệu — vốn thường mang tính ngữ nghĩa cao nhưng lại không hữu ích trong việc phân biệt giữa ảnh thật và ảnh tạo sinh.
+\section{Kết luận}
+Luận văn đã đề xuất một bộ lọc đơn giản nhưng hiệu quả, được đặt tên là \textbf{ADOF}, nhằm khai thác các biến thiên mức xám cục bộ giữa các điểm ảnh lân cận. Bằng cách xem hình ảnh như một tín hiệu số rời rạc và áp dụng kỹ thuật sai phân, phương pháp đã loại bỏ các thành phần tần số thấp của tín hiệu — vốn thường mang tính ngữ nghĩa cao nhưng lại không hữu ích trong việc phân biệt giữa ảnh thật và ảnh tạo sinh.
 
 Bộ lọc tập trung vào việc làm nổi bật các dấu vết tinh vi còn lại, từ đó hỗ trợ mô hình học sâu trong việc cải thiện đáng kể cả về độ chính xác và khả năng tổng quát hóa, đồng thời giúp giảm độ phức tạp của mô hình. Kết quả thực nghiệm cho thấy phương pháp ADOF hoạt động hiệu quả ngay cả trên các tập dữ liệu chưa từng được thấy trước đó.
 
-\section*{Hướng phát triển}
-Trong tương lai, hướng nghiên cứu có thể tiếp tục mở rộng theo các phương án sau:
+Đặc biệt, khi được tích hợp vào quy trình rút gọn mô hình -- \gls{fbkd}, ADOF vẫn duy trì được lợi ích ban đầu của nó, giúp mô hình \gls{student} đạt hiệu năng gần tương đương với mô hình gốc (\gls{teacher}) nhưng với cấu trúc nhẹ hơn đáng kể. Điều này cho thấy tiềm năng ứng dụng của ADOF trong các hệ thống thực tế yêu cầu tính hiệu quả và khả năng triển khai cao trên thiết bị giới hạn tài nguyên.
+
+\section{Hướng phát triển}
+Dựa trên những kết quả khả quan mà bộ lọc ADOF mang lại, một số hướng phát triển tiềm năng trong tương lai bao gồm:
 
 \begin{itemize}
-	\item ...
+		
+	\item \textbf{Mở rộng sang dữ liệu video:} Áp dụng bộ lọc này trong bối cảnh xử lý video -- một loại dữ liệu mà tốc độ và độ chính xác đóng vai trò đặc biệt quan trọng -- nhằm phát hiện kịp thời các nội dung giả mạo trong chuỗi khung hình liên tục.
+		
+    \item \textbf{Tích hợp vào các \gls{pipeline} phát hiện khác nhau:} Khảo sát hiệu quả của bộ lọc khi được tích hợp như một bước tiền xử lý trong các hệ thống phát hiện hình ảnh tạo sinh sử dụng nhiều kiến trúc khác nhau. Mục tiêu là đánh giá tính tương thích và khả năng giúp mô hình nâng cao hiệu suất trong các kịch bản thực tế đa dạng.
+    
+    \item \textbf{Mở rộng ứng dụng trong pháp y hình ảnh:} Nghiên cứu áp dụng bộ lọc ADOF vào các kỹ thuật phát hiện thao tác chỉnh sửa ảnh truyền thống như cắt ghép, làm mờ, che giấu chi tiết, hoặc nguỵ trang nội dung.
+
+
 \end{itemize}
+%
+%\section*{Hướng phát triển}
+%Trong tương lai, hướng nghiên cứu có thể tiếp tục mở rộng theo các phương án sau:
+%
+%\begin{itemize}
+%	\item ...
+%\end{itemize}
 
 
 

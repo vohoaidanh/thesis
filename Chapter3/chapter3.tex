@@ -3,11 +3,12 @@
 % Nhớ thêm trích dẫn tham khảo từ luận văn này (tham khảo về cách trình bày)
 \label{Chapter3}
 %
-Trong chương này, luận văn trình bày chi tiết quá trình phân tích và đề xuất phương pháp phát hiện hình ảnh tạo sinh dựa trên đặc trưng tần số cao. Trước tiên, một số thử nghiệm sơ bộ được tiến hành nhằm khảo sát ảnh hưởng của các thành phần tần số đến hiệu quả phân loại giữa ảnh thật và ảnh tạo sinh. Dựa trên kết quả thu được, chương tiếp tục giới thiệu một kỹ thuật tiền xử lý hiệu quả với chi phí tính toán thấp – bộ lọc thông cao rời rạc \textbf{ADOF} – như một thay thế cho biến đổi Fourier truyền thống.
+\textit{
+Trong chương này, luận văn trình bày chi tiết quá trình phân tích và đề xuất phương pháp phát hiện hình ảnh tạo sinh dựa trên đặc trưng tần số cao. Trước tiên, một số thử nghiệm sơ bộ được tiến hành nhằm khảo sát ảnh hưởng của các thành phần tần số đến hiệu quả phân loại giữa ảnh thật và ảnh tạo sinh. Dựa trên kết quả thu được, chương tiếp tục giới thiệu một kỹ thuật tiền xử lý hiệu quả với chi phí tính toán thấp – bộ lọc thông cao rời rạc \textbf{ADOF} – như một thay thế cho biến đổi Fourier truyền thống.}
 
-Tiếp theo, một mô hình phân loại được xây dựng trên nền kiến trúc ResNet~\cite{He2015DeepRL}, kết hợp với khối tiền xử lý tần số để tăng cường khả năng nhận biết các đặc trưng vi mô của ảnh giả. Nhằm đáp ứng yêu cầu triển khai thực tế trên các hệ thống hạn chế tài nguyên, chương này cũng đề xuất một phiên bản rút gọn của mô hình, bằng cách sử dụng kỹ thuật \gls{fbkd}. Phần cuối cùng mô tả chi tiết quy trình huấn luyện và triển khai mô hình trong cả hai giai đoạn: đào tạo và suy luận.
+\textit{Tiếp theo, một mô hình phân loại được xây dựng trên nền kiến trúc ResNet~\cite{He2015DeepRL}, kết hợp với khối tiền xử lý tần số để tăng cường khả năng nhận biết các đặc trưng vi mô của ảnh giả. Nhằm đáp ứng yêu cầu triển khai thực tế trên các hệ thống hạn chế tài nguyên, chương này cũng đề xuất một phiên bản rút gọn của mô hình, bằng cách sử dụng kỹ thuật \gls{fbkd}. Phần cuối cùng mô tả chi tiết quy trình huấn luyện và triển khai mô hình trong cả hai giai đoạn: đào tạo và suy luận.}\\
 %
-\section{Thử nghiệm sơ bộ và tìm hướng tiếp cận}
+\section{Thử nghiệm sơ bộ và hướng tiếp cận}
 %
 \subsection{Thử nghiệm 1}
 %
@@ -404,7 +405,9 @@ Quá trình huấn luyện được tổ chức thành nhiều bước cập nh�
 Sau khi quá trình huấn luyện hoàn tất, mô hình đã sẵn sàng cho việc dự đoán trên dữ liệu mới (chi tiết được mô tả trong Hình~\ref{fig:online-serving}). Trong giai đoạn này, ảnh đầu vào sẽ được chuẩn hoá theo đúng các thông số đã sử dụng trong quá trình huấn luyện nhằm đảm bảo tính nhất quán về phân phối dữ liệu. Tiếp theo, ảnh được đưa qua khối \textcolor{red}{ADOF} để trích xuất các tín hiệu tần số cao. Đầu ra từ khối này được chuyển vào mô hình đã huấn luyện để thực hiện suy luận và đưa ra kết quả dự đoán cuối cùng.
 
 \section{Tối giản mô hình với kỹ thuật \glsentrytext{fbkd}}
-
+%
+\label{ss:toi_gian_mo_hinh}
+%
 Nhằm tối ưu khả năng triển khai thực tế trên các thiết bị có tài nguyên hạn chế, sau khi hoàn tất huấn luyện mô hình với kiến trúc trình bày ở phần~\ref{sec:kien_truc_mo_hinh_rut_gon_tu_resnet_50}, ta tiếp tục áp dụng kỹ thuật \gls{fbkd} để rút gọn mô hình.
 
 Cụ thể, mô hình đã huấn luyện sẽ đóng vai trò là mô hình \gls{teacher}, từ đó truyền đạt kiến thức cho một mô hình \gls{student} nhỏ gọn hơn. Thay vì chỉ dựa vào đầu ra cuối cùng, mô hình \gls{student} được hướng dẫn học theo các đặc trưng trung gian từ \gls{teacher}, giúp duy trì hiệu suất nhận dạng trong khi giảm đáng kể kích thước và chi phí suy luận của mô hình.
@@ -416,7 +419,17 @@ Cụ thể, mô hình đã huấn luyện sẽ đóng vai trò là mô hình \gl
 Trong mô hình \gls{student}, ta chỉ giữ lại một khối \gls{bottleneck} tại \texttt{Layer1} (thay vì ba khối) và một khối \gls{bottleneck} tại \texttt{Layer2} (thay vì bốn khối) từ mô hình \gls{teacher} (Hình~\ref{fig:figure_model_architecture}).
 %
 Việc lựa chọn số lượng layer được giữ lại trong mô hình \gls{student} là kết quả của quá trình thử nghiệm thực tế, với tiêu chí cân bằng giữa độ chính xác và độ phức tạp của mô hình.
-%%
+%
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1.0\linewidth]{Images/student_architechture.pdf}
+	\begin{minipage}{1.0\linewidth}
+		\vspace{5mm}
+		\caption{Sơ đồ kiến trúc mô hình Teacher-Student}
+		\label{fig:student_architecture}
+	\end{minipage}
+\end{figure}
+%
 \subsection{Hàm mất mát}
 
 Hàm mất mát trong quá trình huấn luyện mô hình \gls{student} là sự kết hợp của hai thành phần:

@@ -31,6 +31,10 @@
 %Comments (Cần dùng chung với gói xcolor)
 \newcommand\comment[1]{{\color{blue}\textit{#1}}}
 
+% Chèn pdf 
+\usepackage{pdfpages}
+
+
 
 
 % Tài liệu tham khảo
@@ -52,6 +56,8 @@
 % Công thức
 \usepackage{amssymb}
 % Chèn hình, các hình trong luận văn được để trong thư mục Images/
+% Chèn svg
+%\usepackage{svg}
 \usepackage{graphicx}
 \graphicspath{{Images/}}
 \usepackage{caption}
@@ -154,7 +160,8 @@
 % Chú ý: phải gán lại resetnumbers=số tài liệu tham khảo tiếng Việt + 1
 
 % Phần phụ lục
-%\include{Appendix/appendix1}
+\addcontentsline{toc}{chapter}{PHỤ LỤC}
+\include{Appendix/appendix1}
 %\include{Appendix/appendix2}
 %\include{Appendix/tables_appendix}
 

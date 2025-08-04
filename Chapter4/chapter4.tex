@@ -34,7 +34,7 @@ Phương pháp thu thập và xử lý dữ liệu ảnh thật và ảnh tạo 
 %
 %Ngoài bộ dữ liệu \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA}, quá trình đánh giá mô hình được thực hiện trên các bộ dữ liệu khác nhau, giúp xác định tính khái quát của mô hình sau huấn luyện.
 
-\subsection{Tập huấn luyện: Ảnh giả mạo từ mô hình ProGAN}
+\subsection{Tập \gls{train}: Ảnh giả mạo từ mô hình ProGAN}
 \label{ssec:tap_du_lieu_progan}
 %
 Các hình ảnh sinh bởi mô hình ProGAN~\cite{karras2018progressive} trong bộ dữ liệu \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA} được sử dụng cho quá trình huấn luyện của luận văn. 
@@ -60,10 +60,12 @@ Việc lựa chọn các lớp này tương tự với các nghiên cứu~\cite{
 	\end{minipage}
 \end{figure}
 %
-
+\subsection{Tập \gls{validation}:  Ảnh giả mạo từ mô hình ProGAN}
+Tương tự như tập \gls{train}, các hình ảnh trong tập \gls{validation} thuộc bốn trong hai mươi danh mục đối tượng gồm: \textit{car}, \textit{cat}, \textit{chair} và \textit{horse}.
+%
 \input{Tables/table-forensynths-dataset.tex}
 
-\subsection{Tập kiểm định: Ảnh giả mạo từ 8 mô hình GAN khác nhau}
+\subsection{Tập \gls{test}: Ảnh giả mạo từ 8 mô hình GAN khác nhau}
 %
 \label{ssec:tap_kiem_dinh}
 %
@@ -106,24 +108,43 @@ các hình ảnh thật và hình ảnh giả, được sinh từ những mô h�
 
 \subsection{Chuẩn bị dữ liệu}
 %
-Tập huấn luyện (\texttt{train}): Hình ảnh gồm bốn lớp đối tượng: \textit{car}, \textit{cat}, \textit{chair} và \textit{horse}. Các ảnh giả được tạo ra bằng mô hình sinh ProGAN~\cite{karras2018progressive}, trích xuất từ tập dữ liệu tổng hợp \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA}.\\
+Tập \gls{train}: Hình ảnh gồm bốn lớp đối tượng: \textit{car}, \textit{cat}, \textit{chair} và \textit{horse}. Các ảnh giả được tạo ra bằng mô hình sinh ProGAN~\cite{karras2018progressive}, trích xuất từ tập dữ liệu tổng hợp \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA}.
 %
-Tập kiểm định (\texttt{validation}):
+%Tập \gls{validation}:
+%%
+%Tập dữ liệu được sử dụng trong quá trình huấn luyện nhằm theo dõi hiệu suất mô hình. Các hình ảnh trong tập này được trích xuất từ tám mô hình GAN khác nhau thuộc bộ dữ liệu tổng hợp \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA}, bao gồm: ProGAN, StyleGAN, StyleGAN2, StarGAN, CycleGAN, GauGAN, BigGAN và DeepFake. Việc sử dụng tập kiểm định có phân phối khác so với tập huấn luyện cho phép đánh giá khả năng tổng quát hóa của mô hình đối với các loại ảnh giả ngoài phân phối huấn luyện (out-of-distribution validation).
+%%
+%%
+%Chi tiết tập dữ liệu được trình bày tại \ref{ssec:tap_du_lieu_progan} và \ref{ssec:tap_kiem_dinh}. \\
+%%
+%Lý do chọn tập dữ liệu:
+%\begin{itemize}
+%	\item Thuận lợi khi so sánh giữa các phương pháp vì đây là tập huấn luyện được nhiều nghiên cứu sử dụng như: Wang~\cite{Wang2019CNNGeneratedIA}, NPR~\cite{Tan2023RethinkingTU}, LGrad~\cite{Tan2023LearningOG}, Ojha~\cite{Ojha2023TowardsUF}. 
+%	%
+%	\item Việc lựa chọn hình ảnh cho tập \gls{train} chỉ từ một mô hình sinh ảnh duy nhất (ProGAN~\cite{karras2018progressive}) nhằm đánh giá khả năng khái quát và hiệu quả thực sự của phương pháp phát hiện. Cách tiếp cận này phản ánh bối cảnh thực tế, trong đó các mô hình sinh ảnh mới liên tục xuất hiện, trong khi dữ liệu huấn luyện thường đến từ các nguồn cũ và có tốc độ cập nhật chậm hoặc không được cập nhật.
+%	%
+%	\item Tập kiểm định được xây dựng từ hình ảnh giả mạo của nhiều mô hình GAN khác nhau, nhằm hỗ trợ việc lựa chọn bộ trọng số có khả năng khái quát tốt nhất trong quá trình huấn luyện. Điều này giúp đảm bảo mô hình được đánh giá trên nhiều kiểu dữ liệu sinh, từ đó tăng độ tin cậy của quá trình chọn lựa mô hình cuối cùng.
+%	%
+%\end{itemize}
 %
-Tập dữ liệu được sử dụng trong quá trình huấn luyện nhằm theo dõi hiệu suất mô hình. Các hình ảnh trong tập này được trích xuất từ tám mô hình GAN khác nhau thuộc bộ dữ liệu tổng hợp \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA}, bao gồm: ProGAN, StyleGAN, StyleGAN2, StarGAN, CycleGAN, GauGAN, BigGAN và DeepFake.
+
+Tập \gls{validation}:
 %
-Chi tiết đã đề cập tại \ref{ssec:tap_du_lieu_progan} và \ref{ssec:tap_kiem_dinh}. \\
+Tập dữ liệu được sử dụng trong quá trình huấn luyện nhằm theo dõi hiệu suất mô hình. Các hình ảnh trong tập này được trích xuất từ mô hình Progan
 %
-Lý do chọn:
+Chi tiết tập dữ liệu được trình bày tại \ref{ssec:tap_du_lieu_progan}\\
+%
+Lý do chọn tập dữ liệu:
 \begin{itemize}
 	\item Thuận lợi khi so sánh giữa các phương pháp vì đây là tập huấn luyện được nhiều nghiên cứu sử dụng như: Wang~\cite{Wang2019CNNGeneratedIA}, NPR~\cite{Tan2023RethinkingTU}, LGrad~\cite{Tan2023LearningOG}, Ojha~\cite{Ojha2023TowardsUF}. 
 	%
 	\item Việc lựa chọn hình ảnh cho tập \gls{train} chỉ từ một mô hình sinh ảnh duy nhất (ProGAN~\cite{karras2018progressive}) nhằm đánh giá khả năng khái quát và hiệu quả thực sự của phương pháp phát hiện. Cách tiếp cận này phản ánh bối cảnh thực tế, trong đó các mô hình sinh ảnh mới liên tục xuất hiện, trong khi dữ liệu huấn luyện thường đến từ các nguồn cũ và có tốc độ cập nhật chậm hoặc không được cập nhật.
 	%
-	\item Tập kiểm định được xây dựng từ hình ảnh giả mạo của nhiều mô hình GAN khác nhau, nhằm hỗ trợ việc lựa chọn bộ trọng số có khả năng khái quát tốt nhất trong quá trình huấn luyện. Điều này giúp đảm bảo mô hình được đánh giá trên nhiều kiểu dữ liệu sinh, từ đó tăng độ tin cậy của quá trình chọn lựa mô hình cuối cùng.
+%	\item Tập kiểm định được xây dựng từ hình ảnh giả mạo của nhiều mô hình GAN khác nhau, nhằm hỗ trợ việc lựa chọn bộ trọng số có khả năng khái quát tốt nhất trong quá trình huấn luyện. Điều này giúp đảm bảo mô hình được đánh giá trên nhiều kiểu dữ liệu sinh, từ đó tăng độ tin cậy của quá trình chọn lựa mô hình cuối cùng.
 	%
 \end{itemize}
-%
+
+
 \subsection{Cấu hình phần cứng và cài đặt các tham số} Được thiết lập tương tự như các phương pháp \cite{Wang2019CNNGeneratedIA, Tan2023RethinkingTU,Tan2023LearningOG} để giảm tác động của các yếu tố ngẫu nhiên đến kết quả cuối cùng, làm mất tính khách quan khi so sánh, đánh giá giữa nhiều phương pháp. Giá trị thiết lập các tham số bao gồm:
 	\begin{itemize}
 		\item \Gls{optimizer}: \Gls{adam}
@@ -135,13 +156,13 @@ Lý do chọn:
 
 \subsection{Kết quả huấn luyện}
 
-\comment{Bảng này cần sửa lại, nên để thông tin quá trình train qua các epoch, và model performance, acc, TPR, FPR...}
+Mô hình ngừng cải thiện trên tập kiểm tra sau 9 \gls{epoch}, cho thấy quá trình huấn luyện đã đạt đến ngưỡng hội tụ. Do đó, mô hình tại \gls{epoch} thứ 9 được chọn làm mô hình cuối cùng để đánh giá hiệu năng.
+
 \input{Tables/table1.tex}
 
 \section{Đánh giá mô hình}
 %
 Nội dung đánh giá bao gồm hai phần chính: Thứ nhất, so sánh và đánh giá độ chính xác của nghiên cứu so với các phương pháp tiên tiến hiện nay (Bảng~\ref{tab:table2},\ref{tab:table3},\ref{tab:table4}). Thứ hai, phân tích hiệu quả sử dụng tài nguyên tính toán và hiệu năng của một số hướng tiếp cận tiêu biểu (xem Bảng ~\ref{tab:model_performance}).
-%
 %
 %
 \begin{figure}[h!]
@@ -151,10 +172,13 @@ Nội dung đánh giá bao gồm hai phần chính: Thứ nhất, so sánh và �
 	\caption{Tổng quan hiệu năng và độ chính xác của một số hướng tiếp cận, trên tập dữ liệu Ojha~\cite{Ojha2023TowardsUF}.}
 	\label{fig:teaser}
 \end{figure}
-\subsection{So sánh và đánh giá về độ chính xác}
+\subsection{So sánh, đánh giá khả năng phát hiện ảnh tạo sinh từ các phương pháp sinh ảnh khác nhau}
 %\comment{Nhớ thêm chú thích thuật ngữ 'State-of-the-Art'}\\
 %
-Luận văn thực hiện so sánh độ chính xác của phương pháp đề xuất với 10 phương pháp tiên tiến, bao gồm: 
+Kết quả đánh giá trong mục này là một phần nội dung chính trong bài báo~\cite{adof} đã được công bố tại hội nghị quốc tế SOICT 2024.
+
+%
+Luận văn thực hiện so sánh độ chính xác của phương pháp đề xuất với 10 phương pháp tiên tiến trên nhiều tập dữ liệu có phân phối khác so với tập dữ liệu huấn luyện, bao gồm: 
 CNNDetection~\cite{Wang2019CNNGeneratedIA}, 
 Frank~\cite{Frank2020LeveragingFA}, 
 Durall~\cite{Durall2020WatchYU}, 
@@ -199,6 +223,42 @@ Ngoài ra, độ chính xác cũng trội hơn RINE~\cite{koutlis2024leveraging}
 %
 %
 \input{Tables/table7.tex}
+
+%Total number of parameters: 456,771 of Student model
+%Total number of parameters: 1.4e^6 of Teacher model
+
+\section{Kết quả tối giản mô hình \glsentrytext{student} bằng phương pháp \glsentrytext{fbkd}}
+%
+Trong phần này, chúng tôi trình bày kết quả thực nghiệm của mô hình \gls{student} được xây dựng bằng cách rút gọn kiến trúc từ mô hình \gls{teacher} thông qua phương pháp \gls{fbkd}. Mô hình \gls{teacher} chính là kiến trúc đã được sử dụng và đánh giá trong công trình công bố tại hội nghị SOICT 2024~\cite{adof}. Mục tiêu của quá trình rút gọn là giảm thiểu độ phức tạp tính toán và kích thước mô hình, từ đó nâng cao khả năng triển khai trên các thiết bị có tài nguyên hạn chế, mà vẫn duy trì hiệu suất nhận diện ở mức chấp nhận được. Chi tiết về kiến trúc và quy trình huấn luyện đã được trình bày tại Mục~\ref{ss:toi_gian_mo_hinh}.
+
+Mô hình Student đạt tổng số tham số khoảng \textbf{456,771}, chỉ bằng khoảng \textbf{1/3} so với \textbf{1.44 triệu} tham số của mô hình Teacher. Điều này cho thấy tiềm năng đáng kể của phương pháp \gls{fbkd} trong việc tối ưu hóa mô hình mà không đánh đổi quá nhiều về mặt hiệu suất.
+%
+\begin{table}[h!]
+	\centering
+	\caption{So sánh mô hình \Gls{teacher} và \Gls{student} trên ba tập dữ liệu.}
+	\label{tab:teacher_student_comparison}
+	\begin{adjustbox}{max width=\textwidth}
+		\setlength{\tabcolsep}{12pt} % Tăng khoảng cách giữa các cột
+		\renewcommand{\arraystretch}{1.2} % Tăng độ cao dòng
+		\begin{tabular}{l c c}
+			\toprule
+			\textbf{Bộ dữ liệu} &
+			\textbf{Mô hình Student (acc/ap)} &
+			\textbf{Mô hình Teacher (acc/ap)} \\
+			\midrule
+			GANGen-Detection      & 94.5 / 98.0        & 94.2 / 98.2 \\
+			DiffusionForensics    & {98.1 / 99.8} & 98.3 / 99.8 \\
+			UniversalFakeDetect   & {93.4 / 98.0}  & 94.9 / 98.2 \\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
+\end{table}
+%
+Mặc dù số lượng tham số giảm mạnh, mô hình \Gls{student} vẫn đạt được hiệu suất đáng kể trên cả ba tập dữ liệu. Các kết quả trong Bảng~\ref{tab:teacher_student_comparison} được ghi nhận sau khi huấn luyện mô hình \Gls{student} trong \textbf{8 epoch}, sử dụng dữ liệu và chiến lược huấn luyện tương tự như mô hình \Gls{teacher}.
+%
+%\noindent
+Mô hình \Gls{student} đã duy trì được độ chính xác cao, đồng thời giảm đáng kể độ phức tạp, phù hợp với mục tiêu triển khai trên các thiết bị hạn chế tài nguyên.
+
 
 
 

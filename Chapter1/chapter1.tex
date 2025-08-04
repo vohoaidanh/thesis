@@ -1,7 +1,9 @@
 \chapter{GIỚI THIỆU}
 \label{Chapter1}
 %
+\textit{
 Chương này nhằm giới thiệu tổng quan về đề tài phát hiện hình ảnh tạo sinh, một vấn đề nổi bật trong lĩnh vực thị giác máy tính hiện đại. Mở đầu chương trình bày bối cảnh và vấn đề nghiên cứu trong bối cảnh sự phát triển nhanh chóng của các mô hình tạo sinh ảnh như GAN~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP}. Tiếp theo, chương làm rõ động lực nghiên cứu cả về mặt khoa học và ứng dụng thực tiễn, từ đó xác lập mục tiêu nghiên cứu, phát biểu hình thức của bài toán, các thách thức kỹ thuật cần giải quyết, và phạm vi triển khai. Cuối cùng, chương trình bày những đóng góp chính của luận văn như một nền tảng định hướng cho các chương tiếp theo.
+}\\
 %
 \section{Bối cảnh và vấn đề nghiên cứu}
 
@@ -11,7 +13,7 @@ Vấn đề đặt ra là: khi ranh giới giữa ảnh thật và ảnh giả n
 
 Từ đó, bài toán phát hiện hình ảnh tạo sinh trở thành một hướng nghiên cứu quan trọng và mang tính thời sự cao. Luận văn này tập trung vào việc phân tích, đánh giá và đề xuất phương pháp phát hiện ảnh tạo sinh, nhằm góp phần vào nỗ lực xây dựng các hệ thống nhận diện hình ảnh tin cậy, đáp ứng cả yêu cầu học thuật lẫn ứng dụng thực tiễn trong bối cảnh phát triển nhanh của công nghệ tạo sinh hình ảnh.
 %
-\section{Động lực nghiên cứu}
+\section{Lý do thực hiện đề tài}
 %
 \subsection{Động lực khoa học}
 Phát hiện hình ảnh tạo sinh là một trong những nhiệm vụ khó khăn trong lĩnh vực thị giác máy tính, nhiệm vụ này đặt trọng tâm vào việc phân tích và nhận diện các đặc điểm không tự nhiên trong ảnh – những dấu hiệu có thể chỉ ra sự can thiệp của các mô hình tổng hợp ảnh. 
@@ -162,36 +164,50 @@ Khó khăn trong việc trả lời câu hỏi \textit{"mô hình đã dựa và
 \section{Nội dung và phạm vi nghiên cứu}
 
 \subsection{Nội dung nghiên cứu}
+%
+%Đề tài tập trung vào việc phát hiện hình ảnh tạo sinh bằng cách kết hợp giữa tiền xử lý đặc thù và mô hình học sâu. Các nội dung chính bao gồm:
+%
+%\begin{itemize}
+%	\item Khảo sát các mô hình tạo sinh hình ảnh phổ biến như GAN~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP}.
+%	\item Khảo sát các phương pháp phân biệt ảnh thật và ảnh tạo sinh trong miền không gian và miền tần số.
+%	\item Đề xuất và thiết kế một bộ lọc không gian có chức năng tương đương với bộ lọc thông cao Fourier, nhằm làm nổi bật các đặc trưng giúp phân biệt ảnh giả.
+%	\item Xây dựng mô hình học sâu \gls{cnn} nhọ gọn để thực hiện phân loại ảnh thật/giả, sử dụng ảnh đầu vào đã được tiền xử lý.
+%	\item Huấn luyện và đánh giá mô hình trên tập dữ liệu tổng hợp từ nhiều nguồn ảnh thật và ảnh tạo sinh.
+% \item Tối giản mô hình bằng kỹ thuật Feature base knowleged disttilation
+%\end{itemize}
 
-Đề tài tập trung vào việc phát hiện hình ảnh tạo sinh bằng cách kết hợp giữa tiền xử lý đặc thù và mô hình học sâu. Các nội dung chính bao gồm:
+Luận văn này tập trung nghiên cứu khả năng phát hiện hình ảnh tạo sinh thông qua các phương pháp có độ phức tạp thấp, phù hợp triển khai trên các hệ thống hạn chế về tài nguyên tính toán. Cụ thể, một kỹ thuật tiền xử lý hình ảnh dựa trên bộ lọc thông cao trong miền không gian được thiết kế với cấu trúc đơn giản nhưng hiệu quả, nhằm làm nổi bật các tín hiệu tần số cao – đặc trưng thường gặp trong ảnh tạo sinh. Kỹ thuật này sau đó được kết hợp với một mô hình học sâu nhẹ, giúp tăng cường khả năng phân biệt giữa ảnh thật và ảnh tạo sinh mà không đòi hỏi chi phí tính toán cao. 
 
-\begin{itemize}
-	\item Khảo sát các mô hình tạo sinh hình ảnh phổ biến như GAN~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP}.
-	\item Khảo sát các phương pháp phân biệt ảnh thật và ảnh tạo sinh trong miền không gian và miền tần số.
-	\item Đề xuất và thiết kế một bộ lọc không gian có chức năng tương đương với bộ lọc thông cao Fourier, nhằm làm nổi bật các đặc trưng giúp phân biệt ảnh giả.
-	\item Xây dựng mô hình học sâu \gls{cnn} nhọ gọn để thực hiện phân loại ảnh thật/giả, sử dụng ảnh đầu vào đã được tiền xử lý.
-	\item Huấn luyện và đánh giá mô hình trên tập dữ liệu tổng hợp từ nhiều nguồn ảnh thật và ảnh tạo sinh.
-\end{itemize}
+Đầu tiên, luận văn khảo sát hai mô hình sinh ảnh phổ biến là Generative Adversarial Networks ~\cite{Goodfellow2014GenerativeAN} và Diffusion Models~\cite{Ho2020DenoisingDP} để phân tích các đặc trưng cấu trúc của ảnh tạo sinh.
+%
+Tiếp theo, luận văn phân loại các phương pháp phát hiện ảnh tạo sinh trước đây theo miền xử lý: miền không gian và miền tần số.
+%
+Trên cơ sở đó, thiết kế một thực nghiệm để đánh giá hiệu quả của bộ lọc thông cao do luận văn đề xuất. Ảnh sau khi tiền xử lý được đưa vào \gls{cnn} nhỏ gọn để huấn luyện và kiểm thử trên tập dữ liệu tổng hợp từ nhiều nguồn ảnh thật và ảnh tạo sinh. Kết quả thực nghiệm cho thấy phương pháp đề xuất đạt hiệu quả phân loại cao trong khi vẫn đảm bảo mức độ nhẹ của mô hình. Cuối cùng, kỹ thuật \gls{fbkd} được áp dụng để nén mô hình trở nên đơn giản hơn nữa mà vẫn giữ nguyên hiệu năng, hướng đến khả năng triển khai thực tế trong các môi trường hạn chế tài nguyên.
 
 \subsection{Phạm vi nghiên cứu}
 
-\begin{itemize}
-	\item Chỉ tập trung vào ảnh tĩnh (không xử lý video hoặc ảnh động).
-	%
-	\item Ảnh giả mạo được tạo từ các mô hình tạo sinh phổ biến gồm GAN~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP}.
-	%
-	\item Tập trung và khai thác ưu điểm của các phương pháp tiền xử lý trên miền không gian và miền tần số.
-\end{itemize} 
+%\begin{itemize}
+%	\item Chỉ tập trung vào ảnh tĩnh (không xử lý video hoặc ảnh động).
+%	%
+%	\item Ảnh giả mạo được tạo từ các mô hình tạo sinh phổ biến gồm GAN~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP}.
+%	%
+%	\item Tập trung và khai thác ưu điểm của các phương pháp tiền xử lý trên miền không gian và miền tần số.
+%\end{itemize} 
 %
+
+Luận văn này chỉ tập trung vào xử lý ảnh tĩnh, không xem xét các dạng dữ liệu động như video hoặc ảnh động. Các ảnh giả mạo được nghiên cứu trong phạm vi này được tạo ra từ những mô hình tạo sinh phổ biến hiện nay, bao gồm Generative Adversarial Networks (GAN)~\cite{Goodfellow2014GenerativeAN} và Diffusion Models~\cite{Ho2020DenoisingDP}. Ngoài ra, nội dung nghiên cứu cũng tập trung vào việc khai thác hiệu quả của các phương pháp tiền xử lý hình ảnh, cụ thể trên hai miền chính: miền không gian và miền tần số.
+
 
 \section{Đóng góp của luận văn}
 Luận văn có những đóng góp cơ bản sau:
 \begin{itemize}
 	%
-	\item Xây dựng kiến trúc mô hình đơn giản nhưng có hiệu quả cao khi kết hợp với bộ lọc mà luận văn đề xuất. Bộ phân loại sau khi huấn luyện có khả năng hoạt động tốt trên nhiều tập dữ liệu được sinh bởi nhiều loại mô hình tạo sinh khác nhau.
-	%
 	\item Đề xuất một bộ lọc mới làm tăng độ chính xác của mô hình, tăng tốc độ hội tụ trong quá trình huấn luyện mô hình, đồng thời phương pháp này yêu cầu số lượng phép tính nhỏ hơn nhiều phương pháp khác nhưng vẫn cho độ chính xác cao.
 	%
+	\item Xây dựng kiến trúc mô hình đơn giản nhưng có hiệu quả cao khi kết hợp với bộ lọc mà luận văn đề xuất. Bộ phân loại sau khi huấn luyện có khả năng hoạt động tốt trên nhiều tập dữ liệu được sinh bởi nhiều loại mô hình tạo sinh khác nhau.
+	%
+	\item Áp dụng kỹ thuật \gls{fbkd} để nén mô hình, giúp giảm 70\% kích thước và tài nguyên tính toán của mô hình mà vẫn giữ được hiệu năng phân loại so với mô hình ban đầu.
+
 \end{itemize}
 
 \section{Cấu trúc của luận văn}
