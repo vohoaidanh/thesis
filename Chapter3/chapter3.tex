@@ -297,7 +297,7 @@ Bên cạnh đó, ResNet~\cite{He2015DeepRL} cũng cho thấy khả năng trích
 
 \subsection{Kiến trúc mô hình rút gọn từ ResNet-50}
 \label{sec:kien_truc_mo_hinh_rut_gon_tu_resnet_50}
-Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_architecture}), trong đó chỉ sử dụng hai khối residual đầu tiên của kiến trúc ResNet-50 (tương ứng với \texttt{Layer1} và \texttt{Layer2}) để thực hiện trích xuất đặc trưng, kết hợp với một bộ phân loại nhị phân đơn giản ở đầu ra. Việc tinh giản này giúp giảm số lượng tham số từ khoảng 23 triệu (của ResNet-50 đầy đủ) xuống còn khoảng 1.4 triệu tham số. Mô hình bao gồm các thành phần chính như sau:
+Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_architecture}), trong đó chỉ sử dụng hai khối đầu tiên của kiến trúc ResNet-50 (tương ứng với \texttt{Layer1} và \texttt{Layer2}) để thực hiện trích xuất đặc trưng, kết hợp với một bộ phân loại nhị phân đơn giản ở đầu ra. Việc tinh giản này giúp giảm số lượng tham số từ khoảng 23 triệu (của ResNet-50 đầy đủ) xuống còn khoảng 1.4 triệu tham số. Mô hình bao gồm các thành phần chính như sau:
 %
 \begin{figure}[h!]
 	\centering
@@ -312,7 +312,7 @@ Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_archi
 %
 
 \begin{itemize}
-	\item \textbf{Khối tiền xử lý ADOF}
+	\item \textbf{Khối tiền xử lý - ADOF}
 	
 	Phương trình~\eqref{eq:h_HP} mô tả bộ lọc thông cao dưới dạng tổng quát. Ta mở rộng thành ma trận $H_x, H_y$ như bên dưới để thuận tiện cho việc sử dụng thư viện như \texttt{Pytorch} khi lập trình.
 	\[
@@ -328,9 +328,18 @@ Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_archi
 		\end{bmatrix}
 	\]
 	
+%		\begin{itemize}
+%			\item Hai 2 bộ lọc thông cao áp dụng cho 2 hướng $x, y$ giúp loại bỏ thông tin tần số thấp của hình ảnh.
+%			\item Đầu ra tương ứng của 2 bộ lọc thông cao được kết hợp với nhau để tạo ra một bản đồ đặt trưng. \textcolor{red}{Chi tiết được trình bài tại..}
+%		\end{itemize}
+
 		\begin{itemize}
-			\item Hai 2 bộ lọc thông cao áp dụng cho 2 hướng $x, y$ giúp loại bỏ thông tin tần số thấp của hình ảnh.
-			\item Đầu ra tương ứng của 2 bộ lọc thông cao được kết hợp với nhau để tạo ra một bản đồ đặt trưng. \textcolor{red}{Chi tiết được trình bài tại..}
+			\item Hai bộ lọc thông cao được áp dụng lần lượt theo hai hướng $x$ và $y$, nhằm loại bỏ các thành phần tần số thấp trong ảnh.
+			\item Đầu ra của hai bộ lọc được kết hợp để tạo thành bản đồ đặc trưng thông qua công thức:
+			\[
+			\theta(x, y) = \arctan\left(\frac{H_y(x, y)}{H_x(x, y)}\right)
+			\]
+
 		\end{itemize}
 
 %
@@ -373,7 +382,7 @@ Trong đó, \( y_i \in \{0, 1\} \) là nhãn thực tế của ảnh đầu vào
 %
 \label{ssec:quy_trinh_huan_luyen}
 %
-Quá trình huấn luyện được mô tả trong Hình~\ref{fig:offline-training-process}, ảnh đầu vào sẽ được chuẩn hóa và tiền xử lý nhằm đồng nhất kích thước, tăng tính đa dạng qua các kỹ thuật tăng cường dữ liệu xoay và lật ảnh. Sau bước này, ảnh được đưa qua khối \textcolor{red}{ADOF} – có chức năng lọc lấy những tín hiệu ở tần số cao trong ảnh, nơi mà các mô hình tạo sinh thường để lại dấu vết.
+Quá trình huấn luyện được mô tả trong Hình~\ref{fig:offline-training-process}, ảnh đầu vào sẽ được chuẩn hóa và tiền xử lý nhằm đồng nhất kích thước, tăng tính đa dạng qua các kỹ thuật tăng cường dữ liệu xoay và lật ảnh. Sau bước này, ảnh được đưa qua khối {ADOF} – có chức năng lọc lấy những tín hiệu ở tần số cao trong ảnh, nơi mà các mô hình tạo sinh thường để lại dấu vết.
 %
 \begin{figure}[h!]
 	\centering
@@ -385,7 +394,7 @@ Quá trình huấn luyện được mô tả trong Hình~\ref{fig:offline-traini
 	\end{minipage}
 \end{figure}
 %
-Đầu ra từ khối \textcolor{red}{ADOF} sau đó được đưa vào một kiến trúc ResNet-50~\cite{He2015DeepRL} đã được rút gọn và điều chỉnh nhằm trích xuất đặc trưng và thực hiện phân loại. Kiến trúc này được giảm bớt số lượng tầng so với phiên bản đầy đủ để giảm chi phí tính toán nhưng vẫn giữ lại khả năng biểu diễn cần thiết cho bài toán nhị phân. Đầu ra cuối cùng của mạng là một giá trị xác suất thể hiện mức độ tin tưởng rằng ảnh đầu vào là ảnh tạo sinh. Hàm mất mát được sử dụng trong quá trình huấn luyện là \gls{bce}, kết hợp với thuật toán tối ưu \gls{adam}. Sự lựa chọn này đặc biệt phù hợp với bài toán phân loại nhị phân, giúp mô hình hội tụ nhanh và ổn định. 
+Đầu ra từ khối {ADOF} sau đó được đưa vào một kiến trúc ResNet-50~\cite{He2015DeepRL} đã được rút gọn và điều chỉnh nhằm trích xuất đặc trưng và thực hiện phân loại. Kiến trúc này được giảm bớt số lượng tầng so với phiên bản đầy đủ để giảm chi phí tính toán nhưng vẫn giữ lại khả năng biểu diễn cần thiết cho bài toán nhị phân. Đầu ra cuối cùng của mạng là một giá trị xác suất thể hiện mức độ tin tưởng rằng ảnh đầu vào là ảnh tạo sinh. Hàm mất mát được sử dụng trong quá trình huấn luyện là \gls{bce}, kết hợp với thuật toán tối ưu \gls{adam}. Sự lựa chọn này đặc biệt phù hợp với bài toán phân loại nhị phân, giúp mô hình hội tụ nhanh và ổn định. 
 
 Quá trình huấn luyện được tổ chức thành nhiều bước cập nhật trọng số trong mỗi \gls{epoch}. Mỗi bước tương ứng với một \gls{batch} dữ liệu được đưa vào mô hình để tính toán hàm mất mát và cập nhật trọng số thông qua lan truyền ngược. Sau khi hoàn tất một \gls{epoch} – tức là toàn bộ tập huấn luyện đã được xử lý – mô hình sẽ được đánh giá trên tập dữ liệu kiểm thử nhằm theo dõi hiệu năng tổng thể và điều chỉnh chiến lược huấn luyện nếu cần thiết. Quá trình này tiếp tục cho đến khi mô hình đạt đến số \gls{epoch} tối đa đã định hoặc khi các chỉ số đánh giá dừng cải thiện trong một khoảng thời gian xác định trước. Quy trình huấn luyện như trên giúp mô hình học được các đặc trưng phân biệt hiệu quả giữa ảnh thật và ảnh tạo sinh, đồng thời hạn chế hiện tượng \gls{overfitting}.
 %
@@ -402,7 +411,7 @@ Quá trình huấn luyện được tổ chức thành nhiều bước cập nh�
 %
 %
 
-Sau khi quá trình huấn luyện hoàn tất, mô hình đã sẵn sàng cho việc dự đoán trên dữ liệu mới (chi tiết được mô tả trong Hình~\ref{fig:online-serving}). Trong giai đoạn này, ảnh đầu vào sẽ được chuẩn hoá theo đúng các thông số đã sử dụng trong quá trình huấn luyện nhằm đảm bảo tính nhất quán về phân phối dữ liệu. Tiếp theo, ảnh được đưa qua khối \textcolor{red}{ADOF} để trích xuất các tín hiệu tần số cao. Đầu ra từ khối này được chuyển vào mô hình đã huấn luyện để thực hiện suy luận và đưa ra kết quả dự đoán cuối cùng.
+Sau khi quá trình huấn luyện hoàn tất, mô hình đã sẵn sàng cho việc dự đoán trên dữ liệu mới (chi tiết được mô tả trong Hình~\ref{fig:online-serving}). Trong giai đoạn này, ảnh đầu vào sẽ được chuẩn hoá theo đúng các thông số đã sử dụng trong quá trình huấn luyện nhằm đảm bảo tính nhất quán về phân phối dữ liệu. Tiếp theo, ảnh được đưa qua khối ADOF để trích xuất các tín hiệu tần số cao. Đầu ra từ khối này được chuyển vào mô hình đã huấn luyện để thực hiện suy luận và đưa ra kết quả dự đoán cuối cùng.
 
 \section{Tối giản mô hình với kỹ thuật \glsentrytext{fbkd}}
 %
@@ -469,7 +478,7 @@ Quy trình huấn luyện trải qua các bước tương tự với như phần
 %
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=1.0\linewidth]{Images/offline-training-process-distillation.png}
+	\includegraphics[width=1.0\linewidth]{Images/offline-training-process-distillation.pdf}
 	\begin{minipage}{1.0\linewidth}
 		\vspace{5mm}
 		\caption{Quy trình huấn luyện mô hình áp dụng kỹ thuật Knowledge-Distillation}
