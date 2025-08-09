@@ -52,9 +52,10 @@ Bước tiếp theo của quá trình phân tích, ta thực hiện huấn luy�
 %
 Thử nghiệm đã cho thấy các thành phần tần số cao đóng vai trò quan trọng trong quá trình phân loại ảnh thật – giả. Cụ thể, mô hình được huấn luyện trên ảnh đã qua bộ lọc thông cao (Highpass 50\%) đạt độ chính xác cao hơn so với mô hình sử dụng ảnh RGB gốc. Điều này gợi ý rằng thông tin tần số cao chứa các đặc trưng quan trọng giúp phân biệt ảnh giả mạo, trong khi các thành phần tần số thấp có thể chứa nhiều thông tin nền không hữu ích cho quá trình nhận diện.  
 
-\subsection*{Mở rộng thử nghiệm với các mức lọc tần số cao khác nhau}
 
-Nhằm đánh giá thêm tác động của các thành phần tần số cao trong việc phân loại ảnh thật và giả, chúng tôi tiếp tục mở rộng thử nghiệm với các mức lọc thông cao khác nhau: 60\%, 70\%, 80\%, và 90\%. Bằng cách này, ta có thể đánh giá ảnh hưởng của các tín hiệu tần số cao đến hiệu xuất của bộ phân loại.
+%\subsection*{Mở rộng thử nghiệm với các mức lọc tần số cao khác nhau}
+%
+%Nhằm đánh giá thêm tác động của các thành phần tần số cao trong việc phân loại ảnh thật và giả, chúng tôi tiếp tục mở rộng thử nghiệm với các mức lọc thông cao khác nhau: 60\%, 70\%, 80\%, và 90\%. Bằng cách này, ta có thể đánh giá ảnh hưởng của các tín hiệu tần số cao đến hiệu xuất của bộ phân loại.
 
 Những quan sát từ thử nghiệm cho thấy rằng việc tăng cường khai thác thông tin ở dải tần số cao có thể mang lại lợi ích đáng kể cho nhiệm vụ phát hiện ảnh tạo sinh. Do đó, \textbf{hướng tiếp cận nghiên cứu trong phần tiếp theo sẽ tập trung vào khai thác đặc trưng tần số cao để cải thiện độ chính xác phân loại.}
 
@@ -75,9 +76,9 @@ Trong quá trình thử nghiệm, ta đã sử dụng \gls{fft}~\cite{Arunachala
 %
 Cách làm này không chỉ giúp giảm độ phức tạp tính toán mà còn phù hợp hơn cho các hệ thống yêu cầu xử lý nhanh, có tài nguyên hạn chế hoặc dễ dàng tính toán song song nếu hệ thống hổ trợ \gls{gpu}.
 
-Trong phần này, tôi sẽ trình bày cơ sở lý thuyết của phương pháp xây dựng bộ lọc thông cao dựa trên việc biến đổi từ một bộ lọc thông thấp đơn giản – cụ thể là bộ lọc trung bình. 
+Trong phần này, tôi sẽ trình bày cơ sở lý thuyết của phương pháp xây dựng bộ lọc thông cao dựa trên việc biến đổi từ một bộ lọc thông thấp đơn giản – cụ thể là sbộ lọc trung bình. 
 %
-Thông qua phân tích đáp ứng tần số, ta sẽ chứng minh rằng thao tác lấy sai phân (hiệu) giữa các điểm ảnh kề nhau có thể được xem như một phép lọc thông cao hiệu quả, với độ phức tạp rất thấp.
+Thông qua phân tích đáp ứng tần số, ta sẽ chứng minh rằng thao tác lấy sai phân giữa các điểm ảnh kề nhau có thể được xem như một phép lọc thông cao hiệu quả, với độ phức tạp rất thấp.
 
 \subsection{Bộ lọc trung bình}
 
