@@ -39,7 +39,7 @@
 
 % Tài liệu tham khảo
 \usepackage[
-	sorting=nty,
+	sorting=none, %nty
 	backend=biber,
 	defernumbers=true]{biblatex}
 %
@@ -103,36 +103,43 @@
 
 \begin{document}
 
+%1. Trang bìa
 \input{Title/title.tex}
+%2. Trang phụ
 \input{Title/title2.tex}
 %
 %
 \pagenumbering{roman} % Đánh số i, ii, iii, ...
 
+%3. Lời cam đoan
 \addcontentsline{toc}{chapter}{LỜI CAM ĐOAN}
 \include{reassurances}
 %
+%4. Lời cảm ơn
 \addcontentsline{toc}{chapter}{LỜI CẢM ƠN}
 \include{thanks}
 %
-% Trang thông tin - tóm tắc luận văn
-\input{abstract}       
-%
-%Glossaries
-\printglossaries
-%
-% Mục lục, danh sách hình, danh sách bảng
-\addcontentsline{toc}{chapter}{DANH SÁCH CÁC BẢNG}
-\listoftables
-%
-\addcontentsline{toc}{chapter}{DANH SÁCH CÁC HÌNH VẼ}
-\listoffigures
-\pagenumbering{arabic} % Đánh số 1, 2, 3, ...
-%
+% 5. Mục lục
 %\addcontentsline{toc}{chapter}{MỤC LỤC}
 \tableofcontents
 %
+%6. Danh sách hình
+\addcontentsline{toc}{chapter}{DANH SÁCH CÁC HÌNH VẼ}
+\listoffigures
+%
+% 7. Danh sách bảng
+\addcontentsline{toc}{chapter}{DANH SÁCH CÁC BẢNG}
+\listoftables
+%
+%8. Glossaries
+\printglossaries
+%
+% 9. Trang thông tin - tóm tắc luận văn Tiếng Việt
+\input{abstract}       
+% Kết thúc phần đánh số la mã
+\clearpage
 % Các chương nội dung
+\pagenumbering{arabic} % Đánh số 1, 2, 3, ...
 \include{Chapter1/chapter1}
 
 \include{Chapter2/chapter2}
