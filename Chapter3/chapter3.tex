@@ -249,9 +249,10 @@ Bộ lọc thông cao có thể được xây dựng từ bộ lọc trung bình
 %
 Với \( M = 2 \), biểu thức cho đáp ứng xung của bộ lọc thông cao từ phương trình \eqref{eq:h_HP} trở thành:
 
-\[
+\begin{equation}
+		\label{eq:h_HP_2}
 h_{\mathrm{HP}}[n] = \left[ \frac{1}{2},\ -\frac{1}{2} \right]
-\]
+\end{equation}
 
 Ta thấy rằng đây chính là {phép sai phân tuyến tính chuẩn hóa}, tương đương với:
 
@@ -315,17 +316,21 @@ Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_archi
 \begin{itemize}
 	\item \textbf{Khối tiền xử lý - ADOF}
 	
-	Phương trình~\eqref{eq:h_HP} mô tả bộ lọc thông cao dưới dạng tổng quát. Ta mở rộng thành ma trận $H_x, H_y$ như bên dưới để thuận tiện cho việc sử dụng thư viện như \texttt{Pytorch} khi lập trình.
+	Phương trình~\eqref{eq:h_HP} mô tả bộ lọc thông cao dưới dạng tổng quát. Ta mở rộng thành ma trận $H_x, H_y$ như bên dưới để thuận tiện cho việc sử dụng thư viện như \texttt{Pytorch} khi lập trình (trong lý thuyết, hệ số chính xác phải là $\pm \tfrac{1}{2}$. 
+	Tuy nhiên, do trong quá trình xử lý ta chỉ quan tâm đến hướng và quan hệ tương đối của \gls{gradient}, 
+	nên có thể nhân với một hằng số tỉ lệ bất kỳ. 
+	Vì vậy, trong cài đặt ta thay hệ số $\pm \tfrac{1}{2}$ bằng $\pm 1$ để đơn giản hóa).
+	
 	\[
 		H_x = \begin{bmatrix}
 			0 & 0 & 0 \\
-			0 & \tfrac{1}{2} &  \text{-}\tfrac{1}{2} \\
+			0 & 1 &  \text{-}1 \\
 			0 & 0 & 0
 		\end{bmatrix} \qquad \qquad
 		H_y = \begin{bmatrix}
 			0 & 0 & 0 \\
-			0 & \tfrac{1}{2} &  0 \\
-			0 & \text{-}\tfrac{1}{2} & 0
+			0 & 1 &  0 \\
+			0 & \text{-}1 & 0
 		\end{bmatrix}
 	\]
 	
