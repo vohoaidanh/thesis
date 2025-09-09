@@ -271,19 +271,24 @@ Bỏ hệ số tỉ lệ (vì không làm thay đổi đặc tính tần số), 
 
 %
 \section{Xây dựng khối tiền xử lý dựa trên bộ lọc thông cao}
-Phương trình~\eqref{eq:y_n} mô tả bộ lọc thông cao dưới dạng tổng quát. Ta mở rộng thành ma trận $H_x, H_y$ như bên dưới để thuận tiện cho việc sử dụng thư viện như \texttt{Pytorch} khi lập trình.
-	\[
-	H_x = \begin{bmatrix}
-		0 & 0 & 0 \\
-		0 & 1 &  \text{-}1 \\
-		0 & 0 & 0
-	\end{bmatrix} \qquad \qquad
-	H_y = \begin{bmatrix}
-		0 & 0 & 0 \\
-		0 & 1 &  0 \\
-		0 & \text{-}1 & 0
-	\end{bmatrix}
-	\]
+Từ phương trình~\eqref{eq:y_n} mô tả bộ lọc thông cao dưới dạng tổng quát ta xây dựng được ma trận $H_x, H_y$ như bên dưới.
+\[
+H_x = \left[
+\begin{array}{rrr}
+	0 & 0 & 0 \\
+	0 & \tfrac{1}{2} & \text{-}\tfrac{1}{2} \\
+	0 & 0 & 0
+\end{array}
+\right]
+\qquad\qquad
+H_y = \left[
+\begin{array}{rrr}
+	0 & 0 & 0 \\
+	0 & \tfrac{1}{2} & 0 \\
+	0 & \text{-}\tfrac{1}{2} & 0
+\end{array}
+\right]
+\]
 	
 Dựa trên phân tích tại mục \ref{sec:cua_so_loc_thong_cao}, ta chọn độ dài cửa sổ lọc $M=2$ vì giá trị $M$ chẵn giữ lại vùng tần số cao tốt hơn so với giá trị lẻ. Đồng thời, lựa chọn $M$ nhỏ giúp giảm chi phí tính toán.
 
@@ -347,6 +352,18 @@ Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_archi
 			\]
 
 		\end{itemize}
+
+%
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1.0\linewidth]{Images/adof_output_sample.png}
+	\begin{minipage}{1.0\linewidth}
+		\vspace{5mm}
+		\caption{Hình ảnh trước và sau khi được xử lý bằng khối ADOF}
+		\label{fig:adof_output_sample}
+	\end{minipage}
+\end{figure}
+%
 
 %
 	\item \textbf{Tầng đầu vào}:
