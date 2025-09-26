@@ -64,7 +64,7 @@ Những quan sát từ thử nghiệm cho thấy rằng việc tăng cường kh
 Trong quá trình thử nghiệm, ta đã sử dụng \gls{fft}~\cite{Arunachalam2013TheFF} để phân tích tín hiệu trong miền tần số và thực hiện việc loại bỏ các thành phần tần số thấp nhằm tập trung khai thác đặc trưng tần số cao. Việc này giúp tăng hiệu quả phân loại ảnh thật và giả mạo. Tuy nhiên, mặc dù \gls{fft} có ưu điểm về tốc độ tính toán nhanh hơn nhiều so với \gls{dft}, quá trình áp dụng \gls{fft} và cắt lọc tần số cũng tồn tại những hạn chế nhất định.
 
 \begin{itemize}
-	\item Tuy độ phức tạp tính toán chỉ là $O(N\log{N})$ nhưng ta phải thêm bước \gls{ifft} về không gian ảnh ban đầu sau khi áp dụng mặt nạ lọc tần số.
+	%\item Tuy độ phức tạp tính toán chỉ là $O(N\log{N})$ nhưng ta phải thêm bước \gls{ifft} về không gian ảnh ban đầu sau khi áp dụng mặt nạ lọc tần số.
 	\item Khó khăn trong việc tối ưu hoá tốc độ bằng tính toán song song tận dụng sức mạnh của \gls{gpu}.
 	\item Tốn nhiều tài nguyên bộ nhớ do các biến đổi ở dạng số phức nên yêu cầu thêm bộ nhớ.
 	\item Hiệu ứng biên trong biến đổi \gls{fft} làm xuất hiện các tín hiệu nhiễu không mong muốn.
