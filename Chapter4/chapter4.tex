@@ -10,9 +10,9 @@ Phương pháp thu thập và xử lý dữ liệu ảnh thật và ảnh tạo 
 %
 %
 \begin{enumerate}
-	\item Ảnh giả được tạo ra từ các mô hình sinh ảnh mà không áp dụng xử lý hậu kỳ bổ sung. Nếu bộ ảnh giả đã được phát hành chính thức, ảnh được tải về trực tiếp.
+	\item Ảnh tạo sinh được tạo ra từ các mô hình sinh ảnh mà không áp dụng xử lý hậu kỳ bổ sung. Nếu bộ ảnh tạo sinh đã được phát hành chính thức, ảnh được tải về trực tiếp.
 	
-	\item Số lượng ảnh thật được chọn bằng với số lượng ảnh giả, lấy từ tập huấn luyện tương ứng của từng loại mô hình.
+	\item Số lượng ảnh thật được chọn bằng với số lượng ảnh tạo sinh, lấy từ tập huấn luyện tương ứng của từng loại mô hình.
 	
 	\item Ảnh thật được tiền xử lý theo quy trình được chỉ định bởi từng mô hình, nhằm làm cho phân phối ảnh thật và giả càng giống nhau càng tốt.
 	
@@ -34,7 +34,7 @@ Phương pháp thu thập và xử lý dữ liệu ảnh thật và ảnh tạo 
 %
 %Ngoài bộ dữ liệu \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA}, quá trình đánh giá mô hình được thực hiện trên các bộ dữ liệu khác nhau, giúp xác định tính khái quát của mô hình sau huấn luyện.
 
-\subsection{Tập \gls{train}: Ảnh giả mạo từ mô hình ProGAN}
+\subsection{Tập \gls{train}: Ảnh tạo sinh từ mô hình ProGAN}
 \label{ssec:tap_du_lieu_progan}
 %
 Các hình ảnh sinh bởi mô hình ProGAN~\cite{karras2018progressive} trong bộ dữ liệu \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA} được sử dụng cho quá trình huấn luyện của luận văn. 
@@ -60,31 +60,31 @@ Việc lựa chọn các lớp này tương tự với các nghiên cứu~\cite{
 	\end{minipage}
 \end{figure}
 %
-\subsection{Tập \gls{validation}:  Ảnh giả mạo từ mô hình ProGAN}
+\subsection{Tập \gls{validation}:  Ảnh tạo sinh từ mô hình ProGAN}
 Tương tự như tập \gls{train}, các hình ảnh trong tập \gls{validation} thuộc bốn trong hai mươi danh mục đối tượng gồm: \textit{car}, \textit{cat}, \textit{chair} và \textit{horse}.
 %
 \input{Tables/table-forensynths-dataset.tex}
 
-\subsection{Tập \gls{test}: Ảnh giả mạo từ 8 mô hình GAN khác nhau}
+\subsection{Tập \gls{test}: Ảnh tạo sinh từ 8 mô hình GAN khác nhau}
 %
 \label{ssec:tap_kiem_dinh}
 %
 Tập dữ liệu kiểm định được xây dựng từ bộ dữ liệu \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA}, bao gồm hình ảnh được tạo ra bởi tám mô hình sinh ảnh khác nhau: BigGAN~\cite{brock2018large}, CycleGAN~\cite{zhu2017unpaired}, Deepfakes~\cite{CaliforniaDeepfakes}, GauGAN~\cite{park2019SPADE}, ProGAN~\cite{karras2018progressive}, StarGAN~\cite{choi2018stargan}, StyleGAN~\cite{karras2019style} và StyleGAN2\cite{Karras2019AnalyzingAI}.  
 
-Đối với mỗi mô hình, 200 ảnh giả và 200 ảnh thật tương ứng được chọn ngẫu nhiên, đảm bảo sự cân bằng giữa hai lớp. Việc sử dụng đa dạng các mô hình sinh ảnh trong tập kiểm định giúp đánh giá khả năng tổng quát hoá của mô hình phát hiện ảnh giả trên các nguồn dữ liệu chưa từng được huấn luyện trực tiếp.
+Đối với mỗi mô hình, 200 ảnh tạo sinh và 200 ảnh thật tương ứng được chọn ngẫu nhiên, đảm bảo sự cân bằng giữa hai lớp. Việc sử dụng đa dạng các mô hình sinh ảnh trong tập kiểm định giúp đánh giá khả năng tổng quát hoá của mô hình phát hiện ảnh tạo sinh trên các nguồn dữ liệu chưa từng được huấn luyện trực tiếp.
 
 \subsection{Dữ liệu sử dụng để đánh giá mô hình sau huấn luyện}
 
 %
 Tập dữ liệu kiểm tra bao gồm các hình ảnh đã được sử dụng trong nhiều công trình nghiên cứu trước đó. Nhằm đánh giá khả năng khái quát của mô hình phát hiện giả mạo,
 %
-các hình ảnh thật và hình ảnh giả, được sinh từ những mô hình thuộc họ GAN~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP}, tương tự như cách tiếp cận trong nghiên cứu của Tan~\cite{Tan2023RethinkingTU}.
+các hình ảnh thật và hình ảnh tạo sinh, được sinh từ những mô hình thuộc họ GAN~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP}, tương tự như cách tiếp cận trong nghiên cứu của Tan~\cite{Tan2023RethinkingTU}.
 %
 %
 \begin{itemize}
 	%\item \textbf{Hình ảnh từ 8 mô hình GAN thuộc bộ dữ liệu ForenSynths}
 	%
-	\item \textbf{Hình ảnh từ 9 mô hình GAN thuộc bộ dữ liệu Self-Synthesis}~\cite{Tan2023RethinkingTU}, các hình ảnh giả mạo được thu thập từ 9 mô hình GAN~\cite{Goodfellow2014GenerativeAN} khác nhau, bao gồm:
+	\item \textbf{Hình ảnh từ 9 mô hình GAN thuộc bộ dữ liệu Self-Synthesis}~\cite{Tan2023RethinkingTU}, các hình ảnh tạo sinh được thu thập từ 9 mô hình GAN~\cite{Goodfellow2014GenerativeAN} khác nhau, bao gồm:
 	%
 	AttGAN, BEGAN, CramerGAN, InfoMaxGAN, MMDGAN, RelGAN, S3GAN, SNGAN, STGAN. 
 	%
@@ -96,7 +96,7 @@ các hình ảnh thật và hình ảnh giả, được sinh từ những mô h�
 	%
 	Những mô hình này được huấn luyện trên tập ảnh LSUN-Bedroom~\cite{Yu2015LSUNCO} và ImageNet~\cite{5206848}, hình ảnh thật cũng được trích từ hai tập dữ liệu này. Tổng số lượng hình ảnh là 464,000, trong đó 50\% là hình ảnh thật.
 	%
-	\item \textbf{Hình ảnh từ 4 mô hình Diffusions trong Ojha}~\cite{Ojha2023TowardsUF}, bao gồm 16,000 hình ảnh, trong đó các hình ảnh thật được trích xuất từ tập dữ liệu LAION~\cite{abs-2111-02114}, các hình ảnh giả được tạo từ 4 mô hình Diffusion~\cite{Ho2020DenoisingDP} bao gồm:
+	\item \textbf{Hình ảnh từ 4 mô hình Diffusions trong Ojha}~\cite{Ojha2023TowardsUF}, bao gồm 16,000 hình ảnh, trong đó các hình ảnh thật được trích xuất từ tập dữ liệu LAION~\cite{abs-2111-02114}, các ảnh tạo sinh được tạo từ 4 mô hình Diffusion~\cite{Ho2020DenoisingDP} bao gồm:
 	%
 	ADM~\cite{dhariwal2021diffusion}, Glide~\cite{nichol2021glide},  DALL-E-Mini~\cite{Dayma_DALL·E_Mini_2021}, LDM~\cite{Rombach2021HighResolutionIS}.
 	%
@@ -108,7 +108,7 @@ các hình ảnh thật và hình ảnh giả, được sinh từ những mô h�
 
 \subsection{Chuẩn bị dữ liệu}
 %
-Tập \gls{train}: Hình ảnh gồm bốn lớp đối tượng: \textit{car}, \textit{cat}, \textit{chair} và \textit{horse}. Các ảnh giả được tạo ra bằng mô hình sinh ProGAN~\cite{karras2018progressive}, trích xuất từ tập dữ liệu tổng hợp \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA}.
+Tập \gls{train}: Hình ảnh gồm bốn lớp đối tượng: \textit{car}, \textit{cat}, \textit{chair} và \textit{horse}. Các ảnh tạo sinh được tạo ra bằng mô hình sinh ProGAN~\cite{karras2018progressive}, trích xuất từ tập dữ liệu tổng hợp \textbf{ForenSynths}~\cite{Wang2019CNNGeneratedIA}.
 %
 %Tập \gls{validation}:
 %%
@@ -191,7 +191,7 @@ Ojha~\cite{Ojha2023TowardsUF},
 NPR~\cite{Tan2023RethinkingTU}. 
 Kết quả thí nghiệm trong các Bảng~\ref{tab:table2}, \ref{tab:table3}, và \ref{tab:table4} cho thấy phương pháp đề xuất vượt trội hơn so với các phương pháp hiện có. 
 
-Trên bộ dữ liệu 9-GAN, ADOF đạt độ chính xác cao nhất là 94.2\%, vượt qua Ojha~\cite{Ojha2023TowardsUF} với chỉ 77.6\% \ref{tab:table2}, và NPR~\cite{Tan2023RethinkingTU} đạt 93.2\% (xem Bảng~\ref{tab:table2}).
+Trên bộ dữ liệu 9-GAN, \gls{adof} đạt độ chính xác cao nhất là 94.2\%, vượt qua Ojha~\cite{Ojha2023TowardsUF} với chỉ 77.6\% \ref{tab:table2}, và NPR~\cite{Tan2023RethinkingTU} đạt 93.2\% (xem Bảng~\ref{tab:table2}).
 
 Độ chính xác đạt 98.3\% trên tập dữ liệu DiffusionForensics~\cite{Wang2023DIREFD}, cao nhất trong 10 phương pháp, trong khi đó NPR~\cite{Tan2023RethinkingTU} giữ vị trí thứ hai với 95.3\% (xem Bảng~\ref{tab:table3}). Kết quả này cao hơn DIRE~\cite{Wang2023DIREFD} với 97.9\% ngay trên bộ dữ liệu của chính họ, mặc dù mô hình đề xuất trong luận văn được huấn luyện trên Forensynths~\cite{Krizhevsky2012ImageNetCW}, trong khi DIRE được huấn luyện trên DiffusionForensics.
 

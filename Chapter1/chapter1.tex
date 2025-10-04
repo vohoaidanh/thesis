@@ -9,7 +9,7 @@ Chương này nhằm giới thiệu tổng quan về đề tài phát hiện hì
 
 Sự phát triển vượt bậc của trí tuệ nhân tạo, đặc biệt trong lĩnh vực học sâu, đã thúc đẩy sự ra đời của các mô hình tạo sinh hình ảnh ngày càng tinh vi và chính xác. Những mô hình như Generative Adversarial Networks~\cite{Goodfellow2014GenerativeAN} và Diffusion~\cite{Ho2020DenoisingDP} có khả năng tạo ra hình ảnh có chất lượng gần như tương đương với hình ảnh thật, gây khó khăn đáng kể trong việc phân biệt bằng mắt thường. Đây vừa là một bước tiến đột phá trong công nghệ xử lý ảnh, vừa đặt ra những thách thức lớn về mặt nhận diện, xác thực và quản lý thông tin.
 
-Vấn đề đặt ra là: khi ranh giới giữa ảnh thật và ảnh giả ngày càng trở nên mờ nhạt, làm thế nào để các hệ thống tự động có thể phân biệt chính xác hình ảnh do con người chụp với hình ảnh do máy sinh ra? Câu hỏi này đặc biệt cấp thiết trong bối cảnh ảnh tạo sinh có thể bị lợi dụng để phát tán thông tin sai lệch, giả mạo nhân thân, hoặc phục vụ các mục đích phi đạo đức và phi pháp khác.
+Vấn đề đặt ra là: khi ranh giới giữa ảnh thật và ảnh tạo sinh ngày càng trở nên mờ nhạt, làm thế nào để các hệ thống tự động có thể phân biệt chính xác hình ảnh do con người chụp với hình ảnh do máy sinh ra? Câu hỏi này đặc biệt cấp thiết trong bối cảnh ảnh tạo sinh có thể bị lợi dụng để phát tán thông tin sai lệch, giả mạo nhân thân, hoặc phục vụ các mục đích phi đạo đức và phi pháp khác.
 
 Từ đó, bài toán phát hiện hình ảnh tạo sinh trở thành một hướng nghiên cứu quan trọng và mang tính thời sự cao. Luận văn này tập trung vào việc phân tích, đánh giá và đề xuất phương pháp phát hiện ảnh tạo sinh, nhằm góp phần vào nỗ lực xây dựng các hệ thống nhận diện hình ảnh tin cậy, đáp ứng cả yêu cầu học thuật lẫn ứng dụng thực tiễn trong bối cảnh phát triển nhanh của công nghệ tạo sinh hình ảnh.
 %
@@ -21,7 +21,7 @@ Phát hiện hình ảnh tạo sinh là một trong những nhiệm vụ khó kh
 %Các dấu hiệu giả mạo này ngày càng khó phát hiện được bằng mắt thường do sự phát triển nhanh và mạnh mẽ của các mô hình tạo sinh ảnh. Dưới góc nhìn khoa học, nhiệm vụ này có ý nghĩa quan trọng.
 %
 
-Sự phát triển nhanh chóng của các mô hình tạo sinh ảnh, đặc biệt là GANs~\cite{Goodfellow2014GenerativeAN} và Diffusion Models~\cite{Ho2020DenoisingDP}, đã tạo ra một lớp hình ảnh giả có mức độ chân thực ngày càng cao. Điều này đặt ra nhu cầu cấp thiết cho cộng đồng nghiên cứu trong việc phát triển các phương pháp phát hiện ngày càng tinh vi hơn, có khả năng thích ứng với sự thay đổi liên tục của các kỹ thuật tạo sinh.
+Sự phát triển nhanh chóng của các mô hình tạo sinh ảnh, đặc biệt là GANs~\cite{Goodfellow2014GenerativeAN} và Diffusion Models~\cite{Ho2020DenoisingDP}, đã tạo ra các hình ảnh có mức độ chân thực ngày càng cao. Điều này đặt ra nhu cầu cấp thiết cho cộng đồng nghiên cứu trong việc phát triển các phương pháp phát hiện ngày càng tinh vi hơn, có khả năng thích ứng với sự thay đổi liên tục của các kỹ thuật tạo sinh.
 %
 
 Từ góc nhìn khoa học, việc nghiên cứu phát hiện hình ảnh tạo sinh không chỉ giúp nâng cao hiểu biết về cấu trúc và tính chất của dữ liệu hình ảnh, mà còn góp phần vào việc phát triển các mô hình học sâu có khả năng khái quát tốt hơn. Một thách thức lớn hiện nay là hầu hết các phương pháp phát hiện chỉ hoạt động hiệu quả trên ảnh được tạo ra từ những mô hình tương tự với mô hình đã thấy trong giai đoạn huấn luyện. Do đó, việc đề xuất các phương pháp phát hiện có tính tổng quát cao là một vấn đề khoa học quan trọng, có thể thúc đẩy sự hiểu biết sâu sắc hơn về mối quan hệ giữa mô hình sinh và đặc trưng ảnh.
@@ -30,7 +30,7 @@ Từ góc nhìn khoa học, việc nghiên cứu phát hiện hình ảnh tạo 
 
 %Bên cạnh những tiến bộ đáng kể trong việc phát triển các phương pháp phát hiện giả mạo \textcolor{red}{(Chèn bảng hoặc chart cho thấy quá trình phát triển) }, nhược điểm lớn nhất ở những phương pháp hiện nay là chúng hoạt động hiệu quả khi hình ảnh tạo sinh đến từ các mô hình có kiến trúc giống hoặc tương tự với mô hình đã sử dụng để sinh dữ liệu trong quá trình huấn luyện, nhưng lại không ổn định khi áp dụng cho hình ảnh sinh từ các mô hình mới, do đó cần phải phát triển những phương pháp mới, song song với sự phát triển của các mô hình tạo sinh.
 
-Tóm lại, việc nghiên cứu và hoàn thiện các phương pháp phát hiện ảnh giả mạo không chỉ góp phần nâng cao tính minh bạch và độ tin cậy của công nghệ tạo sinh hình ảnh, mà còn đóng vai trò quan trọng trong việc đảm bảo an toàn thông tin và bảo vệ hệ thống thị giác máy tính trước các nguy cơ giả mạo.
+Tóm lại, việc nghiên cứu và hoàn thiện các phương pháp phát hiện ảnh tạo sinh không chỉ góp phần nâng cao tính minh bạch và độ tin cậy của công nghệ tạo sinh hình ảnh, mà còn đóng vai trò quan trọng trong việc đảm bảo an toàn thông tin và bảo vệ hệ thống thị giác máy tính trước các nguy cơ giả mạo.
 
 %\subsection{Động lực ứng dụng}
 %Trong những năm gần đây, các mô hình tạo sinh ảnh đã có những bước tiến dài, và đã có những ứng dụng tích cực vào cuộc sống. Nổi trội trong các mô hình tạo sinh ảnh là Generative Adversarial Networks \cite{Goodfellow2014GenerativeAN} (GANs) và Diffusion \cite{Ho2020DenoisingDP}, trong đó các phiên bản của mô hình Diffusion có hiệu suất đáng kinh ngạc với khả năng sinh ra hình ảnh chất lượng cao và giống với hình ảnh thực tế như Stable Diffusion 3~\cite{Esser2024ScalingRF} và một số nền tảng phố biến hiện nay như  DALL-E~\cite{dalle2}, DeepArt~\cite{deepart} cũng đang là công cụ hổ trợ mạnh mẽ trong nhiều lĩnh vực như thiết kế đồ hoạ \cite{CasteleiroPitrez2024GenerativeAI,Shin2024CanPM}, thời trang \cite{8769486}, nội thất \cite{Chen2020ApplicationOA}, sáng tác nghệ thuật \cite{Ai_won_an_art_contest}. 
@@ -48,9 +48,9 @@ Các nền tảng ứng dụng như DALL-E~\cite{dalle2}, DeepArt~\cite{deepart}
 
 Tuy nhiên, song song với các ứng dụng tích cực, công nghệ này cũng bị lợi dụng cho những mục đích tiêu cực~\cite{DBLP-abs-2107-10139}, chẳng hạn như tạo ra hình ảnh giả để lừa đảo~\cite{Ai_chief_financial_officer}, bôi nhọ danh dự cá nhân~\cite{VirginiaDeepfake}, hoặc thao túng dư luận. Trước thực trạng này, một số quốc gia đã ban hành các quy định và chế tài để kiểm soát việc phát tán hình ảnh giả mạo~\cite{CaliforniaDeepfakes}.
 
-Chất lượng hình ảnh do các mô hình tạo sinh tạo ra ngày càng tinh vi khiến việc phân biệt ảnh thật và ảnh giả bằng mắt thường trở nên khó khăn~\cite{spottingai}. Hơn nữa, việc tiếp cận và sử dụng các công cụ AI tạo ảnh hiện nay rất đơn giản, cho phép bất kỳ ai cũng có thể tạo ra số lượng lớn hình ảnh giả chỉ trong thời gian ngắn.
+Chất lượng hình ảnh do các mô hình tạo sinh tạo ra ngày càng tinh vi khiến việc phân biệt ảnh thật và ảnh tạo sinh bằng mắt thường trở nên khó khăn~\cite{spottingai}. Hơn nữa, việc tiếp cận và sử dụng các công cụ AI tạo ảnh hiện nay rất đơn giản, cho phép bất kỳ ai cũng có thể tạo ra số lượng lớn hình ảnh giả chỉ trong thời gian ngắn.
 
-Trong bối cảnh đó, việc phát triển các giải pháp có khả năng phát hiện và xác minh hình ảnh giả một cách hiệu quả và tự động là hết sức cần thiết. Đặc biệt, các giải pháp này cần đảm bảo khả năng triển khai trên những thiết bị phổ thông như điện thoại thông minh hoặc máy tính bảng, vốn có tài nguyên phần cứng hạn chế, nhằm hạn chế sự lan truyền của thông tin sai lệch trên quy mô lớn.
+Trong bối cảnh đó, việc phát triển các giải pháp có khả năng phát hiện ảnh tạo sinh một cách hiệu quả và tự động là hết sức cần thiết. Đặc biệt, các giải pháp này cần đảm bảo khả năng triển khai trên những thiết bị phổ thông như điện thoại thông minh hoặc máy tính bảng, vốn có tài nguyên phần cứng hạn chế, nhằm hạn chế sự lan truyền của thông tin sai lệch trên quy mô lớn.
 
 
 \section{Mục tiêu nghiên cứu}
@@ -78,7 +78,7 @@ Phát hiện hình ảnh tạo sinh là bài toán xác định một hình ản
 %
 \textbf{Đầu vào:} Ảnh đầu vào $I \in \mathbb{R}^{w \times h \times c}$, trong đó $w ,h, c$ tương ứng chiều rộng, chiều cao và số lượng kênh màu của hình ảnh.\\
 %
-\textbf{Đầu ra: } Là kết quả dự đoán thể hiện ảnh đầu vào $I$ là ảnh thật hay ảnh giả mạo.
+\textbf{Đầu ra: } Là kết quả dự đoán thể hiện ảnh đầu vào $I$ là ảnh thật hay ảnh tạo sinh.
 \begin{equation}
 y = f(I)
 \end{equation}
@@ -91,13 +91,15 @@ Với  \( y \in \{0, 1\} \) là nhãn phân loại của ảnh \( I \), $f(.)$ l
 %
 \subsection{Phương pháp giải bài toán}
 
-Bài toán phát hiện hình ảnh tạo sinh được tiếp cận dưới dạng bài toán phân loại nhị phân, trong đó mô hình học sâu cần phân biệt giữa ảnh thật (do máy ảnh chụp) và ảnh giả (được sinh ra bởi các mô hình tạo sinh như GAN~\cite{Goodfellow2014GenerativeAN} hoặc Diffusion~\cite{Ho2020DenoisingDP}). Phương pháp được đề xuất trong luận văn gồm hai giai đoạn chính: \textbf{tiền xử lý ảnh đầu vào} và \textbf{huấn luyện bộ phân lớp học sâu.}
+Bài toán phát hiện hình ảnh tạo sinh được tiếp cận dưới dạng bài toán phân loại nhị phân, trong đó mô hình học sâu cần phân biệt giữa ảnh thật (do máy ảnh chụp) và ảnh tạo sinh (được sinh ra bởi các mô hình tạo sinh như GAN~\cite{Goodfellow2014GenerativeAN} hoặc Diffusion~\cite{Ho2020DenoisingDP}). Phương pháp được đề xuất trong luận văn gồm hai giai đoạn chính: \textbf{tiền xử lý ảnh đầu vào} và \textbf{huấn luyện bộ phân lớp học sâu.}
 
-Trước khi đưa ảnh vào mô hình học sâu, ảnh đầu vào được xử lý bởi một bộ lọc tần số cao trong miền không gian. Bộ lọc này được thiết kế nhằm làm nổi bật các chi tiết vi mô hoặc những nhiễu đặc trưng mà các mô hình tạo sinh thường để lại. Thay vì sử dụng trực tiếp \gls{fft}~\cite{Arunachalam2013TheFF} – vốn yêu cầu chuyển đổi qua lại giữa miền không gian và miền tần số, luận văn đề xuất một bộ lọc tương đương trong miền không gian có tên gọi là \textbf{ADOF}. Cụ thể, bộ lọc được xây dựng bằng cách thiết kế một \gls{kernel} với đáp ứng tương tự bộ lọc thông cao, cho phép loại bỏ các thành phần tần số thấp và giữ lại các chi tiết tần số cao vốn dễ thể hiện sự khác biệt giữa ảnh thật và ảnh giả.
+%Trước khi đưa ảnh vào mô hình học sâu, ảnh đầu vào được xử lý bởi một bộ lọc tần số cao trong miền không gian. Bộ lọc này được thiết kế nhằm làm nổi bật các chi tiết vi mô hoặc những nhiễu đặc trưng mà các mô hình tạo sinh thường để lại. Thay vì sử dụng trực tiếp \gls{fft}~\cite{Arunachalam2013TheFF} – vốn yêu cầu chuyển đổi qua lại giữa miền không gian và miền tần số, luận văn đề xuất một bộ lọc tương đương trong miền không gian có tên gọi là \textbf{ADOF}. Cụ thể, bộ lọc được xây dựng bằng cách thiết kế một \gls{kernel} với đáp ứng tương tự bộ lọc thông cao, cho phép loại bỏ các thành phần tần số thấp và giữ lại các chi tiết tần số cao vốn dễ thể hiện sự khác biệt giữa ảnh thật và ảnh giả.
 
-Ảnh sau khi được lọc sẽ giữ lại nhiều đặc trưng hữu ích cho quá trình học, đồng thời giảm nhiễu từ nền ảnh hoặc cấu trúc toàn cục. Đây là bước quan trọng giúp tăng độ nhạy của mô hình đối với các tín hiệu tinh vi mà ảnh tạo sinh thường để lộ.
+Trước khi đưa ảnh vào mô hình học sâu, ảnh đầu vào được cho qua khối tiền xử lý \gls{adof} mà luận văn đề xuất nhằm làm nổi bật các chi tiết vi mô hoặc những nhiễu đặc trưng mà các mô hình tạo sinh thường để lại.
 
-Sau bước tiền xử lý, ảnh được đưa vào mô hình học sâu \( f(\cdot) \) - một hàm phân lớp có đầu vào là ảnh đã xử lý và đầu ra là xác suất ảnh thuộc lớp giả mạo. Các bước cụ thể được mô tả như sau:
+Ảnh sau khi được xử lý sẽ giữ lại nhiều đặc trưng hữu ích cho quá trình học, đồng thời giảm nhiễu từ nền ảnh hoặc cấu trúc toàn cục. Đây là bước quan trọng giúp tăng độ nhạy của mô hình đối với các tín hiệu tinh vi mà ảnh tạo sinh thường để lộ.
+
+Sau bước tiền xử lý, ảnh được đưa vào mô hình máy học \( f(\cdot) \) - một hàm phân lớp có đầu vào là ảnh đã xử lý và đầu ra là xác suất ảnh thuộc lớp giả mạo. Các bước cụ thể được mô tả như sau:
 \[
 \mathbf{x}_i^{\text{filtered}} = \mathcal{F}(\mathbf{x}_i), \quad \hat{y}_i = f(\mathbf{x}_i^{\text{filtered}})
 \]
@@ -117,7 +119,7 @@ Với hàm mất mát:
 Trong đó:
 \begin{itemize}
 	\item \( N \): số lượng mẫu huấn luyện,
-	\item \( y_i \in \{0, 1\} \): nhãn thực tế, với 0 là ảnh thật và 1 là ảnh giả,
+	\item \( y_i \in \{0, 1\} \): nhãn thực tế, với 0 là ảnh thật và 1 là ảnh tạo sinh,
 	\item \( \hat{y}_i = f(\mathcal{F}(\mathbf{x}_i)) \): xác suất mô hình dự đoán ảnh là giả sau tiền xử lý.
 \end{itemize}
 
@@ -126,10 +128,10 @@ Việc kết hợp kỹ thuật tiền xử lý với mô hình học sâu giúp
 %
 \section{Thách thức bài toán}
 
-Tốc độ phát triển của công nghệ tạo ảnh bằng mạng học sâu làm cho các phương pháp phân biệt giữa ảnh thật và ảnh giả mạo nhanh chóng lỗi thời, kém hiệu quả trên các mô hình tạo sinh mới:
+Tốc độ phát triển của công nghệ tạo ảnh bằng mạng học sâu làm cho các phương pháp phân biệt giữa ảnh thật và ảnh tạo sinh nhanh chóng lỗi thời, kém hiệu quả trên các mô hình tạo sinh mới:
 
 \begin{itemize}
-	\item Khó khăn với nhóm phương pháp phát hiện ảnh giả mạo dựa trên sự không đồng nhất ở cấp độ ngữ nghĩa hình ảnh: Hướng tiếp cận này dựa vào việc phát hiện các bất hợp lý về ngữ nghĩa, màu sắc, hình dạng, hoặc những điểm mâu thuẫn với quy luật vật lý của đối tượng, trong các hình ảnh tạo sinh. Tuy nhiên, chất lượng hình ảnh tạo sinh hiện nay đã được nâng cao đáng kể so với những ngày đầu, làm cho việc áp dụng phương pháp này trở nên ngày càng khó khăn hơn (Hình~\ref{fig:ai-real-samples-1b}).
+	\item Khó khăn với nhóm phương pháp phát hiện ảnh tạo sinh dựa trên sự không đồng nhất ở cấp độ ngữ nghĩa hình ảnh: Hướng tiếp cận này dựa vào việc phát hiện các bất hợp lý về ngữ nghĩa, màu sắc, hình dạng, hoặc những điểm mâu thuẫn với quy luật vật lý của đối tượng, trong các hình ảnh tạo sinh. Tuy nhiên, chất lượng hình ảnh tạo sinh hiện nay đã được nâng cao đáng kể so với những ngày đầu, làm cho việc áp dụng phương pháp này trở nên ngày càng khó khăn hơn (Hình~\ref{fig:ai-real-samples-1b}).
 	\begin{figure}[htp]
 		\centering
 		\includegraphics[width=0.9\linewidth]{ai-real-samples-1b.png}
@@ -141,7 +143,7 @@ Tốc độ phát triển của công nghệ tạo ảnh bằng mạng học sâ
 	%
 	Bênh cạnh đó để huấn luyện mô hình \textit{"hiểu"} được các điểm bất hợp lý là bài toán khó, yêu cầu dữ liệu huấn luyện lớn và việc gán nhãn vị trí bất hợp lý trên hình ảnh cần nhiều chi phí, vì vậy hướng tiếp cận này ít được sử dụng hiện nay, tuy nhiên đây có thể là hướng phát triển tiềm năng khi kết hợp với mô hình ngôn ngữ lớn vì nó cho đưa ra được giải thích cho kết quả dự đoán.
 	%
-	\item Phát hiện hình ảnh giả mạo dựa vào phân tích, rút trích các đặc trưng tần số hay đặc trưng không gian trên hình ảnh. Hướng tiếp cận này mặc dù đem lại kết quả cao, ít phụ thuộc vào ngữ nghĩa của hình ảnh, tuy nhiên các kiến trúc mô hình khác nhau sẽ tạo ra những dấu vết khác nhau, do đó, thách thức lớn trong việc tìm ra đặt trưng chung và có hiệu quả trên nhiều mô hình tạo sinh (Hình~\ref{fig:gan-fingerprints-1}).
+	\item Phát hiện ảnh tạo sinh dựa vào phân tích, rút trích các đặc trưng tần số hay đặc trưng không gian trên hình ảnh. Hướng tiếp cận này mặc dù đem lại kết quả cao, ít phụ thuộc vào ngữ nghĩa của hình ảnh, tuy nhiên các kiến trúc mô hình khác nhau sẽ tạo ra những dấu vết khác nhau, do đó, thách thức lớn trong việc tìm ra đặt trưng chung và có hiệu quả trên nhiều mô hình tạo sinh (Hình~\ref{fig:gan-fingerprints-1}).
 	
 	\begin{figure}[h]
 		\centering
@@ -156,9 +158,9 @@ Tốc độ phát triển của công nghệ tạo ảnh bằng mạng học sâ
 	%
 \end{itemize}
 %
-Ảnh tạo sinh rất đa dạng về nội dung, hình thức và được tạo ra theo trí tưởng tượng vô hạn của người dùng. Các hướng tiếp cận cho độ chính xác cao hiện nay, đều tận dụng sức mạnh của kỹ thuật học sâu. Tuy nhiên, dữ liệu dùng để huấn luyện các mô hình này không đủ đại diện cho toàn bộ ảnh giả mạo, cụ thể dữ liệu huấn luyện chỉ chứa một số lượng hữu hạn các đối tương trong thế giới thực, nhưng trong thực tế các đối tượng trong ảnh giả mạo có thể nằm ngoài tập huấn luyện, đây là một khó khăn cơ bản của bài toán này.
+Ảnh tạo sinh rất đa dạng về nội dung, hình thức và được tạo ra theo trí tưởng tượng vô hạn của người dùng. Các hướng tiếp cận cho độ chính xác cao hiện nay, đều tận dụng sức mạnh của kỹ thuật học sâu. Tuy nhiên, dữ liệu dùng để huấn luyện các mô hình này không đủ đại diện cho toàn bộ ảnh tạo sinh, cụ thể dữ liệu huấn luyện chỉ chứa một số lượng hữu hạn các đối tương trong thế giới thực, nhưng trong thực tế các đối tượng trong ảnh tạo sinh có thể nằm ngoài tập huấn luyện, đây là một khó khăn cơ bản của bài toán này.
 
-Khó khăn trong việc trả lời câu hỏi \textit{"mô hình đã dựa vào đâu để đưa ra kết luận?"}, đây là khó khăn chung của việc ứng dụng kỹ thuật học sâu, và trong nhiệm vụ phát hiện ảnh giả mạo thì yêu cầu tính \textit{"giải thích được"} càng quan trọng. Các đặc điểm thể hiện một hình ảnh là giả mạo thường không thể nhận biết một cách trực quan mà là qua sự tổng hợp rút trích đặc trưng của mạng học sâu, do tính chất phức tạp của các mô hình này, việc cung cấp giải thích rõ ràng và minh bạch cho các quyết định của mô hình là một thách thức lớn.
+Khó khăn trong việc trả lời câu hỏi \textit{"mô hình đã dựa vào đâu để đưa ra kết luận?"}, đây là khó khăn chung của việc ứng dụng kỹ thuật học sâu, và trong nhiệm vụ phát hiện ảnh tạo sinh thì yêu cầu tính \textit{"giải thích được"} càng quan trọng. Các đặc điểm thể hiện một hình ảnh là ảnh tạo sinh thường không thể nhận biết một cách trực quan mà là qua sự tổng hợp rút trích đặc trưng của mạng học sâu, do tính chất phức tạp của các mô hình này, việc cung cấp giải thích rõ ràng và minh bạch cho các quyết định của mô hình là một thách thức lớn.
 
 %
 \section{Nội dung và phạm vi nghiên cứu}
@@ -195,18 +197,18 @@ Trên cơ sở đó, thiết kế một thực nghiệm để đánh giá hiệu
 %\end{itemize} 
 %
 
-Luận văn này chỉ tập trung vào xử lý ảnh tĩnh, không xem xét các dạng dữ liệu động như video hoặc ảnh động. Các ảnh giả mạo được nghiên cứu trong phạm vi này được tạo ra từ những mô hình tạo sinh phổ biến hiện nay, bao gồm Generative Adversarial Networks (GAN)~\cite{Goodfellow2014GenerativeAN} và Diffusion Models~\cite{Ho2020DenoisingDP}. Ngoài ra, nội dung nghiên cứu cũng tập trung vào việc khai thác hiệu quả của các phương pháp tiền xử lý hình ảnh, cụ thể trên hai miền chính: miền không gian và miền tần số.
+Luận văn này chỉ tập trung vào xử lý ảnh tĩnh, không xem xét các dạng dữ liệu động như video hoặc ảnh động. Các ảnh tạo sinh được nghiên cứu trong phạm vi này được tạo ra từ những mô hình tạo sinh phổ biến hiện nay, bao gồm Generative Adversarial Networks (GAN)~\cite{Goodfellow2014GenerativeAN} và Diffusion Models~\cite{Ho2020DenoisingDP}. Ngoài ra, nội dung nghiên cứu cũng tập trung vào việc khai thác hiệu quả của các phương pháp tiền xử lý hình ảnh, cụ thể trên hai miền chính: miền không gian và miền tần số.
 
 
 \section{Đóng góp của luận văn}
 Luận văn có những đóng góp cơ bản sau:
 \begin{itemize}
 	%
-	\item Đề xuất một bộ lọc mới tích hợp vào một khối tiền xử lý hình ảnh, làm tăng độ chính xác của mô hình, tăng tốc độ hội tụ trong quá trình huấn luyện mô hình, đồng thời phương pháp này yêu cầu số lượng phép tính nhỏ hơn nhiều phương pháp khác nhưng vẫn cho độ chính xác cao.
+	\item Đề xuất khối tiền xử lý sử dụng bộ lọc thông cao, làm tăng độ chính xác của mô hình, tăng tốc độ hội tụ trong quá trình huấn luyện mô hình, đồng thời phương pháp này yêu cầu số lượng phép tính nhỏ hơn nhiều phương pháp khác nhưng vẫn cho độ chính xác cao.
 	%
 	\item Xây dựng kiến trúc mô hình đơn giản nhưng có hiệu quả cao khi kết hợp với khối tiền xử lý mà luận văn đề xuất. Bộ phân loại sau khi huấn luyện có khả năng hoạt động tốt trên nhiều tập dữ liệu được sinh bởi nhiều loại mô hình tạo sinh khác nhau.
 	%
-	\item Áp dụng kỹ thuật \gls{fbkd} để nén mô hình, giúp giảm 68\% kích thước và tài nguyên tính toán của mô hình ban đầu nhưng vẫn giữ được hiệu năng phân loại so với mô hình ban đầu.
+%	\item Áp dụng kỹ thuật \gls{fbkd} để nén mô hình, giúp giảm 68\% kích thước và tài nguyên tính toán của mô hình ban đầu nhưng vẫn giữ được hiệu năng phân loại so với mô hình ban đầu.
 
 \end{itemize}
 

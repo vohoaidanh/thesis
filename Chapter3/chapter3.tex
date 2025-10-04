@@ -4,9 +4,9 @@
 \label{Chapter3}
 %
 \textit{
-Trong chương này, luận văn trình bày chi tiết quá trình phân tích và đề xuất phương pháp phát hiện hình ảnh tạo sinh dựa trên đặc trưng tần số cao. Trước tiên, một số thử nghiệm sơ bộ được tiến hành nhằm khảo sát ảnh hưởng của các thành phần tần số đến hiệu quả phân loại giữa ảnh thật và ảnh tạo sinh. Dựa trên kết quả thu được, chương tiếp tục giới thiệu một kỹ thuật tiền xử lý hiệu quả với chi phí tính toán thấp – bộ lọc thông cao rời rạc \textbf{ADOF} – như một thay thế cho biến đổi Fourier truyền thống.}
+Trong chương này, luận văn trình bày chi tiết quá trình phân tích và đề xuất phương pháp phát hiện hình ảnh tạo sinh dựa trên đặc trưng tần số cao. Trước tiên, một số thử nghiệm sơ bộ được tiến hành nhằm khảo sát ảnh hưởng của các thành phần tần số đến hiệu quả phân loại giữa ảnh thật và ảnh tạo sinh. Dựa trên kết quả thu được, chương tiếp tục giới thiệu một khối tiền xử lý áp dụng bộ lọc thông cao \gls{adof} hiệu quả với chi phí tính toán thấp}
 
-\textit{Tiếp theo, một mô hình phân loại được xây dựng trên nền kiến trúc ResNet~\cite{He2015DeepRL}, kết hợp với khối tiền xử lý tần số để tăng cường khả năng nhận biết các đặc trưng vi mô của ảnh giả. Nhằm đáp ứng yêu cầu triển khai thực tế trên các hệ thống hạn chế tài nguyên, chương này cũng đề xuất một phiên bản rút gọn của mô hình, bằng cách sử dụng kỹ thuật \gls{fbkd}. Phần cuối cùng mô tả chi tiết quy trình huấn luyện và triển khai mô hình trong cả hai giai đoạn: đào tạo và suy luận.}\\
+\textit{Tiếp theo, một mô hình phân loại được xây dựng trên nền kiến trúc ResNet~\cite{He2015DeepRL}, kết hợp với khối tiền xử lý tần số để tăng cường khả năng nhận biết các đặc trưng vi mô của ảnh tạo sinh. Nhằm đáp ứng yêu cầu triển khai thực tế trên các hệ thống hạn chế tài nguyên, chương này cũng đề xuất một phiên bản rút gọn của mô hình, bằng cách sử dụng kỹ thuật \gls{fbkd}. Phần cuối cùng mô tả chi tiết quy trình huấn luyện và triển khai mô hình trong cả hai giai đoạn: đào tạo và suy luận.}\\
 %
 \section{Thử nghiệm sơ bộ và hướng tiếp cận}
 %
@@ -21,7 +21,7 @@ Trong chương này, luận văn trình bày chi tiết quá trình phân tích 
 	\end{minipage}
 \end{figure}
 %
-Trong Hình~\ref{fig:restyle-encoder-1}, ta sử dụng ảnh thật (1) lấy từ tập dữ liệu FFHQ và tạo ảnh giả tương ứng (2) bằng phương pháp ReStyle~\cite{alaluf2021restyle}. 
+Trong Hình~\ref{fig:restyle-encoder-1}, ta sử dụng ảnh thật (1) lấy từ tập dữ liệu FFHQ và tạo sinh ảnh tương ứng (2) bằng phương pháp ReStyle~\cite{alaluf2021restyle}. 
 %
 Việc sử dụng cặp ảnh thật–giả có cùng đặc điểm khuôn mặt giúp ta khảo sát trực quan độ khó của nhiệm vụ phân biệt hình ảnh tạo sinh. Kết quả cho thấy hai ảnh có mức độ tương đồng cao về hình dáng và chi tiết, gây khó khăn cho việc phân biệt bằng mắt thường.
 %
@@ -50,7 +50,7 @@ Bước tiếp theo của quá trình phân tích, ta thực hiện huấn luy�
 \end{figure}
 
 %
-Thử nghiệm đã cho thấy các thành phần tần số cao đóng vai trò quan trọng trong quá trình phân loại ảnh thật – giả. Cụ thể, mô hình được huấn luyện trên ảnh đã qua bộ lọc thông cao (Highpass 50\%) đạt độ chính xác cao hơn so với mô hình sử dụng ảnh RGB gốc. Điều này gợi ý rằng thông tin tần số cao chứa các đặc trưng quan trọng giúp phân biệt ảnh giả mạo, trong khi các thành phần tần số thấp có thể chứa nhiều thông tin nền không hữu ích cho quá trình nhận diện.  
+Thử nghiệm đã cho thấy các thành phần tần số cao đóng vai trò quan trọng trong quá trình phân loại ảnh thật – giả. Cụ thể, mô hình được huấn luyện trên ảnh đã qua bộ lọc thông cao (Highpass 50\%) đạt độ chính xác cao hơn so với mô hình sử dụng ảnh RGB gốc. Điều này gợi ý rằng thông tin tần số cao chứa các đặc trưng quan trọng giúp phân biệt ảnh tạo sinh, trong khi các thành phần tần số thấp có thể chứa nhiều thông tin nền không hữu ích cho quá trình nhận diện.  
 
 
 %\subsection*{Mở rộng thử nghiệm với các mức lọc tần số cao khác nhau}
@@ -70,15 +70,24 @@ Trong quá trình thử nghiệm, ta đã sử dụng \gls{fft}~\cite{Arunachala
 	\item Hiệu ứng biên trong biến đổi \gls{fft} làm xuất hiện các tín hiệu nhiễu không mong muốn.
 \end{itemize}
 
-\section{Phép sai phân đóng vai trò như một bộ lọc thông cao trong miền tần số}
+%\section{Phép sai phân đóng vai trò như một bộ lọc thông cao trong miền tần số}
+%
+%Để khắc phục các hạn chế của \gls{fft} trong việc lọc tần số cao, một hướng tiếp cận thay thế là xây dựng bộ lọc thông cao trực tiếp trong miền không gian ảnh, cho phép loại bỏ thành phần tần số thấp mà không cần thực hiện biến đổi \gls{fft} và biến đổi \gls{fft} ngược.
+%%
+%Cách làm này không chỉ giúp giảm độ phức tạp tính toán mà còn phù hợp hơn cho các hệ thống yêu cầu xử lý nhanh, có tài nguyên hạn chế hoặc dễ dàng tính toán song song nếu hệ thống hổ trợ \gls{gpu}.
+%
+%Trong phần này, tôi sẽ trình bày cơ sở lý thuyết của phương pháp xây dựng bộ lọc thông cao dựa trên việc biến đổi từ một bộ lọc thông thấp đơn giản – cụ thể là sbộ lọc trung bình. 
+%%
+%Thông qua phân tích đáp ứng tần số, ta sẽ chứng minh rằng thao tác lấy sai phân giữa các điểm ảnh kề nhau có thể được xem như một phép lọc thông cao hiệu quả, với độ phức tạp rất thấp.
+
+\section{Bộ lọc thông cao trên không gian ảnh}
 
 Để khắc phục các hạn chế của \gls{fft} trong việc lọc tần số cao, một hướng tiếp cận thay thế là xây dựng bộ lọc thông cao trực tiếp trong miền không gian ảnh, cho phép loại bỏ thành phần tần số thấp mà không cần thực hiện biến đổi \gls{fft} và biến đổi \gls{fft} ngược.
 %
 Cách làm này không chỉ giúp giảm độ phức tạp tính toán mà còn phù hợp hơn cho các hệ thống yêu cầu xử lý nhanh, có tài nguyên hạn chế hoặc dễ dàng tính toán song song nếu hệ thống hổ trợ \gls{gpu}.
 
-Trong phần này, tôi sẽ trình bày cơ sở lý thuyết của phương pháp xây dựng bộ lọc thông cao dựa trên việc biến đổi từ một bộ lọc thông thấp đơn giản – cụ thể là sbộ lọc trung bình. 
+Trong phần này, tôi sẽ trình bày cơ sở lý thuyết của phương pháp xây dựng bộ lọc thông cao dựa trên việc biến đổi từ một bộ lọc thông thấp đơn giản – cụ thể là bộ lọc trung bình. 
 %
-Thông qua phân tích đáp ứng tần số, ta sẽ chứng minh rằng thao tác lấy sai phân giữa các điểm ảnh kề nhau có thể được xem như một phép lọc thông cao hiệu quả, với độ phức tạp rất thấp.
 
 \subsection{Bộ lọc trung bình}
 
@@ -254,43 +263,96 @@ Với \( M = 2 \), biểu thức cho đáp ứng xung của bộ lọc thông ca
 h_{\mathrm{HP}}[n] = \left[ \frac{1}{2},\ -\frac{1}{2} \right]
 \end{equation}
 
-Ta thấy rằng đây chính là {phép sai phân tuyến tính chuẩn hóa}, tương đương với:
+%Ta thấy rằng đây chính là {phép sai phân tuyến tính chuẩn hóa}, tương đương với:
 
-\[
-y[n] = \frac{1}{2}x[n] - \frac{1}{2}x[n-1] = \frac{1}{2}(x[n] - x[n-1])
-\]
-
-Bỏ hệ số tỉ lệ (vì không làm thay đổi đặc tính tần số), ta có thể viết lại thành dạng sai phân đơn giản:
-
-\begin{equation}
-	\label{eq:y_n}
-	y[n] = x[n] - x[n-1]
-\end{equation}
-
-Điều này chứng minh rằng khi \( M = 2 \), bộ lọc thông cao được xây dựng từ bộ lọc trung bình chính là \textbf{phép sai phân bậc nhất} – một bộ lọc thông cao hiệu quả với độ phức tạp tính toán rất thấp, đồng thời loại bỏ mạnh mẽ các thành phần tần số thấp trong tín hiệu hoặc ảnh đầu vào.
+%\[
+%y[n] = \frac{1}{2}x[n] - \frac{1}{2}x[n-1] = \frac{1}{2}(x[n] - x[n-1])
+%\]
+%
+%Bỏ hệ số tỉ lệ (vì không làm thay đổi đặc tính tần số), ta có thể viết lại thành dạng sai phân đơn giản:
+%
+%\begin{equation}
+%	\label{eq:y_n}
+%	y[n] = x[n] - x[n-1]
+%\end{equation}
+%
+%Điều này chứng minh rằng khi \( M = 2 \), bộ lọc thông cao được xây dựng từ bộ lọc trung bình chính là \textbf{phép sai phân bậc nhất} – một bộ lọc thông cao hiệu quả với độ phức tạp tính toán rất thấp, đồng thời loại bỏ mạnh mẽ các thành phần tần số thấp trong tín hiệu hoặc ảnh đầu vào.
 
 %
-\section{Xây dựng khối tiền xử lý dựa trên bộ lọc thông cao}
-Từ phương trình~\eqref{eq:y_n} mô tả bộ lọc thông cao dưới dạng tổng quát ta xây dựng được ma trận $H_x, H_y$ như bên dưới.
-\[
-H_x = \left[
-\begin{array}{rrr}
-	0 & 0 & 0 \\
-	0 & \tfrac{1}{2} & \text{-}\tfrac{1}{2} \\
-	0 & 0 & 0
-\end{array}
-\right]
-\qquad\qquad
-H_y = \left[
-\begin{array}{rrr}
-	0 & 0 & 0 \\
-	0 & \tfrac{1}{2} & 0 \\
-	0 & \text{-}\tfrac{1}{2} & 0
-\end{array}
-\right]
-\]
+\section{Xây dựng khối tiền xử lý (\gls{adof}) dựa trên bộ lọc thông cao}
+\label{sec:adof}
+%Từ phương trình~\eqref{eq:y_n} mô tả bộ lọc thông cao dưới dạng tổng quát ta xây dựng được ma trận $H_x, H_y$ như bên dưới.
+%\[
+%H_x = \left[
+%\begin{array}{rrr}
+%	0 & 0 & 0 \\
+%	0 & \tfrac{1}{2} & \text{-}\tfrac{1}{2} \\
+%	0 & 0 & 0
+%\end{array}
+%\right]
+%\qquad\qquad
+%H_y = \left[
+%\begin{array}{rrr}
+%	0 & 0 & 0 \\
+%	0 & \tfrac{1}{2} & 0 \\
+%	0 & \text{-}\tfrac{1}{2} & 0
+%\end{array}
+%\right]
+%\]
 	
 Dựa trên phân tích tại mục \ref{sec:cua_so_loc_thong_cao}, ta chọn độ dài cửa sổ lọc $M=2$ vì giá trị $M$ chẵn giữ lại vùng tần số cao tốt hơn so với giá trị lẻ. Đồng thời, lựa chọn $M$ nhỏ giúp giảm chi phí tính toán.
+
+Trong cài đặt, hệ số $\pm \tfrac{1}{2}$ được thay bằng $\pm 1$ để đơn giản hóa tính toán. Thực chất đây chỉ là nhân toàn bộ bộ lọc với một hằng số, nên kết quả \gls{convolution} chỉ thay đổi về thang đo mà không ảnh hưởng đến đặc trưng. Đây là cách chuẩn hoá hệ số thường dùng trong mạng nơ-ron tích chập.
+
+\[
+H_x = \begin{bmatrix}
+	0 & 0 & 0 \\
+	0 & 1 &  \text{-}1 \\
+	0 & 0 & 0
+\end{bmatrix} \qquad \qquad
+H_y = \begin{bmatrix}
+	0 & 0 & 0 \\
+	0 & 1 &  0 \\
+	0 & \text{-}1 & 0
+\end{bmatrix}
+\]
+
+Để kết hợp thông tin từ hai bộ lọc, ta sử dụng kết quả lọc theo phương $x$ (nhân chập ảnh với bộ lọc $H_x$) và phương $y$ (nhân chập ảnh với bộ lọc $H_y$). Hai thành phần này có thể xem như hai cạnh của một vectơ trong hệ tọa độ $(x,y)$. Khi đó, góc $\theta$ của vectơ này được tính theo công thức:
+\[
+\theta = \arctan\left(\frac{H_y}{H_x}\right).
+\]
+Cách tính này giúp ta gộp thông tin của hai hướng lại thành một giá trị duy nhất, giúp đơn giản hoá đầu vào cho mạng nơ-ron.
+
+%
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1.0\linewidth]{Images/adof.png}
+	\begin{minipage}{1.0\linewidth}
+		\vspace{5mm}
+		\caption{Khối tiền xử lý dựa trên bộ lọc thông cao đã thiết kế}
+		\label{fig:adof}
+	\end{minipage}
+\end{figure}
+%
+
+
+Ngoài ra, phép nhân chập ảnh $I$ với bộ lọc $H_x$ là tương đương với việc 
+lấy hiệu giữa hai ảnh con: một ảnh được tạo bởi các cột từ $0$ đến $n-2$ 
+và một ảnh được tạo bởi các cột từ $1$ đến $n-1$. Tương tự, phép nhân chập với $H_y$ 
+cũng có thể biểu diễn bằng hiệu của hai ảnh con theo chiều $y$. 
+
+Với bộ lọc $H_x$ ta có:
+\[
+(H_x * I)(x,y) = I(x,y) - I(x+1,y).
+\]
+
+Với bộ lọc $H_y$ ta có:
+\[
+(H_y * I)(x,y) = I(x,y) - I(x,y+1).
+\]
+
+Cách triển khai này giúp giảm khối lượng tính toán vì ta chỉ cần dịch ảnh và trừ trực tiếp, 
+thay vì thực hiện phép nhân chập ma trận.
 
 \section{Mô hình đề xuất}
 
@@ -304,7 +366,19 @@ Bên cạnh đó, ResNet~\cite{He2015DeepRL} cũng cho thấy khả năng trích
 
 \subsection{Kiến trúc mô hình rút gọn từ ResNet-50}
 \label{sec:kien_truc_mo_hinh_rut_gon_tu_resnet_50}
-Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_architecture}), trong đó chỉ sử dụng hai khối đầu tiên của kiến trúc ResNet-50 (tương ứng với \texttt{Layer1} và \texttt{Layer2}) để thực hiện trích xuất đặc trưng, kết hợp với một bộ phân loại nhị phân đơn giản ở đầu ra. Việc tinh giản này giúp giảm số lượng tham số từ khoảng 23 triệu (của ResNet-50 đầy đủ) xuống còn khoảng 1.4 triệu tham số. Mô hình bao gồm các thành phần chính như sau:
+Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_architecture}), trong đó chỉ sử dụng hai khối đầu tiên của kiến trúc ResNet-50 (tương ứng với \texttt{Layer1} và \texttt{Layer2}) để thực hiện trích xuất đặc trưng, kết hợp với một bộ phân loại nhị phân đơn giản ở đầu ra. Việc tinh giản này giúp giảm số lượng tham số từ khoảng 23 triệu (của ResNet-50 đầy đủ) xuống còn khoảng 1.4 triệu tham số. 
+
+Lựa chọn này có cơ sở ở chỗ các dấu hiệu phân biệt giữa ảnh thật và ảnh tạo sinh 
+thường nằm ở các đặc trưng mức thấp (\textit{low-level features}) như biên, cạnh, và kết cấu cục bộ, 
+trong khi các tầng sâu hơn của ResNet-50 chủ yếu học đặc trưng mức cao (\textit{high-level semantics}) 
+phục vụ nhận dạng đối tượng, vốn ít liên quan đến nhiệm vụ phát hiện \gls{deepfake}. 
+Việc chỉ giữ lại hai khối đầu vừa giúp tập trung vào đặc trưng phù hợp với bản chất của bài toán, 
+vừa tránh hiện tượng \textit{overfitting} do mô hình quá lớn so với dữ liệu huấn luyện, 
+đồng thời giảm đáng kể chi phí tính toán và độ trễ suy luận. 
+Cách tiếp cận này cũng phù hợp với các báo cáo gần đây trong lĩnh vực phát hiện ảnh tạo sinh, 
+trong đó nhấn mạnh vai trò quan trọng của đặc trưng mức thấp và tín hiệu miền tần số trong việc nhận diện.
+
+Mô hình bao gồm các thành phần chính như sau:
 %
 \begin{figure}[h!]
 	\centering
@@ -319,41 +393,46 @@ Mô hình đề xuất được mô tả trong Hình~\ref{fig:figure_model_archi
 %
 
 \begin{itemize}
-	\item \textbf{Khối tiền xử lý - ADOF}
+%	\item \textbf{Khối tiền xử lý - \gls{adof}}
 	
-	Phương trình~\eqref{eq:h_HP} mô tả bộ lọc thông cao dưới dạng tổng quát. Ta mở rộng thành ma trận $H_x, H_y$ như bên dưới để thuận tiện cho việc sử dụng thư viện như \texttt{Pytorch} khi lập trình (trong lý thuyết, hệ số chính xác phải là $\pm \tfrac{1}{2}$. 
-	Tuy nhiên, do trong quá trình xử lý ta chỉ quan tâm đến hướng và quan hệ tương đối của \gls{gradient}, 
-	nên có thể nhân với một hằng số tỉ lệ bất kỳ. 
-	Vì vậy, trong cài đặt ta thay hệ số $\pm \tfrac{1}{2}$ bằng $\pm 1$ để đơn giản hóa).
-	
-	\[
-		H_x = \begin{bmatrix}
-			0 & 0 & 0 \\
-			0 & 1 &  \text{-}1 \\
-			0 & 0 & 0
-		\end{bmatrix} \qquad \qquad
-		H_y = \begin{bmatrix}
-			0 & 0 & 0 \\
-			0 & 1 &  0 \\
-			0 & \text{-}1 & 0
-		\end{bmatrix}
-	\]
-	
+%	Phương trình~\eqref{eq:h_HP} mô tả bộ lọc thông cao dưới dạng tổng quát. Ta mở rộng thành ma trận $H_x, H_y$ như bên dưới để thuận tiện cho việc sử dụng thư viện như \texttt{Pytorch} khi lập trình (trong lý thuyết, hệ số chính xác phải là $\pm \tfrac{1}{2}$. 
+%	Tuy nhiên, do trong quá trình xử lý ta chỉ quan tâm đến hướng và quan hệ tương đối của \gls{gradient}, 
+%	nên có thể nhân với một hằng số tỉ lệ bất kỳ. 
+%	Vì vậy, trong cài đặt ta thay hệ số $\pm \tfrac{1}{2}$ bằng $\pm 1$ để đơn giản hóa).
+%	
+%	\[
+%		H_x = \begin{bmatrix}
+%			0 & 0 & 0 \\
+%			0 & 1 &  \text{-}1 \\
+%			0 & 0 & 0
+%		\end{bmatrix} \qquad \qquad
+%		H_y = \begin{bmatrix}
+%			0 & 0 & 0 \\
+%			0 & 1 &  0 \\
+%			0 & \text{-}1 & 0
+%		\end{bmatrix}
+%	\]
+%	
 %		\begin{itemize}
 %			\item Hai 2 bộ lọc thông cao áp dụng cho 2 hướng $x, y$ giúp loại bỏ thông tin tần số thấp của hình ảnh.
 %			\item Đầu ra tương ứng của 2 bộ lọc thông cao được kết hợp với nhau để tạo ra một bản đồ đặt trưng. \textcolor{red}{Chi tiết được trình bài tại..}
 %		\end{itemize}
-
-		\begin{itemize}
-			\item Hai bộ lọc thông cao được áp dụng lần lượt theo hai hướng $x$ và $y$, nhằm loại bỏ các thành phần tần số thấp trong ảnh.
-			\item Đầu ra của hai bộ lọc được kết hợp để tạo thành bản đồ đặc trưng thông qua công thức:
-			\[
-			\theta(x, y) = \arctan\left(\frac{H_y(x, y)}{H_x(x, y)}\right)
-			\]
-
-		\end{itemize}
+%
+%		\begin{itemize}
+%			\item Hai bộ lọc thông cao được áp dụng lần lượt theo hai hướng $x$ và $y$, nhằm loại bỏ các thành phần tần số thấp trong ảnh.
+%			\item Đầu ra của hai bộ lọc được kết hợp để tạo thành bản đồ đặc trưng thông qua công thức:
+%			\[
+%			\theta(x, y) = \arctan\left(\frac{H_y(x, y)}{H_x(x, y)}\right)
+%			\]
+%
+%		\end{itemize}
 
 %
+
+	\item \textbf{Khối tiền xử lý - \gls{adof}}: 
+	
+	Thành phần này đã được trình bày tại mục \ref{sec:adof}. 
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=1.0\linewidth]{Images/adof_output_sample.png}
@@ -405,7 +484,7 @@ Trong đó, \( y_i \in \{0, 1\} \) là nhãn thực tế của ảnh đầu vào
 %
 \label{ssec:quy_trinh_huan_luyen}
 %
-Quá trình huấn luyện được mô tả trong Hình~\ref{fig:offline-training-process}, ảnh đầu vào sẽ được chuẩn hóa và tiền xử lý nhằm đồng nhất kích thước, tăng tính đa dạng qua các kỹ thuật tăng cường dữ liệu xoay và lật ảnh. Sau bước này, ảnh được đưa qua khối {ADOF} – có chức năng lọc lấy những tín hiệu ở tần số cao trong ảnh, nơi mà các mô hình tạo sinh thường để lại dấu vết.
+Quá trình huấn luyện được mô tả trong Hình~\ref{fig:offline-training-process}, ảnh đầu vào sẽ được chuẩn hóa và tiền xử lý nhằm đồng nhất kích thước, tăng tính đa dạng qua các kỹ thuật tăng cường dữ liệu xoay và lật ảnh. Sau bước này, ảnh được đưa qua khối \gls{adof} – có chức năng lọc lấy những tín hiệu ở tần số cao trong ảnh, nơi mà các mô hình tạo sinh thường để lại dấu vết.
 %
 \begin{figure}[h!]
 	\centering
@@ -417,7 +496,7 @@ Quá trình huấn luyện được mô tả trong Hình~\ref{fig:offline-traini
 	\end{minipage}
 \end{figure}
 %
-Đầu ra từ khối {ADOF} sau đó được đưa vào một kiến trúc ResNet-50~\cite{He2015DeepRL} đã được rút gọn và điều chỉnh nhằm trích xuất đặc trưng và thực hiện phân loại. Kiến trúc này được giảm bớt số lượng tầng so với phiên bản đầy đủ để giảm chi phí tính toán nhưng vẫn giữ lại khả năng biểu diễn cần thiết cho bài toán nhị phân. Đầu ra cuối cùng của mạng là một giá trị xác suất thể hiện mức độ tin tưởng rằng ảnh đầu vào là ảnh tạo sinh. Hàm mất mát được sử dụng trong quá trình huấn luyện là \gls{bce}, kết hợp với thuật toán tối ưu \gls{adam}. Sự lựa chọn này đặc biệt phù hợp với bài toán phân loại nhị phân, giúp mô hình hội tụ nhanh và ổn định. 
+Đầu ra từ khối \gls{adof} sau đó được đưa vào một kiến trúc ResNet-50~\cite{He2015DeepRL} đã được rút gọn và điều chỉnh nhằm trích xuất đặc trưng và thực hiện phân loại. Kiến trúc này được giảm bớt số lượng tầng so với phiên bản đầy đủ để giảm chi phí tính toán nhưng vẫn giữ lại khả năng biểu diễn cần thiết cho bài toán nhị phân. Đầu ra cuối cùng của mạng là một giá trị xác suất thể hiện mức độ tin tưởng rằng ảnh đầu vào là ảnh tạo sinh. Hàm mất mát được sử dụng trong quá trình huấn luyện là \gls{bce}, kết hợp với thuật toán tối ưu \gls{adam}. Sự lựa chọn này đặc biệt phù hợp với bài toán phân loại nhị phân, giúp mô hình hội tụ nhanh và ổn định. 
 
 Quá trình huấn luyện được tổ chức thành nhiều bước cập nhật trọng số trong mỗi \gls{epoch}. Mỗi bước tương ứng với một \gls{batch} dữ liệu được đưa vào mô hình để tính toán hàm mất mát và cập nhật trọng số thông qua lan truyền ngược. Sau khi hoàn tất một \gls{epoch} – tức là toàn bộ tập huấn luyện đã được xử lý – mô hình sẽ được đánh giá trên tập dữ liệu kiểm thử nhằm theo dõi hiệu năng tổng thể và điều chỉnh chiến lược huấn luyện nếu cần thiết. Quá trình này tiếp tục cho đến khi mô hình đạt đến số \gls{epoch} tối đa đã định hoặc khi các chỉ số đánh giá dừng cải thiện trong một khoảng thời gian xác định trước. Quy trình huấn luyện như trên giúp mô hình học được các đặc trưng phân biệt hiệu quả giữa ảnh thật và ảnh tạo sinh, đồng thời hạn chế hiện tượng \gls{overfitting}.
 %
@@ -434,7 +513,7 @@ Quá trình huấn luyện được tổ chức thành nhiều bước cập nh�
 %
 %
 
-Sau khi quá trình huấn luyện hoàn tất, mô hình đã sẵn sàng cho việc dự đoán trên dữ liệu mới (chi tiết được mô tả trong Hình~\ref{fig:online-serving}). Trong giai đoạn này, ảnh đầu vào sẽ được chuẩn hoá theo đúng các thông số đã sử dụng trong quá trình huấn luyện nhằm đảm bảo tính nhất quán về phân phối dữ liệu. Tiếp theo, ảnh được đưa qua khối ADOF để trích xuất các tín hiệu tần số cao. Đầu ra từ khối này được chuyển vào mô hình đã huấn luyện để thực hiện suy luận và đưa ra kết quả dự đoán cuối cùng.
+Sau khi quá trình huấn luyện hoàn tất, mô hình đã sẵn sàng cho việc dự đoán trên dữ liệu mới (chi tiết được mô tả trong Hình~\ref{fig:online-serving}). Trong giai đoạn này, ảnh đầu vào sẽ được chuẩn hoá theo đúng các thông số đã sử dụng trong quá trình huấn luyện nhằm đảm bảo tính nhất quán về phân phối dữ liệu. Tiếp theo, ảnh được đưa qua khối \gls{adof} để trích xuất các tín hiệu tần số cao. Đầu ra từ khối này được chuyển vào mô hình đã huấn luyện để thực hiện suy luận và đưa ra kết quả dự đoán cuối cùng.
 
 \section{Tối giản mô hình với kỹ thuật \glsentrytext{fbkd}}
 %
